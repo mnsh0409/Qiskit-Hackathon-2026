@@ -29,11 +29,18 @@ TWO MODES, and the difference matters (see BUGLOG B04):
       (<Q>, <H>, ...) are valid. At n=2 that is only 9x2 = 18 circuits, which is why
       --model 2site is the cheap way to get a genuine shadow result on hardware.
 
-MODELS:
+MODELS (same three in layout_search.py -- pick a layout there, submit here):
   frozen  -- the 3-qubit benchmark of CONVENTIONS §2 (4 qubits with the ancilla)
   2site   -- a reduced 2-qubit instance (3 qubits total). NOT the frozen benchmark;
              a separate side model, for ROBUSTNESS CLAIMS ONLY. Going-further
-             robustness item 4 asks for exactly this.
+             robustness item 4 asks for exactly this. Validated:
+             evidence/scripts/validate_2site.py.
+  4site   -- an EXTENDED 4-qubit instance (5 qubits total), the opposite direction
+             from item 4's literal ask (bigger, not reduced) -- testing where
+             hardware feasibility breaks as n grows. NOT the frozen benchmark,
+             ROBUSTNESS CLAIMS ONLY. Validated: evidence/scripts/validate_4site.py.
+             Its circuits are deep (hundreds of two-qubit gates); layout_search.py
+             is far more useful here than for the smaller models.
 """
 from __future__ import annotations
 

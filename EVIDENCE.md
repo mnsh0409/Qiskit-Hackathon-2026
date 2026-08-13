@@ -55,6 +55,7 @@ committed under `evidence/`.
 | R032 | Track C eigenstate detective: calibration curve + detection power vs shots | `evidence/track_c_result.json`; `evidence/track_c_console_output.txt` | `python evidence/scripts/track_c_eigenstate_detective.py` (~7 min) |
 | R033 | Track E consistency witness (3-leg validation) + product-state fidelity | `evidence/track_e_result.json`; `evidence/track_e_console_output.txt` | `python evidence/scripts/track_e_consistency_witness.py` (~4 min) |
 | R034 | Track B (partial) A/B tester: identity 9e-15, overlap curves, gate cost | `evidence/track_b_result.json`; `evidence/track_b_console_output.txt` | `python evidence/scripts/track_b_ab_tester.py` (~1 min) |
+| R035 | AQC-Tensor compression certified by the Track-B tester (nuanced: wins uncontrolled, loses controlled at n=3) | `evidence/aqc_compression_result.json`; `evidence/aqc_console_output.txt` | `python evidence/scripts/aqc_compression.py` (~2 min; needs `pip install qiskit-addon-aqc-tensor[quimb-jax]`) |
 
 ## Derived quantities C4 should independently recompute
 

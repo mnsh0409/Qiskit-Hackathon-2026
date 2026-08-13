@@ -1,0 +1,45 @@
+/home/martin/Documents/QiskitHackathon/2026/evidence/scripts/aqc_compression.py:98: DeprecationWarning: The class ``qiskit_addon_aqc_tensor.objective.OneMinusFidelity`` is deprecated as of qiskit-addon-aqc-tensor 0.2.0. It will be removed no earlier than v0.4.0. This class has been renamed to ``MaximizeStateFidelity``.
+/home/martin/Documents/QiskitHackathon/2026/evidence/scripts/aqc_compression.py:98: DeprecationWarning: The class ``qiskit_addon_aqc_tensor.objective.OneMinusFidelity`` is deprecated as of qiskit-addon-aqc-tensor 0.2.0. It will be removed no earlier than v0.4.0. This class has been renamed to ``MaximizeStateFidelity``.
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+==============================================================================
+MODEL frozen  (n=3 system qubits)
+==============================================================================
+  target (Trotter reps=3): 68 CX, depth 183
+    its own fidelity vs exact: 0.999869
+  ansatz (from reps=1):    9 CX, depth 64, 33 parameters
+  optimised in 0.3s: 1-fidelity = 1.550e-06 (19 iterations)
+
+  CERTIFICATE (the Track-B observable chi_AB = <psi|W^dag U|psi>):
+    W = AQC-compressed  : |chi_AB| = 0.999865   (9 CX uncontrolled, 132 CX controlled)
+    W = Trotter reps=3  : |chi_AB| = 0.999869   (68 CX uncontrolled, 782 CX controlled)
+    exact synthesis     : |chi_AB| = 1.000000 (exact by construction)   (19 CX uncontrolled, 50 CX controlled)
+    -> AQC beats Trotter (7.6x fewer CX) and ALSO beats exact synthesis at infidelity 1.4e-04
+
+==============================================================================
+MODEL 4site  (n=4 system qubits)
+==============================================================================
+  target (Trotter reps=3): 104 CX, depth 282
+    its own fidelity vs exact: 0.999734
+  ansatz (from reps=1):    15 CX, depth 102, 53 parameters
+  optimised in 0.6s: 1-fidelity = 4.768e-06 (34 iterations)
+
+  CERTIFICATE (the Track-B observable chi_AB = <psi|W^dag U|psi>):
+    W = AQC-compressed  : |chi_AB| = 0.999738   (15 CX uncontrolled, 216 CX controlled)
+    W = Trotter reps=3  : |chi_AB| = 0.999734   (104 CX uncontrolled, 1196 CX controlled)
+    exact synthesis     : |chi_AB| = 1.000000 (exact by construction)   (95 CX uncontrolled, 236 CX controlled)
+    -> AQC beats Trotter (6.9x fewer CX) and ALSO beats exact synthesis at infidelity 2.6e-04
+
+==============================================================================
+SUMMARY
+==============================================================================
+uncontrolled CX counts (the evolution itself):
+   model   Trotter  exact-synth    AQC   AQC infid
+  frozen        68           19      9     1.4e-04
+   4site       104           95     15     2.6e-04
+
+controlled CX counts (what a Hadamard test actually runs on hardware):
+   model   Trotter  exact-synth    AQC  AQC vs exact
+  frozen       782           50    132         0.38x
+   4site      1196          236    216         1.09x
+
+wrote evidence/aqc_compression_result.json

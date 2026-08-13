@@ -1,0 +1,42 @@
+[
+  {
+    "model": "frozen",
+    "n": 3,
+    "target_cx": 68,
+    "target_depth": 183,
+    "ansatz_cx": 9,
+    "ansatz_depth": 64,
+    "exact_synth_cx": 19,
+    "controlled_aqc_cx": 132,
+    "controlled_exact_cx": 50,
+    "controlled_trotter_cx": 782,
+    "n_parameters": 33,
+    "one_minus_fidelity": 1.5497201957259676e-06,
+    "infidelity_vs_exact": 0.0001351438828294249,
+    "chi_ab_aqc": 0.9998648561171706,
+    "chi_ab_trotter": 0.9998685232559885,
+    "cx_ratio": 7.555555555555555,
+    "beats_exact_synthesis": true,
+    "verdict": "AQC beats Trotter (7.6x fewer CX) and ALSO beats exact synthesis at infidelity 1.4e-04"
+  },
+  {
+    "model": "4site",
+    "n": 4,
+    "target_cx": 104,
+    "target_depth": 282,
+    "ansatz_cx": 15,
+    "ansatz_depth": 102,
+    "exact_synth_cx": 95,
+    "controlled_aqc_cx": 216,
+    "controlled_exact_cx": 236,
+    "controlled_trotter_cx": 1196,
+    "n_parameters": 53,
+    "one_minus_fidelity": 4.768366125063039e-06,
+    "infidelity_vs_exact": 0.0002619663725922372,
+    "chi_ab_aqc": 0.9997380336274078,
+    "chi_ab_trotter": 0.9997342917758774,
+    "cx_ratio": 6.933333333333334,
+    "beats_exact_synthesis": true,
+    "verdict": "AQC beats Trotter (6.9x fewer CX) and ALSO beats exact synthesis at infidelity 2.6e-04"
+  }
+]

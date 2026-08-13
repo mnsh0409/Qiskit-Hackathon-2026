@@ -78,36 +78,44 @@ fig.tight_layout()
 fig.savefig(R + "deck/fig_tb_baselines.png", dpi=200, bbox_inches="tight", facecolor=BG)
 print("wrote deck/fig_tb_baselines.png")
 
-# ============ chart 2: what came back from the QPU ============
+# ============ chart 2: what came back from the QPU (both devices) ============
+ALL = json.load(open(R + "evidence/track_b_hw_result.json"))
 fig, (b1, b2) = plt.subplots(1, 2, figsize=(12.4, 4.5))
 ex_echo = [REF[str(t)]["echo_p0"] for t in TIMES]
-ex_hst = [REF[str(t)]["hst_p0"] for t in TIMES]
-go_echo = [HW["C"][str(t)] for t in TIMES]
-go_hst = [HW["D"][str(t)] for t in TIMES]
-ex_chi = [abs(complex(*REF[str(t)]["chi_AB"])) ** 2 for t in TIMES]
-go_chi = [abs(complex(np.mean(HW["A"][str(t)]["_pool_re"]),
-                      np.mean(HW["A"][str(t)]["_pool_im"]))) ** 2 for t in TIMES]
-
-b1.plot(TIMES, ex_echo, "-", color=COL["muted"], lw=2.6, label="exact", zorder=1)
-b1.plot(TIMES, go_echo, "o-", color=COL["aqua"], lw=2.2, ms=8, label="echo (2 CX)")
-b1.plot(TIMES, go_hst, "^-", color=COL["violet"], lw=2.2, ms=8, label="HST (16 CX)")
-b1.plot(TIMES, go_chi, "s-", color=COL["blue"], lw=2.2, ms=8, label="Track B (136 CX)")
+b1.plot(TIMES, ex_echo, "-", color=COL["muted"], lw=2.8, label="exact", zorder=1)
+MK = {"ibm_marrakesh": ("o", "-"), "ibm_kingston": ("D", "--")}
+for r in ALL:
+    mk, ls = MK.get(r["backend"], ("s", ":"))
+    dev = r["backend"].replace("ibm_", "")
+    b1.plot(TIMES, [r["C"][str(t)] for t in TIMES], mk + ls, color=COL["aqua"], lw=2.0,
+            ms=7, label=f"echo, {dev}")
+    b1.plot(TIMES, [abs(complex(np.mean(r["A"][str(t)]["_pool_re"]),
+                                np.mean(r["A"][str(t)]["_pool_im"]))) ** 2 for t in TIMES],
+            mk + ls, color=COL["blue"], lw=2.0, ms=7, label=f"Track B, {dev}")
 b1.set_xlabel("time $t$"); b1.set_ylabel(r"$|\langle\psi|W^\dagger U|\psi\rangle|^2$")
-b1.set_title("ibm_marrakesh: the cheap baseline wins", fontsize=12.5)
-b1.legend(frameon=False, fontsize=10.5); style(b1)
+b1.set_title("Two devices, same job: the 2-gate baseline holds", fontsize=12.5)
+b1.legend(frameon=False, fontsize=9); style(b1)
 
-OBS = ["Z_0", "Z_1", "Z_0Z_1", "X0X1+Y0Y1", "H", "Q"]
-t_show = "0.0"
-got = [np.mean(HW["B"][t_show][o]["sum"]) + np.mean(HW["B"][t_show][o]["dif"]) for o in OBS]
-exa = [REF[t_show]["obs"][o]["W"] for o in OBS]
-x = np.arange(len(OBS)); w = 0.38
-b2.bar(x - w / 2, exa, w, color=COL["muted"], label="exact")
-b2.bar(x + w / 2, got, w, color=COL["blue"], label="measured, $t=0$")
-b2.set_xticks(x); b2.set_xticklabels(["$Z_0$", "$Z_1$", "$Z_0Z_1$", "$XX{+}YY$", "$H$", "$Q$"],
-                                     fontsize=10.5)
-b2.set_ylabel(r"$\langle O\rangle_W$")
-b2.set_title(r"Per-observable profile — only shadows give this", fontsize=12.5)
-b2.legend(frameon=False, fontsize=10.5); style(b2)
+# worst-case error per method, across both devices -- the honest scoreboard
+meth, errs, cols = [], [], []
+for nm, key, ref, col in (("Loschmidt\necho\n(2 CX)", "C", "echo_p0", COL["aqua"]),
+                          ("Hilbert-\nSchmidt\n(16 CX)", "D", "hst_p0", COL["violet"]),
+                          ("Track B\nours\n(136 CX)", None, None, COL["blue"])):
+    if key:
+        e = max(abs(r[key][str(t)] - REF[str(t)][ref]) for r in ALL for t in TIMES)
+    else:
+        e = max(abs(complex(np.mean(r["A"][str(t)]["_pool_re"]),
+                            np.mean(r["A"][str(t)]["_pool_im"]))
+                    - complex(*REF[str(t)]["chi_AB"])) for r in ALL for t in TIMES)
+    meth.append(nm); errs.append(e); cols.append(col)
+bars = b2.bar(range(3), errs, 0.55, color=cols)
+for i, e in enumerate(errs):
+    b2.annotate(f"{e:.3f}", (i, e), textcoords="offset points", xytext=(0, 5),
+                ha="center", fontsize=12, weight="bold", color=COL["ink"])
+b2.set_xticks(range(3)); b2.set_xticklabels(meth, fontsize=10.5)
+b2.set_ylabel("worst error vs exact"); b2.set_ylim(0, max(errs) * 1.25)
+b2.set_title("Worst case over both devices and all times", fontsize=12.5)
+style(b2)
 fig.tight_layout()
 fig.savefig(R + "deck/fig_tb_hardware.png", dpi=200, bbox_inches="tight", facecolor=BG)
 print("wrote deck/fig_tb_hardware.png")

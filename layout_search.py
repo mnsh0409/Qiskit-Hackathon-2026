@@ -19,8 +19,8 @@ BUGLOG for why). This solves the same practical problem with stock Qiskit:
      earlier in RESULTS.md.
 
 Usage:
-    python layout_search.py --backend ibm_kingston --model frozen --candidates 12
-    python layout_search.py --backend ibm_kingston --model 4site  --candidates 12
+    python layout_search.py --backend ibm_kingston --model frozen
+    python layout_search.py --backend ibm_kingston --model 4site --candidates 20
 """
 from __future__ import annotations
 
@@ -125,7 +125,10 @@ def main():
     p.add_argument("--t", type=float, default=0.9)
     p.add_argument("--method", default="exact", choices=["exact", "trotter"])
     p.add_argument("--reps", type=int, default=1)
-    p.add_argument("--candidates", type=int, default=10)
+    p.add_argument("--candidates", type=int, default=10,
+                   help="how many candidate windows to transpile and score; cheap to raise "
+                        "(fixed setup cost dominates -- 1 vs 20 candidates measured ~5s vs "
+                        "~7s), higher just means a more thorough search")
     p.add_argument("--opt", type=int, default=3)
     args = p.parse_args()
 

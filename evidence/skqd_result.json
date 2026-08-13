@@ -1,0 +1,84 @@
+[
+  {
+    "tag": "ideal sim, 2site",
+    "all_z_shots": 4000,
+    "violating": 0,
+    "dim_raw": 3,
+    "dim_recovered": 3,
+    "ev_raw": [
+      -1.8311388300841898,
+      0.15000000000000002,
+      1.3311388300841895
+    ],
+    "ev_recovered": [
+      -1.8311388300841898,
+      0.15000000000000002,
+      1.3311388300841895
+    ],
+    "exact_populated": [
+      -1.8311388300841898,
+      0.15000000000000002,
+      1.3311388300841895
+    ],
+    "worst_dE_raw": 0.0,
+    "worst_dE_recovered": 0.0,
+    "spurious_raw": 0,
+    "spurious_recovered": 0
+  },
+  {
+    "tag": "ideal sim, frozen",
+    "all_z_shots": 4000,
+    "violating": 0,
+    "dim_raw": 4,
+    "dim_recovered": 4,
+    "ev_raw": [
+      -1.9152307926220906,
+      -0.4810444351837969,
+      0.55,
+      1.946275227805888
+    ],
+    "ev_recovered": [
+      -1.9152307926220906,
+      -0.4810444351837969,
+      0.55,
+      1.946275227805888
+    ],
+    "exact_populated": [
+      -1.9152307926220906,
+      -0.48104443518379714,
+      0.55,
+      1.946275227805888
+    ],
+    "worst_dE_raw": 2.220446049250313e-16,
+    "worst_dE_recovered": 2.220446049250313e-16,
+    "spurious_raw": 0,
+    "spurious_recovered": 0
+  },
+  {
+    "tag": "REAL HARDWARE ibm_kingston, 2site (job d9uk99k98n5s7392vhsg)",
+    "all_z_shots": 4000,
+    "violating": 66,
+    "dim_raw": 4,
+    "dim_recovered": 3,
+    "ev_raw": [
+      -1.8311388300841898,
+      0.15000000000000002,
+      0.35,
+      1.3311388300841895
+    ],
+    "ev_recovered": [
+      -1.8311388300841898,
+      0.15000000000000002,
+      1.3311388300841895
+    ],
+    "exact_populated": [
+      -1.8311388300841898,
+      0.15000000000000002,
+      1.3311388300841895
+    ],
+    "worst_dE_raw": 0.0,
+    "worst_dE_recovered": 0.0,
+    "spurious_raw": 1,
+    "spurious_recovered": 0
+  }
+]

@@ -1,0 +1,49 @@
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+==============================================================================
+(1) IDEAL SIMULATOR control -- no errors, so recovery should change nothing
+==============================================================================
+
+--- ideal sim, 2site ---
+  all-Z shots 4,000; symmetry-violating 0 (0.000%)
+  RAW      subspace dim 3 (configs [0, 1, 2])
+           eigenvalues [-1.8311, 0.15, 1.3311]
+  RECOVERED subspace dim 3 (configs [0, 1, 2])
+           eigenvalues [-1.8311, 0.15, 1.3311]
+  exact POPULATED levels [-1.8311, 0.15, 1.3311]
+  worst |dE| to a populated level: raw 0.00e+00, recovered 0.00e+00
+  SPURIOUS eigenvalues (unpopulated sectors leaking in): raw 0, recovered 0
+
+--- ideal sim, frozen ---
+  all-Z shots 4,000; symmetry-violating 0 (0.000%)
+  RAW      subspace dim 4 (configs [0, 1, 2, 4])
+           eigenvalues [-1.9152, -0.481, 0.55, 1.9463]
+  RECOVERED subspace dim 4 (configs [0, 1, 2, 4])
+           eigenvalues [-1.9152, -0.481, 0.55, 1.9463]
+  exact POPULATED levels [-1.9152, -0.481, 0.55, 1.9463]
+  worst |dE| to a populated level: raw 2.22e-16, recovered 2.22e-16
+  SPURIOUS eigenvalues (unpopulated sectors leaking in): raw 0, recovered 0
+
+==============================================================================
+(2) REAL HARDWARE -- does configuration recovery clean the spectrum?
+==============================================================================
+
+--- REAL HARDWARE ibm_kingston, 2site (job d9uk99k98n5s7392vhsg) ---
+  all-Z shots 4,000; symmetry-violating 66 (1.650%)
+  RAW      subspace dim 4 (configs [0, 1, 2, 3])
+           eigenvalues [-1.8311, 0.15, 0.35, 1.3311]
+  RECOVERED subspace dim 3 (configs [0, 1, 2])
+           eigenvalues [-1.8311, 0.15, 1.3311]
+  exact POPULATED levels [-1.8311, 0.15, 1.3311]
+  worst |dE| to a populated level: raw 0.00e+00, recovered 0.00e+00
+  SPURIOUS eigenvalues (unpopulated sectors leaking in): raw 1, recovered 0
+
+==============================================================================
+HONEST SCOPE
+==============================================================================
+  The subspace is COMPLETE at this size, so exactness here is guaranteed by
+  dimension counting, not by SKQD working. What this demonstrates is (a) the data
+  path -- shadow records really do feed an SKQD pipeline -- and (b) configuration
+  recovery on genuinely noisy hardware shots. The scaling advantage that motivates
+  SKQD is OUT OF REACH at n=2-3 and is not claimed.
+
+wrote evidence/skqd_result.json

@@ -57,6 +57,7 @@ committed under `evidence/`.
 | R034 | Track B (partial) A/B tester: identity 9e-15, overlap curves, gate cost | `evidence/track_b_result.json`; `evidence/track_b_console_output.txt` | `python evidence/scripts/track_b_ab_tester.py` (~1 min) |
 | R035 | AQC-Tensor compression certified by the Track-B tester (nuanced: wins uncontrolled, loses controlled at n=3) | `evidence/aqc_compression_result.json`; `evidence/aqc_console_output.txt` | `python evidence/scripts/aqc_compression.py` (~2 min; needs `pip install qiskit-addon-aqc-tensor[quimb-jax]`) |
 | R036 | symmetry error detection: 0.000% ideal vs 1.650% real hardware | `evidence/symmetry_detection_result.json`; `evidence/symmetry_detection_console.txt` | `python evidence/scripts/symmetry_error_detection.py` (~2 min) |
+| R037 | SKQD pipeline on hardware shots; config recovery removes 1 spurious eigenvalue | `evidence/skqd_result.json`; `evidence/skqd_console_output.txt` | `python evidence/scripts/skqd_pipeline.py` (~2 min) |
 
 ## Derived quantities C4 should independently recompute
 

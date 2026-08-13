@@ -189,7 +189,7 @@ python evidence/scripts/aqc_hardware_fetch.py                       # when it fi
 | arm | 2q gates | predicted \|chi\| survival |
 |---|---|---|
 | exact block | 8850 | 3.6e-07 (should be noise) |
-| Trotter r=2 | 2119 | 0.01 |
+| Trotter r=2 | 2119 | 1.4e-02 |
 | **AQC + phase fix** | **576** | **0.32** |
 
 Job `d9uv5h50vrcc73boj8a0` was submitted to `ibm_marrakesh` on 2026-08-14; compare against it.

@@ -317,16 +317,19 @@ and a way to certify the result from its own garbage}
 
   \begin{center}
   \textbf{The fix costs one single-qubit gate.} $\theta=\arg\langle U\psi|W\psi\rangle$ is
-  free at compile time --- the same MPS run that produces $W$ gives it --- and a
-  \hl{$P(-\theta)$ on the ancilla} cancels it exactly, because the $|1\rangle$ branch is the
-  one carrying $W$:\quad $|\Delta\chi|$ \bad{1.33} $\to$ \good{0.008}.
+  free at compile time, and a \hl{$P(-\theta)$ on the ancilla} cancels it exactly:\quad
+  $|\Delta\chi|$ \bad{1.33} $\to$ \good{0.008}.
   \end{center}
-  \medskip
+  \smallskip
 
-  {\footnotesize\color{orangeA}\textbf{Scope, not buried:} AQC is compressed against
-  \emph{one} input state, so its \emph{process} infidelity is large ($\sim\!0.96$). That is
-  legitimate here --- a Hadamard test's controlled gate only ever acts on that one state ---
-  and illegitimate the moment anything feeds it another. \src{R046}}
+  {\scriptsize\color{orangeA}\textbf{Scope, not buried.} (i) AQC is compressed against
+  \emph{one} input state, so its \emph{process} infidelity is large ($\sim\!0.96$) ---
+  legitimate here, since a Hadamard test's controlled gate only ever acts on that one state,
+  and illegitimate the moment anything feeds it another. \src{R046}
+  (ii) On the \textbf{2D Fermi--Hubbard} model the gate win survives ($34.7\times$ at 8
+  qubits) but accuracy degrades $\sim\!30\times$: $|\Delta\chi|$ after the phase fix rises to
+  $0.021$--$0.046$, at or above the $\sim\!0.02$ shot-noise floor at 2000 shots. There the
+  compression is cheap but \emph{not yet accurate enough to use as-is}. \src{R051}}
 \end{frame}
 
 % ==================================================================

@@ -1,0 +1,146 @@
+{
+  "t": 0.9,
+  "reps_trotter": 2,
+  "rows": [
+    {
+      "n": 3,
+      "exact_cx": 50,
+      "exact_depth": 219,
+      "trotter_cx": 538,
+      "trotter_depth": 1193,
+      "trotter_infidelity": 0.0006998711609422781,
+      "aqc_cx": 132,
+      "aqc_depth": 328,
+      "aqc_infidelity": 0.0001351438828294249,
+      "aqc_process_infidelity": 0.48228790598284665,
+      "trotter_process_infidelity": 0.002255099706379937,
+      "n_params": 33,
+      "aqc_vs_exact": 0.3787878787878788,
+      "aqc_opt_seconds": 0.7673807144165039,
+      "chi_exact": [
+        0.6623222041310959,
+        -0.13202558685655366
+      ],
+      "chi_aqc_naive": [
+        -0.6322316072267924,
+        0.2501931020744849
+      ],
+      "phase_theta": 2.9484136216851016,
+      "chi_err_naive": 1.3498002432469025,
+      "chi_err_phase_fixed": 0.010000935699698302,
+      "exact_synth_seconds": 0.2613685131072998
+    },
+    {
+      "n": 4,
+      "exact_cx": 236,
+      "exact_depth": 979,
+      "trotter_cx": 818,
+      "trotter_depth": 1813,
+      "trotter_infidelity": 0.0013553594154056547,
+      "aqc_cx": 216,
+      "aqc_depth": 533,
+      "aqc_infidelity": 0.0002619663725922372,
+      "aqc_process_infidelity": 0.6671423967303207,
+      "trotter_process_infidelity": 0.00333110376785839,
+      "n_params": 53,
+      "aqc_vs_exact": 1.0925925925925926,
+      "aqc_opt_seconds": 0.6406295299530029,
+      "chi_exact": [
+        0.5560082360704114,
+        -0.3800127262212589
+      ],
+      "chi_aqc_naive": [
+        -0.6513531961730621,
+        -0.1802251279087773
+      ],
+      "phase_theta": -2.2834680854194795,
+      "chi_err_naive": 1.223779682993831,
+      "chi_err_phase_fixed": 0.008018547928511624,
+      "exact_synth_seconds": 0.03184700012207031
+    },
+    {
+      "n": 5,
+      "exact_cx": 1004,
+      "exact_depth": 4035,
+      "trotter_cx": 1098,
+      "trotter_depth": 2435,
+      "trotter_infidelity": 0.0013236025671987672,
+      "aqc_cx": 300,
+      "aqc_depth": 738,
+      "aqc_infidelity": 0.0002736395702934713,
+      "aqc_process_infidelity": 0.9679960401611865,
+      "trotter_process_infidelity": 0.003978977645600068,
+      "n_params": 73,
+      "aqc_vs_exact": 3.3466666666666667,
+      "aqc_opt_seconds": 0.827272891998291,
+      "chi_exact": [
+        0.572567646728132,
+        -0.3546916469946818
+      ],
+      "chi_aqc_naive": [
+        -0.2775869248812114,
+        0.6171417006483071
+      ],
+      "phase_theta": 2.5368300669328514,
+      "chi_err_naive": 1.2912098401186558,
+      "chi_err_phase_fixed": 0.008239472425020303,
+      "exact_synth_seconds": 0.07285332679748535
+    },
+    {
+      "n": 6,
+      "exact_cx": 4140,
+      "exact_depth": 16387,
+      "trotter_cx": 1378,
+      "trotter_depth": 3056,
+      "trotter_infidelity": 0.0013137479156650755,
+      "aqc_cx": 384,
+      "aqc_depth": 943,
+      "aqc_infidelity": 0.0002955589729941588,
+      "aqc_process_infidelity": 0.9573800835278059,
+      "trotter_process_infidelity": 0.004970679261329769,
+      "n_params": 93,
+      "aqc_vs_exact": 10.78125,
+      "aqc_opt_seconds": 0.8779370784759521,
+      "chi_exact": [
+        0.43450611062334776,
+        -0.5146289575595957
+      ],
+      "chi_aqc_naive": [
+        -0.5869091485405078,
+        0.33673459683467755
+      ],
+      "phase_theta": -2.803610247230843,
+      "chi_err_naive": 1.329702610888471,
+      "chi_err_phase_fixed": 0.007896240467760749,
+      "exact_synth_seconds": 0.2067408561706543
+    },
+    {
+      "n": 7,
+      "exact_cx": 16812,
+      "exact_depth": 66051,
+      "trotter_cx": 1658,
+      "trotter_depth": 3677,
+      "trotter_infidelity": 0.0013138393696252582,
+      "aqc_cx": 468,
+      "aqc_depth": 1148,
+      "aqc_infidelity": 0.0002932564675957039,
+      "aqc_process_infidelity": 0.9568356283672644,
+      "trotter_process_infidelity": 0.005880325899061178,
+      "n_params": 113,
+      "aqc_vs_exact": 35.92307692307692,
+      "aqc_opt_seconds": 1.3955492973327637,
+      "chi_exact": [
+        0.16740389902237104,
+        -0.6523913516498145
+      ],
+      "chi_aqc_naive": [
+        -0.4470938926530688,
+        0.5078357160086795
+      ],
+      "phase_theta": -2.682336072861978,
+      "chi_err_naive": 1.312910653662853,
+      "chi_err_phase_fixed": 0.008310666823909131,
+      "exact_synth_seconds": 1.1330647468566895
+    }
+  ]
+}

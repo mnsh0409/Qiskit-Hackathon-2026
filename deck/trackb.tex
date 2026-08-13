@@ -51,8 +51,9 @@
     \vfill
   \end{frame}}
 
-\title{\textbf{Certifying a compiled circuit from its own garbage}}
-\subtitle{Track B: the anti-controlled Hadamard test, upgraded with classical shadows}
+\title{\textbf{Making the Hadamard test scale}}
+\subtitle{$36\times$ fewer gates with AQC, a phase trap that would have broken it,\\
+and a way to certify the result from its own garbage}
 \author{\textbf{Team 8} --- Garbage Collectors\\ {\small TBD-NAME \and TBD-NAME \and TBD-NAME}}
 \institute{\small Qiskit Hackathon 2026 --- Topic 5\\
 \tiny after Faehrmann, Eisert \& Kueng, \emph{PRL} \textbf{135}, 150603 (2025)}
@@ -78,25 +79,25 @@
 \begin{frame}{The result, up front}
   \small
   \begin{itemize}
-    \item \good{Track B completed.} The per-observable disagreement profile --- $\langle
-          O\rangle_W$ and $\langle O\rangle_U$ \emph{separately} --- which the scaffold flags
-          and our own earlier run left undone. Identity validated to
-          $4.4\times10^{-15}$. \src{R042}
-    \item \good{First Track B on a QPU.} 116 circuits, four arms --- ours plus two
-          literature baselines --- in \emph{one} job, so the comparison is same-device,
-          same-hour. \src{R044}
-    \item \bad{And the cheap baseline beat us --- on both devices.} Worst error against
-          exact, over \texttt{marrakesh} \emph{and} \texttt{kingston}: 2-gate echo
-          \good{0.043}, 16-gate Hilbert--Schmidt 0.101, our 136-gate arm \bad{1.188}.
-          A $27\times$ gap. That is the headline, not a footnote. \src{R044}
-    \item \good{One clean win: a free error bar.} $\langle Q\rangle_W-\langle Q\rangle_U$ is
-          \emph{exactly} zero by conservation, so its measured value is device error
-          certified with no reference, no diagonalisation and no simulation. \src{R044}
+    \item \good{AQC makes the Hadamard test scale.} Its controlled evolution is the
+          bottleneck: the standard exact block costs $\sim\!4^{\,n+1}$ two-qubit gates.
+          We measured the crossover at \hl{$n=4$} and \good{$36\times$ fewer gates by
+          $n=7$} (16{,}812 $\to$ 468), at state infidelity $3\times10^{-4}$. \src{R046}
+    \item \bad{But shipping AQC into a Hadamard test silently breaks it.} The compiler
+          optimises \emph{state fidelity}, which is blind to global phase --- and a Hadamard
+          test is an interferometer that measures exactly that. A converged compression
+          returns $\chi$ wrong by \bad{2.3--3.0 radians}, an error \emph{as large as the
+          signal}. \src{R046}
+    \item \good{One ancilla gate fixes it.} $\theta=\arg\langle U\psi|W\psi\rangle$ is free
+          at compile time; a $P(-\theta)$ on the ancilla cancels it exactly.
+          $|\Delta\chi|$: \bad{1.33} $\to$ \good{0.008}. \src{R046}
+    \item \good{And Track B certifies the compressed circuit from shots} --- the check that
+          still works where classical simulation does not. \src{R042, R044}
   \end{itemize}
   \medskip
-  {\footnotesize\color{mutedA} And, from the same circuit: feeding it the maximally mixed
-  state turns it into a \emph{density-of-states} estimator, which is the $W{=}I$ special case
-  of Track B (slide~\ref{slide:dos}). \src{R045}}
+  {\footnotesize\color{mutedA} Reported against us, in full, later: on today's hardware at
+  $n{=}2$ a 2-gate Loschmidt echo still beats our 136-gate Track B arm by $27\times$
+  (slide~\ref{slide:hw}). \src{R044}}
 \end{frame}
 
 % ==================================================================
@@ -274,44 +275,58 @@
 % ==================================================================
 \section{AQC: the compressor and its certificate}
 
-\begin{frame}{AQC compression, certified by our own Track-B observable}
+\begin{frame}{AQC makes it scale --- crossover at $n=4$, $36\times$ by $n=7$}
+  \vspace{-1mm}
+  \begin{center}
+    \includegraphics[width=0.99\linewidth]{fig_aqc_scaling.png}
+  \end{center}
+  \vspace{-2mm}
+  {\footnotesize
+  \textbf{Left.} A Hadamard test's controlled evolution is its bottleneck. The standard
+  construction builds $|0\rangle\!\langle0|\otimes\mathbb{1}+|1\rangle\!\langle1|\otimes U$
+  as one $(n{+}1)$-qubit \texttt{UnitaryGate}, costing $\sim\!4^{\,n+1}$ gates. Controlled
+  AQC grows \emph{roughly linearly}, so the crossover is structural --- measured, not
+  extrapolated. \textbf{Right.} The trap, next slide. \src{R046}}
+\end{frame}
+
+\begin{frame}{The trap: a phase-blind compiler breaks a phase interferometer}
   \small
-  Approximate Quantum Compiling (\texttt{qiskit-addon-aqc-tensor}, quimb$+$jax MPS backend)
-  optimises a shallow ansatz against an MPS target. It scores itself with a
-  \emph{classical} fidelity --- the one number you lose access to at scale.
+  \texttt{qiskit-addon-aqc-tensor} maximises \hl{state fidelity}
+  $|\langle\psi_{\rm target}|\psi_{\rm ansatz}\rangle|$ --- a \emph{magnitude}, blind to
+  global phase. A Hadamard test measures \bad{exactly that phase}. So a compression that
+  converges beautifully (state infidelity $3\times10^{-4}$) returns
+  \[
+    W|\psi\rangle = e^{i\theta}\,U|\psi\rangle,\qquad
+    \theta \approx 2.3\text{--}3.0\ \text{rad}
+    \quad\Longrightarrow\quad |\Delta\chi| \approx 1.3
+  \]
+  on a quantity bounded by $|\chi|\leq1$. \bad{The error is as large as the signal.}
+  \medskip
+
+  \textbf{Why we nearly missed it.} Our earlier certificate reported
+  $|\chi_{AB}|$ --- also a magnitude. A magnitude cannot detect a phase error.
+  \src{R035, now closed by R046}
   \medskip
 
   \begin{center}
-  Set $W=$ the AQC circuit and $U=$ exact: then
-  \hl{$\chi_{AB}=\langle\psi|W^\dagger U|\psi\rangle$ \emph{is} the compression fidelity},
-  measured from shots.
+  \textbf{The fix costs one single-qubit gate.} $\theta=\arg\langle U\psi|W\psi\rangle$ is
+  free at compile time --- the same MPS run that produces $W$ gives it --- and a
+  \hl{$P(-\theta)$ on the ancilla} cancels it exactly, because the $|1\rangle$ branch is the
+  one carrying $W$:\quad $|\Delta\chi|$ \bad{1.33} $\to$ \good{0.008}.
   \end{center}
   \medskip
 
-  \begin{center}
-  \begin{tabular}{lccc}
-    \toprule
-    & \textbf{Trotter} & \textbf{exact synth.} & \textbf{AQC}\\
-    \midrule
-    \emph{uncontrolled} $n{=}3$ (infid. $1.4\!\times\!10^{-4}$) & 68 & 19 & \good{9}\\
-    \emph{uncontrolled} $n{=}4$ (infid. $2.6\!\times\!10^{-4}$) & 104 & 95 & \good{15}\\
-    \midrule
-    \emph{controlled} $n{=}3$ --- what a Hadamard test runs & --- & \good{50} & \bad{132}\\
-    \emph{controlled} $n{=}4$ & --- & 236 & \good{216}\\
-    \bottomrule
-  \end{tabular}
-  \end{center}
-  \smallskip
-  {\footnotesize The compressor and the certificate come from two different halves of this
-  project. \bad{But the story reverses under control:} at $n{=}3$ AQC is $2.6\times$
-  \emph{worse}, because controlling an ansatz pays overhead on every gate while the direct
-  block construction pays none. Crossover sits at $n\!\sim\!4$. \src{R035}}
+  {\footnotesize\color{orangeA}\textbf{Scope, not buried:} AQC is compressed against
+  \emph{one} input state, so its \emph{process} infidelity is large ($\sim\!0.96$). That is
+  legitimate here --- a Hadamard test's controlled gate only ever acts on that one state ---
+  and illegitimate the moment anything feeds it another. \src{R046}}
 \end{frame}
 
 % ==================================================================
 \section{On real hardware}
 
 \begin{frame}{First Track B on a QPU --- and the cheap baseline beat us}
+  \label{slide:hw}
   \vspace{-1mm}
   \begin{center}
     \includegraphics[width=0.99\linewidth]{fig_tb_hardware.png}
@@ -357,27 +372,32 @@
 \section{What we claim}
 
 \begin{frame}{What we claim, and what we do not}
-  \small
+  \footnotesize
   \textbf{We claim}
-  \begin{itemize}
+  \begin{itemize}\itemsep 1pt
+    \item \good{AQC makes the Hadamard test scale}: crossover measured at $n{=}4$,
+          $36\times$ fewer two-qubit gates at $n{=}7$, against the honest baseline (the
+          notebook's own direct block, not a flattering \texttt{.control()}). \src{R046}
+    \item \good{We found and fixed a trap that silently destroys the answer} --- a
+          phase-blind objective feeding a phase interferometer --- for the cost of one
+          single-qubit gate. \src{R046}
     \item Track B \hl{completed}: the per-observable disagreement profile via the X-basis
-          readout, which our own R034 left undone. Identity validated to $4\times10^{-15}$
-          on two models. \src{R042}
-    \item An AQC-compressed circuit \hl{certified by a shot-based observable} rather than a
-          classical fidelity --- the certificate survives to sizes where the classical score
-          does not. \src{R035}
-    \item Track B run on a \hl{QPU for the first time in this project}, against two
-          literature baselines in the same job. \src{R044}
+          readout, which our own earlier run left undone, validated to
+          $4\times10^{-15}$. \src{R042}
+    \item Track B run on a \hl{QPU for the first time here}, against two literature
+          baselines in the same job. \src{R044}
   \end{itemize}
-  \medskip
+  \smallskip
   \textbf{We do not claim}
-  \begin{itemize}
-    \item \bad{That our method is the best way to get the scalar overlap.} It is not --- the
-          Loschmidt echo is 4--6$\times$ cheaper and, on hardware, markedly more accurate.
-    \item \bad{That AQC helps a Hadamard test at these sizes.} Under control it is
-          $2.6\times$ worse at $n{=}3$; the crossover is at $n\!\sim\!4$. \src{R035}
-    \item Any advantage over classical computation. The instance is 2--3 qubits and a laptop
-          solves it exactly --- which is the point: every number here is graded against truth.
+  \begin{itemize}\itemsep 1pt
+    \item \bad{That AQC helps at small $n$.} Below the crossover it is \emph{worse} ---
+          $2.6\times$ at $n{=}3$. And the compressed circuit is valid \bad{only for the
+          state it was compiled against} (process infidelity $\sim\!0.96$). \src{R046}
+    \item \bad{That our arm is the best way to get the scalar overlap.} It is not --- a
+          2-gate Loschmidt echo is cheaper and, on hardware, $27\times$ more
+          accurate. \src{R043, R044}
+    \item Any advantage over classical computation. These are gate counts, not runtimes;
+          the benchmark is small \emph{on purpose}, so every number is graded against truth.
   \end{itemize}
 \end{frame}
 

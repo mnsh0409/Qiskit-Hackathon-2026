@@ -1,0 +1,92 @@
+{
+  "backend": "ibm_marrakesh",
+  "t": 0.9,
+  "reps_w": 1,
+  "exact_state_overlap": [
+    0.9866944107557033,
+    0.016413150769674242
+  ],
+  "exact_process_overlap": [
+    0.981835402093197,
+    -2.752312266984802e-14
+  ],
+  "echo_p0": 0.9738352517347364,
+  "hst_p0": 0.9640007568035092,
+  "rows": [
+    {
+      "method": "(1) classical fidelity (AQC's own score)",
+      "qubits": 0,
+      "circuits": 0,
+      "two_q": 0,
+      "depth": 0,
+      "delivers": "|<psi_W|psi_U>|^2",
+      "scalable": "NO -- needs simulation",
+      "phase": "n/a",
+      "per_observable": "no"
+    },
+    {
+      "method": "(2) Loschmidt echo",
+      "qubits": 2,
+      "circuits": 1,
+      "two_q": 2,
+      "depth": 17,
+      "delivers": "|<psi|W+U|psi>|^2",
+      "scalable": "yes",
+      "phase": "NO (magnitude only)",
+      "per_observable": "no"
+    },
+    {
+      "method": "(3) Hilbert-Schmidt test",
+      "qubits": 4,
+      "circuits": 1,
+      "two_q": 16,
+      "depth": 43,
+      "delivers": "|Tr[W+U]/d|^2 (state-INDEPENDENT)",
+      "scalable": "yes",
+      "phase": "NO (magnitude only)",
+      "per_observable": "no"
+    },
+    {
+      "method": "(4) Track B, ancilla only [garbage discarded]",
+      "qubits": 3,
+      "circuits": 2,
+      "two_q": 136,
+      "depth": 536,
+      "delivers": "<psi|W+U|psi> complex",
+      "scalable": "yes",
+      "phase": "YES",
+      "per_observable": "no"
+    },
+    {
+      "method": "(5) Track B + shadows [ours]",
+      "qubits": 3,
+      "circuits": 27,
+      "two_q": 136,
+      "depth": 536,
+      "delivers": "the above PLUS <O>_W and <O>_U separately, every Pauli O",
+      "scalable": "yes",
+      "phase": "YES",
+      "per_observable": "YES"
+    }
+  ],
+  "scaling": [
+    {
+      "n": 2,
+      "echo_2q": 2,
+      "track_b_2q": 105,
+      "ratio": 52.5
+    },
+    {
+      "n": 3,
+      "echo_2q": 39,
+      "track_b_2q": 235,
+      "ratio": 6.0256410256410255
+    },
+    {
+      "n": 4,
+      "echo_2q": 127,
+      "track_b_2q": 510,
+      "ratio": 4.015748031496063
+    }
+  ]
+}

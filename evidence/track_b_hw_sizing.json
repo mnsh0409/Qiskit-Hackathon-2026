@@ -1,0 +1,39 @@
+{
+  "backend": "ibm_marrakesh",
+  "two_q_basis": [
+    "cz"
+  ],
+  "identity_worst_dev": 4.557518742871903e-15,
+  "rows": [
+    {
+      "label": "ordinary test (R023 baseline)",
+      "depth": 54,
+      "two_q": 13,
+      "median_edge_error": 0.0013785818675863815,
+      "predicted_survival": 0.9804781404651808,
+      "duration_s": 4.360000000000001e-06,
+      "median_T1_s": 0.00016005714573751162,
+      "duration_over_T1": 0.027240270841454684
+    },
+    {
+      "label": "A/B  W=Trotter reps=1",
+      "depth": 536,
+      "two_q": 136,
+      "median_edge_error": 0.0013785818675863815,
+      "predicted_survival": 0.815025419169336,
+      "duration_s": 1.9348000000000002e-05,
+      "median_T1_s": 0.00016005714573751162,
+      "duration_over_T1": 0.12088182574322597
+    },
+    {
+      "label": "A/B  W=Trotter reps=2",
+      "depth": 927,
+      "two_q": 235,
+      "median_edge_error": 0.0011078539318914726,
+      "predicted_survival": 0.7165730653267948,
+      "duration_s": 3.1552e-05,
+      "median_T1_s": 0.00016005714573751162,
+      "duration_over_T1": 0.19712959302513258
+    }
+  ]
+}

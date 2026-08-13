@@ -1,4 +1,4 @@
-# BUGLOG.md (schema: see skills/0_t5-shadow-core_chat/references/schemas.md)
+# BUGLOG.md (schema below)
 
 B## | symptom | root cause | fix | prevention rule
 

@@ -1,4 +1,4 @@
-# RESULTS.md — one row per reported number (schema: see skills/0_t5-shadow-core_chat/references/schemas.md)
+# RESULTS.md — one row per reported number (schema below)
 
 R### | quantity | value | 95% CI | shots x seeds | producing cell/file | timestamp
 

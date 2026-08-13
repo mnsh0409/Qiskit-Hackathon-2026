@@ -16,3 +16,8 @@ deck/*.nav
 deck/*.out
 deck/*.snm
 deck/*.toc
+
+# Assistant tooling: kept locally, deliberately not published
+.claude/
+CLAUDE.md
+skills/

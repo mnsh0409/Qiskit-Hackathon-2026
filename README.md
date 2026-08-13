@@ -209,7 +209,9 @@ rather than bury it.
 - **Honest cost accounting:** the shadow route replaces **13 dedicated experiments** at a
   measured **1.07× variance premium** — and the 3^w variance model predicts the observed
   error bars to within 2%. [R021, R029]
-- **Real hardware:** signal survival **0.878** on the frozen benchmark once the circuit is
+- **Real hardware, both current IBM architectures** — heavy-hex Heron *and* a
+  Nighthawk-class square-lattice device (`ibm_miami`, 218 couplers; identified from its
+  own coupling map in `real_machine/log.txt`). Signal survival **0.878** on the frozen benchmark once the circuit is
   shallow enough, and a genuine random-basis shadow ensemble recovering a valid ⟨Q⟩ at
   **0.957 survival**. Depth beats device choice by 2.4–4.6× vs 1.1–2.1×. [R018, R023]
 - **A self-validating decoherence witness** that needs no exact diagonalisation, so it

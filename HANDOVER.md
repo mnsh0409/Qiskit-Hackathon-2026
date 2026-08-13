@@ -2,8 +2,15 @@
 
 **What we need from you:** one shadow-Hadamard data point on better hardware than we
 have access to. Our account is on the IBM open plan and can only reach `ibm_fez`,
-`ibm_marrakesh` and `ibm_kingston` (all 156-qubit Heron-class). If you can reach a
-Nighthawk device, you can close the one genuinely open question in this project.
+`ibm_marrakesh` and `ibm_kingston` (all 156-qubit Heron-class).
+
+> **UPDATE 2026-08-14 — the Part A ask below is DONE.** A teammate ran it on `ibm_miami`,
+> which is a **Nighthawk-class device**: its dump records 436 directed coupling edges =
+> 218 couplers, exactly Nighthawk's published square-lattice spec (120 qubits), vs 176
+> couplers on the heavy-hex Herons. Results in `real_machine/`, analysed as R031/R053.
+> **Still open: §2b (Track B) and §2c (AQC) have not run on Nighthawk** — those are now
+> the asks, and §2c gains extra interest on a square lattice, where our routed 2D
+> advantage (R052) was measured only against heavy-hex.
 
 Budget: **2 circuits × 2000 shots ≈ 3 seconds of QPU time.** That is the whole ask.
 

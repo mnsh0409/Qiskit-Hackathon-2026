@@ -393,22 +393,32 @@
 \end{frame}
 
 \begin{frame}{Reproduce it}
-  \small
-  \begin{itemize}
-    \item \texttt{evidence/scripts/track\_b\_ab\_tester.py} --- Track B derivation
-          $+$ statevector validation $+$ simulator study \src{R034}
-    \item \texttt{evidence/scripts/track\_b\_baselines.py} --- Loschmidt echo, Hilbert--Schmidt
-          test, and the $n{=}2,3,4$ cost scaling \src{R043}
-    \item \texttt{evidence/scripts/track\_b\_hardware\_submit.py} --- validate-then-submit,
-          all four arms; refuses to submit if the identity check fails \src{R042}
-    \item \texttt{evidence/scripts/track\_b\_hardware\_fetch.py} --- the analysis behind
-          every hardware number on these slides \src{R044}
-    \item \texttt{evidence/scripts/aqc\_compression.py} --- AQC $+$ Track-B certification
-          \src{R035}
-  \end{itemize}
-  \vfill
+  \begin{columns}[T]
+    \begin{column}{0.62\textwidth}
+      \footnotesize
+      \begin{itemize}\itemsep 2pt
+        \item \texttt{evidence/scripts/track\_b\_ab\_tester.py} --- Track B derivation
+              $+$ statevector validation $+$ simulator study \src{R034}
+        \item \texttt{evidence/scripts/track\_b\_baselines.py} --- Loschmidt echo,
+              Hilbert--Schmidt test, $n{=}2,3,4$ cost scaling \src{R043}
+        \item \texttt{evidence/scripts/track\_b\_hardware\_submit.py} --- validate-then-submit,
+              all four arms \src{R042}
+        \item \texttt{evidence/scripts/track\_b\_hardware\_fetch.py} --- the analysis behind
+              every hardware number here \src{R044}
+        \item \texttt{evidence/scripts/aqc\_compression.py} --- AQC $+$ Track-B certification
+              \src{R035}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \centering
+      \includegraphics[width=0.72\linewidth]{qr_slides.png}\\
+      {\tiny\color{mutedA} \texttt{github.com/mnsh0409/Qiskit-Hackathon-2026}\\
+      (full repo; this deck is \texttt{deck/trackb.pdf})}
+    \end{column}
+  \end{columns}
+  \vspace{2mm}
   \centering
-  \Large\textbf{Team 8 --- Garbage Collectors}\\
+  \large\textbf{Team 8 --- Garbage Collectors}\\
   \normalsize Thank you --- questions welcome.
 \end{frame}
 

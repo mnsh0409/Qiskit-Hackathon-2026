@@ -18,6 +18,7 @@
 \definecolor{orangeA}{HTML}{EB6834}
 \definecolor{aquaA}{HTML}{1BAF7A}
 \definecolor{mutedA}{HTML}{898781}
+\definecolor{violetA}{HTML}{4A3AA7}
 \definecolor{bgA}{HTML}{FCFCFB}
 
 \setbeamercolor{normal text}{fg=ink,bg=bgA}
@@ -77,30 +78,39 @@ and a way to certify the result from its own garbage}
 \end{frame}
 
 \begin{frame}{The result, up front}
-  \footnotesize
-  \begin{itemize}\itemsep 1.5pt
-    \item \good{AQC makes the Hadamard test scale --- on paper.} Its controlled evolution
-          is the bottleneck: the standard exact block costs $\sim\!4^{\,n+1}$ two-qubit
-          gates. We measured the crossover at \hl{$n=4$} and \good{$36\times$ fewer gates by
-          $n=7$} (16{,}812 $\to$ 468), at state infidelity $3\times10^{-4}$. \src{R046}
-    \item \bad{On hardware it does not translate --- we ran it and it failed, twice.} At
-          $n{=}6$ the 576-gate AQC arm returned \bad{0.026} (marrakesh) and \bad{0.033}
-          (kingston) against pre-registered $0.315$ / $0.401$. All arms, both devices,
-          returned noise. \src{R054}
-    \item \bad{But shipping AQC into a Hadamard test silently breaks it.} The compiler
-          optimises \emph{state fidelity}, which is blind to global phase --- and a Hadamard
-          test is an interferometer that measures exactly that. A converged compression
-          returns $\chi$ wrong by \bad{2.3--3.0 radians}, an error \emph{as large as the
-          signal}. \src{R046}
-    \item \good{One ancilla gate fixes it.} $\theta=\arg\langle U\psi|W\psi\rangle$ is free
-          at compile time; a $P(-\theta)$ on the ancilla cancels it exactly.
-          $|\Delta\chi|$: \bad{1.33} $\to$ \good{0.008}. \src{R046}
-    \item \good{And Track B certifies the compressed circuit from shots} --- the check that
-          still works where classical simulation does not. \src{R042, R044}
-  \end{itemize}
-  \smallskip
-  {\scriptsize\color{mutedA} Also against us, in full later: at $n{=}2$ a 2-gate Loschmidt
-  echo beats our 136-gate arm by $27\times$ (slide~\ref{slide:hw}). \src{R044}}
+  \vspace{1mm}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}\centering
+      {\fontsize{28}{30}\selectfont\color{blueA}\textbf{36$\times$}}\\[1mm]
+      {\small fewer two-qubit gates for a Hadamard test's controlled evolution
+      (AQC, $n{=}7$) --- \emph{as a compilation result}} \src{R046}
+    \end{column}
+    \begin{column}{0.5\textwidth}\centering
+      {\fontsize{28}{30}\selectfont\color{aquaA}\textbf{1 gate}}\\[1mm]
+      {\small fixes the trap we found: a phase-blind compiler feeding a phase
+      interferometer, $|\Delta\chi|$ \bad{1.33} $\to$ \good{0.008}} \src{R046}
+    \end{column}
+  \end{columns}
+  \vspace{7mm}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}\centering
+      {\fontsize{28}{30}\selectfont\color{orangeA}\textbf{2 QPUs}}\\[1mm]
+      {\small same verdict: the gate-count win does \bad{not} reach hardware at
+      $n{=}6$ --- 0.026/0.033 measured vs 0.315/0.401 \emph{pre-registered}} \src{R054}
+    \end{column}
+    \begin{column}{0.5\textwidth}\centering
+      {\fontsize{28}{30}\selectfont\color{violetA}\textbf{$\equiv 0$}}\\[1mm]
+      {\small a free error bar: $\langle Q\rangle_W{-}\langle Q\rangle_U$ is exactly zero
+      by conservation, so its measured value is pure device error --- no reference
+      needed} \src{R044}
+    \end{column}
+  \end{columns}
+  \vspace{5mm}
+  \centering
+  {\footnotesize Track B \hl{completed} past the scaffold ($4\times10^{-15}$ validation),
+  benchmarked against the literature's own baselines --- which \bad{beat us} on cost, and
+  we say so --- and extended to 2D, Fermi--Hubbard and real-device routing.
+  \src{R042, R043, R049--R052}}
 \end{frame}
 
 \begin{frame}{Where this sits: the five tracks in the challenge}

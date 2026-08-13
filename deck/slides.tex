@@ -28,7 +28,8 @@
 \setbeamertemplate{itemize item}{\textbullet}
 \setbeamerfont{frametitle}{size=\large,series=\bfseries}
 \setbeamertemplate{footline}{%
-  \hfill\tiny\color{mutedA}\insertframenumber/\inserttotalframenumber\hspace{2ex}\vspace{1ex}}
+  \hspace{2ex}\tiny\color{mutedA}[R0xx] cites a numbered row in \texttt{RESULTS.md}\hfill%
+  \tiny\color{mutedA}\insertframenumber/\inserttotalframenumber\hspace{2ex}\vspace{1ex}}
 
 % every claim gets its source row
 \newcommand{\src}[1]{{\tiny\color{mutedA}[#1]}}
@@ -71,8 +72,11 @@
     \tableofcontents[hideallsubsections]
   \end{minipage}
   \vfill
-  {\footnotesize\color{mutedA} Every number on these slides carries the
-  \texttt{RESULTS.md} row that produced it, shown as \src{R0xx}.}
+  \begin{center}
+  \small A tag like \src{R034} is not decoration --- it is a \hl{row number} in our
+  public evidence ledger, \texttt{RESULTS.md}: 44 rows, one per reported number, each
+  with the exact command that produced it. Full repo via the QR code on the last slide.
+  \end{center}
 \end{frame}
 
 \section{The garbage state}
@@ -102,18 +106,18 @@
 
 % ------------------------------------------------------------------ 1b  PAPER FIG 1
 \begin{frame}{The protocol, in the authors' own picture}
-  \vspace{-1mm}
+  \vspace{-2mm}
   \begin{center}
-    \includegraphics[width=0.93\linewidth]{fig_paper_fig1.png}
+    \includegraphics[width=0.88\linewidth]{fig_paper_fig1.png}
   \end{center}
-  \vspace{-1mm}
+  \vspace{-2mm}
   {\footnotesize
   \textbf{Left:} the standard test --- $V$ prepares, $c\text{-}U$ evolves, $P(\phi)$ picks
   the quadrature, and the system register goes \bad{in the bin}.
   \textbf{Right:} append a random Clifford $C$ and measure it instead:
   \hl{same circuit, same shots}, now also $\mathrm{Tr}(H\rho)$, fidelities and
   eigenstate tests.}
-  \par\smallskip
+  \par\vspace{1mm}
   {\tiny\color{mutedA} Fig.~1 of Faehrmann, Eisert \& Kueng, \emph{PRL} \textbf{135},
   150603 (2025), reproduced under CC~BY~4.0. We use $\phi=-\pi/2$ for the imaginary
   quadrature, per the paper's body text (below its Eq.~2) and \texttt{CONVENTIONS \S5};
@@ -122,11 +126,11 @@
 
 % ------------------------------------------------------------------ 1c  SHADOWS
 \begin{frame}{What a classical shadow actually is}
-  \vspace{-1mm}
+  \vspace{-2mm}
   \begin{center}
-    \includegraphics[width=0.97\linewidth]{fig_shadow.png}
+    \includegraphics[width=0.90\linewidth]{fig_shadow.png}
   \end{center}
-  \vspace{-1mm}
+  \vspace{-2mm}
   {\footnotesize
   No new circuits --- only $\leq 2$ extra single-qubit gates per qubit. The randomisation is
   the whole trick: it is what makes \emph{one} record set an unbiased estimator for

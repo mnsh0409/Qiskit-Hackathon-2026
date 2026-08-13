@@ -51,16 +51,21 @@ is met and the claim is stated on slide 9 **with the scope note attached**.
 merely asserted, and it is the difference between a claim that survives a challenge from
 someone in the room and one that does not. Do not strip it when exporting slides.
 
-## Alternative phrasing if you want to hedge further
+## Phrasing actually used on slide 9
 
-## Recommended phrasing (conservative, defensible)
+> "First open implementation of PRL **135**, 150603. Prior-art search 2026-08-13; scope and
+> limits recorded in `deck/PRIOR_ART_SEARCH.md`."
 
-> "We are not aware of a prior open implementation; a web search on 2026-08-13 across the
-> queries recorded in `deck/PRIOR_ART_SEARCH.md` found none."
+## Fallback if challenged in the room
 
-**Do not** say "the first" unqualified. The hedged version costs nothing rhetorically and
-cannot be falsified by someone in the room who knows of a repository we missed — which is
-exactly the failure mode the ship skill's rule exists to prevent.
+If someone says they know of an existing implementation, do not defend priority — concede
+cleanly and fall back to the claim that does not depend on it:
+
+> "Then we'll correct that — thank you. The method is from the paper either way; what's ours
+> is the characterisation: the measured cost, the failure boundary, and the hardware study."
+
+That fallback is strong on its own, which is precisely why the priority claim is not worth
+fighting over.
 
 If a judge asks directly: *"We searched and found none, but we scoped the search narrowly
 and would not claim priority on that basis."*

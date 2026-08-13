@@ -1,0 +1,162 @@
+{
+  "job_id": "d9umg0gu5hac73ahdv10",
+  "backend": "ibm_miami",
+  "status": "DONE",
+  "creation_date": "2026-08-13T15:45:22.329043+09:00",
+  "inputs": {
+    "options": {},
+    "pubs": [
+      [
+        {
+          "__type__": "QuantumCircuit",
+          "__value__": "eJztmUtMVFccxu8wIvgGZBARB1BAAfGNgi9GAQUEFQFRfDGOoIPIa0CsTdd92DYuTJrumq6aphtj+oomku6adGGatGk3jYlp0zZ9pK19GBd2vrnfDHyIKecmY0jDTfDHj7l3zp1z/v/vjDNNdc3761pSExJdln24+gf4W7Y1t8tKDv9yOfzj5h8T+IOjFf8EgoOB4eBQaVmZb1H3laLW8uvPvzDgilzlckWfKnq4xj2LNe5ZZ5GJ5GwyiUwm55BzyXnkfHIBuZBcRKaQqWQauZhMJz1kBrmEzCSXklnkMjKbXE56yRwyl8wjV5AryXyygCwkV5GrySKymCwh15Cl5FpyHbme3EBuJDeRm8kycgu5lSwnK8ht5HZyB7mT3EVWkj5yN7mHrCKryRpyL7mPrCXryHpyP9lANpIHyIPkIbKJPEw2ky1kK3mEbCOPksfIdvI4eYI8SZ4iT5MdpJ88QwbIs2Qn2UWeI8+TQbKbvED2kBfJXrKP7Cej/ThIhsghcpi8RI4E0LHucCdH7zR6TOxk+5jNR1zW5Mfh9n3+oU7cRXr0JSb7jxTduvHW33diTf+0i5uPxi52NNDo5/cKb/7wxzMY6O6Hn7S99uCOwcWe2MX3ki9/tP3mF5UGd+mJnZvw5GmR8avG7lIviNcUNPz6Xue1msTROA00Nl2ZpdUtj/Iemiyqx9FAL93wjBQEf6uchnPdMfLi2tYkn/FAUzvXYXWZvgp7IefEq2LGBkp796tXP8j4p9JRFbz+6I1XbrUkmsy1s3LLmDgdU5x8r8Fo3oldZBI6zgb6/tyZL//6zG0yf16Dc3MMpivHtDtNzv0/3MgULzBZH2dFU28HnEk0OBvop5Lv6t+/neKw6aZ2Z85CK918m3M2BTte3nC32GvFf65Hf+z91PPnzyZvknJiF79z9fbV9re/NZkO40Ywr2uTGzF9xVn2fuCbft157fdL9xvefGBemlN7Fc+owWp/+Xio7f43JjugyUBPbLXx7+RD9ltwZ1ttHN5tjM11vvm7DWeLakUG+jr+/+OTRZ22b746yluLrnQ/jn/pZZvXuLNUHKpIbbz+0DUa+6DwaU/Q2OkPDQ/aq2Z/lGFwhTcQOcfgihxckWCfdnncDz7vdEc+HR22klz+3kCwp8f/eOaYOWaOaX9E+jbBcrtCz4UmfcwVfizc09G/MRaS2OZMjXGaoOpWnaWaqDpbNUk1WXWO6lzVearzVReoLlRdpJqimqqaprpYFYc7PLWcJ/6arid5VDNUl6hmqi5VzVJdNsndhNWyv9wZ98hyVa9qjmquap7qCtWVqvmqBaqFqqtUV6sWqRarlqiuUS1VXau6TnW96gbVjaqbVDerlqluUd2qWq5aobpNdbvqDtWdqrtUK1V9qrtV96hWqVar1qjuVd2nWqtap1qvul+1QbVR9YDqQdVDqk2qh1WbVVtUW1WPqLapHlU9ptquelz1hOpJ1VOqp1U7VP2qZ1QDqmdVO1W7VM+pnlcNqnarXlDtUb2o2qvap9qvOqA6qBpSHVJFciOuo9+F27unvc1hb8OGFtnFLHu/wiaFnQnbEfYgbDzYbbDFYF/BZoIdBNsGch9hj4RHrCPLEeCIauQzUjjXsvMWIYtkRZwiQxGcSEtEJHIRYYgEROwh6xBwSDVEGfILoYWkQjwhkxBESB9EDnIG4YJEQYwgOxAYSAmfZecBQgCdj3ZHj6Ox0c1oYfQtmhUdirZEL6IB0XVoNfQXmgqdhPZBz6BR0B1oCfQBih8VjzJHbaOgUcUdll2vKFJUJsoRNYjCQ7WhxFBXKCZUEMoGtYIC6WMpDHDRQ1xefD+M74ZH4rCm6Vy3/1rbaE3NrG8c1/df35gPNw=="
+        },
+        {
+          "__type__": "ndarray",
+          "__value__": "eJyb7BfqGxDJyFDGUK2eklqcXKRupaBuk2ahrqOgnpZfVFKUmBefX5SSChJ3S8wpTgWKF2ckFqQC+RoGOpo6CrUKFAAuAFOzG1s="
+        },
+        2000
+      ],
+      [
+        {
+          "__type__": "QuantumCircuit",
+          "__value__": "eJztmVlMVFccxu/MyOoKMogbA4ooKLjvC6OAbKKsguDCMCKiiLIVadOHPtU2bcNb+9i3JqYvxKRLeMD0oUkTE2mbNu1La9KH1j60aWoXY1rKN/cbmA9pyrnJGNJwEvzNj7l3zp17/v/vjEx1WW1FWV2SO8Zl2cN1o5uP1liJl6z4iQc3J348/KWbPxiN+CfY0RPs7+jL273H7/1r5OHIO0MvvNjtCp3lcoVfKjxcEa9iRbzqAjKGjCXjyHgygUwkF5KLyMXkEnIpuYxMIpPJ5WQK6SVTyRVkGrmSXEWuJteQa8l00kdmkJnkOnI9mUVuILPJjeQmMofMJTeTW8g8Mp/cSm4jt5M7yJ3kLnI3uYfcS+4j95MHyIPkIfIweYQsIP3kUfIYWUgWkcXkcbKELCXLyHKygjxBVpInyVNkFVlN1pC1ZB1ZT54mG8hG8gzZRDaTZ8lz5HnyAtlCBshWMkheJNvIS2Q7eZnsIK+QV8lO8hrZRV4nb5Dhfuwhe8k+sp98jhwIomM9E50cvtLwmN7J9ojlMy5r5lHTVBLoa8NVpITfYnzgdM7I8Nt/jE42/b+dXNs4ebKjie5+9iD7zsNfn8FEY+9/1PD6o1GDk72TJz+Iv/nBwTtfFBhcpXfyWPfTh4XmL5y6Sj0hWrfgxM/vtg0Vx9yN0kRTtystr6juSeZjk0X1Opro1rB3YEPHLwVz8F63DLycXx/nN55odsc6rC7Td2EvZEK0KmZqouTbX732XuqfBY6q4I0nb746Uhdjcq+dlVvq9Nsxy5ufbjBb+vQuMgkdZxP90N765e/3PCb3L93gWJ/B7fKZdqfJsf+HC5nlCSbr46xoyu2AM4kGZxONDT7Ofeulz0edNd3srsxZaKWYb3POboG/5Nv2/fd/jP5ERZ8OD+4d+80khn2TJz9qKnY3d31vcpXGjRD9uuaW53d0Cxzslz5HE62KvEqMOXP/Su/XW7eH/jbftWb3Lp5Ra5f+9GFfw3ffmLwLk4me2uSj39pV9od/Z5t8FD7nTN3rLPPPOc4W1QpN9HX0/68pizpnP/a17KvPef7KePRLb415jTtLRaum75WPP7lnNlFcxLEzHV/ZFujt77FX2P6Di8EZ6cHQMQZn+HCG2z7sZsQP/irr6bZfwOMKdAXHOUK/c0/8rnewd3zaCD3Xb8Xh+I7OzsD05+fH/Jgfc28wFuLYtkyNCHWrelQXqMaoxqrGqcarJqgmqi5UXaS6WHWJ6lLVZapJqsmqy1UxPBPxx/vEhyl6kFc1VXWFaprqStVVqqtnuJoJteyvoCKeWauarupTzVDNVF2nul41S3WDarbqRtVNqjmquaqbVbeo5qnmq25V3aa6XXWH6k7VXaq7Vfeo7lXdp7pf9YDqQdVDqodVj6gWqPpVj6oeUy1ULVItVj2uWqJaqlqmWq5aoXpCtVL1pOop1SrVatUa1VrVOtV61dOqDaqNqmdUm1SbVc+qnlM9r3pBtUU1oNqqGlS9qNqmekm1XfWyaofqFdWrqp2q11S7VK+r3lDtVu1R7VXtU0VyI67D39jbn3DtbQ57Gza00C5m2fsVNinsTNiOsAdh48Fugy0G+wo2E+wg2DaQ+wh7JDxiHVmOAEdUI5+RwhmWnbcIWSQr4hQZiuBEWiIikYsIQyQgYg9Zh4BDqiHKkF8ILSQV4gmZhCBC+iBykDMIFyQKYgTZgcBASvgtOw8QAuh8tDt6HI2NbkYLo2/RrOhQtCV6EQ2IrkOrob/QVOgktA96Bo2C7kBLoA9Q/Kh4lDlqGwWNKm6x7HpFkaIyUY6oQRQeqg0lhrpCMaGCUDaoFRTIdZZCNxe9l8uLb7HxDfZAFNY0hev2X2sbrqn59Y3i+v4D9c4fXg=="
+        },
+        {
+          "__type__": "ndarray",
+          "__value__": "eJyb7BfqGxDJyFDGUK2eklqcXKRupaBuk2ahrqOgnpZfVFKUmBefX5SSChJ3S8wpTgWKF2ckFqQC+RoGOpo6CrUKFAAuAFOzG1s="
+        },
+        2000
+      ]
+    ],
+    "support_qiskit": true,
+    "version": 2
+  },
+  "result": {
+    "__type__": "PrimitiveResult",
+    "__value__": {
+      "pub_results": [
+        {
+          "__type__": "SamplerPubResult",
+          "__value__": {
+            "data": {
+              "__type__": "DataBin",
+              "__value__": {
+                "field_names": [
+                  "c"
+                ],
+                "shape": [],
+                "fields": {
+                  "c": {
+                    "__type__": "BitArray",
+                    "__value__": {
+                      "array": {
+                        "__type__": "ndarray",
+                        "__value__": "eJydVbuOVEsMbHfbbomvmGwu0ga7hHwAGYiEgOhqBXt1AwRoF0iAr+CHcVV1n1lSWjNn+vSjbJfLnl+v3rx8/dbat/b9/P7u4d39+fnp/OPrzfnqdP7v0/2X+9uP/366f3+H9Re3Hx7uav3h/9vPd/X+z7Pr6+ur083Tq9PP09+NJ9lai9asTTysNe8Nw8yiNrJFb6Mmhu2oNYz0WsNSWNOoA9gMs+YzPOv+cMfRFJyMmCVueFjtlaGFhyegsIpvs1G7o2Y+gdFMGE5D1uhatD4iMbE60QHcy7LhvIaNSbdxKIfWnG4rCqCG2xC4NU46A+OU8GHrOMO1TL05XmMs8vDpw8CXwZ5raSRcboBJMw8GN7mmeGYyvFZA2R13Oaay4YT3WVwmU0Dni+iC8Vq0xYsxQFjD+Vjww9xTJsU9d+zIF84P0LKYWTH2yjxjNH5HFx2DP4irlyQsmcVNNLysOKaIKcd2IE3oaXLAYJbH0qUeq+NtZkGJx9nnohsKQnbkcS+Mir6uFSmHHvbojQTsGAbVHIfqCnarEKSVG0k6ypu07FBMeQbJUWJMg65aLmsDRC5WbPFXhobsQaiKFYIOZvARp7OqoBRq4LbiTDvKSVLazsG8ni72ZcypJ00gUpRULJ9UQFuUqEGCxqD/dX6u2oVhCoeec8CDFENIh5n0N0lL5Rh6rRtTbsaOh5kDh/IYFPgw9QOUPKaA1U/qCjuG5u3RiEeMs6vALXeGC02ZqxYrsEOmcBiMlCCStGUvhnde5Cv5o+p4BKMHhQJACGkEUYsPdiiUEGhgv5EtY/OSVFaNSdZB6lSibRqFaiv5LEG2sMFGp5bVVm9dNIZoWNpGyhKp6gkM7yaSEJ0RyO0gP4WFLLuoG+SnEliNurPIfATJ23TThXFU46OGsCAHujJi8KB8VJoxGQgZ4d5WabukMYeINtW9kmi2qapWZwp4NPaeyCm5BYFtb1Crara0o07VIR9nd0Qw1Ozgwepbx9vFrVzE2qrZJn1sx4vl3tUFKzlenk56lyyCsf6N4k+4Wp/Rt+6POocNu5iGkZhV3iGvOvro3j0mSj6UtzZpIS/WdqU5anuhK0+uBAZFidzz/y4uPbBSCMrzN0IDJ+4="
+                      },
+                      "num_bits": 3
+                    }
+                  }
+                }
+              }
+            },
+            "metadata": {
+              "circuit_metadata": {}
+            }
+          }
+        },
+        {
+          "__type__": "SamplerPubResult",
+          "__value__": {
+            "data": {
+              "__type__": "DataBin",
+              "__value__": {
+                "field_names": [
+                  "c"
+                ],
+                "shape": [],
+                "fields": {
+                  "c": {
+                    "__type__": "BitArray",
+                    "__value__": {
+                      "array": {
+                        "__type__": "ndarray",
+                        "__value__": "eJydVTtuFEEQre6q7pY4xWYLkgObkAOQgUgIiJCFFxEgjNZAApyCC/M+vSbHlmZ3e6Z+71Pz5/XbV2/etfgRP493p4cP5+OLw/HX95vj1eH48f787Xz75f39+e7E85e3nx9OOH/4dPv1hN9Pn19fX18dbp5dHX4f/u/vyRjVqka0aLOqReEAP3ENfPpkFv5HdRwX7kT0PngQjGx4KJBj5GRsdFw7YxFZPSaT1GJkIE0gesTk/cApK1UW//C7cvK0Rx+JpwqpGYz6hXJoQEUrJm/zJzporI6/ZEo831EnsqM6w0I3UUTTBU5ZD+1h6onWsiKb5uRF4RiFIIxYuyuCgNnxrB4JFk5nZUpO1QkCYibTK0LV0ErTAM1tcH7eZJMACjPgkYkvQk1oIguPGyAYxDbUTmdgDhyyGmDtTZVNVrEKecLkTJy8IFQs4H+hD/Tm3g02mdHYJEWE50DFNvQM2fR8RAK9SQKhYjmIiXDVTEMgsJFO8hvDlYM5EdkNLQ+Tw3fUYb9Ts1p7pdnAPbpIdJTEb+QShOUpM1IBSEIN1cq5+zcjQZShBuAAGGZOcMKbnF0doNLsFF9XS03jAH7rt9Qa2eZ3zh+2Qgy3T3wwDQQEYTXemhouaA0ikuHBhwryvnQpL7Qp7t2IrdU3e2pQSqW15pJ0pO0tRye9eFGfQwX3+CmvKNOc49/DsqekQA4tR0bkclxILuDTXofQqBkcxFzD3Kux5QSAn4PERRQzians5LwEBmYaHs+YCluxvPVEt6boMyNeNmJRlpIxTGpst7kVpwgzs3F2Xri5GSXvhGFlBpMRUNSjPTbLdrnESr1aDMOc+Tb3nV2HS8uNHnumE0T7WtyBLLjjmlpWamlCAdPbI9pliZE2TypMvBTQ3pZBNe+0RSMEjVbEWPtAi292Wgof4j6xBcR/kjOupM49lBLNKnPc6McxuUxaxxbZPgmakOiU3WVOH43a5DCJjMilNDQ3Ptwv9bh5tJLUNfngG2KaNzUvErsO0hRHy71SbAKrcjSudwqicwuV15Qo6/KdySz3T2CGdpqY0wDD6pi2D7BfAkdvHotwbPsVZw9vLn/pYTypCHIq+WiP6G2wWVyX96Hdrf29lacAcuZqqy5aYvmS8/mCvSzGtFKIz8JlDftlSaTIpYPG0Ra3YZcvCeR+g+6SsZW+31h2UPwF8TA1jw=="
+                      },
+                      "num_bits": 3
+                    }
+                  }
+                }
+              }
+            },
+            "metadata": {
+              "circuit_metadata": {}
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "execution": {
+          "execution_spans": {
+            "__type__": "ExecutionSpans",
+            "__value__": {
+              "spans": [
+                {
+                  "__type__": "DoubleSliceSpan",
+                  "__value__": {
+                    "start": {
+                      "__type__": "datetime",
+                      "__value__": "2026-08-13T06:55:00.644129"
+                    },
+                    "stop": {
+                      "__type__": "datetime",
+                      "__value__": "2026-08-13T06:55:17.589947"
+                    },
+                    "data_slices": {
+                      "0": [
+                        [
+                          2000
+                        ],
+                        0,
+                        1,
+                        0,
+                        2000
+                      ],
+                      "1": [
+                        [
+                          2000
+                        ],
+                        0,
+                        1,
+                        0,
+                        2000
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "version": 2
+      }
+    }
+  },
+  "metrics": {
+    "caller": "qiskit_ibm_runtime~sampler.py",
+    "qiskit_version": "qiskit_ibm_runtime-0.47.0,qiskit-2.5.1*,qiskit_aer-0.17.2,qiskit_optimization-0.7.0,qiskit_addon_aqc_tensor-0.3.1,qiskit_addon_mpf-0.3.0,qiskit_addon_obp-0.3.0,qiskit_addon_cutting-0.10.0,qiskit_addon_pna-0.2.0,qiskit_addon_slc-0.1.0,qiskit_addon_sqd-0.12.1,qiskit_addon_utils-0.3.1,pauli_prop-0.1.0",
+    "timestamps": {
+      "created": "2026-08-13T06:45:22.329043Z",
+      "finished": "2026-08-13T06:55:18.616347Z",
+      "running": "2026-08-13T06:52:53.907445Z"
+    },
+    "bss": {
+      "seconds": 18
+    },
+    "usage": {
+      "quantum_seconds": 18,
+      "seconds": 18,
+      "status": "complete"
+    }
+  }
+}

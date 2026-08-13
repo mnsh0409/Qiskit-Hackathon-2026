@@ -1,0 +1,297 @@
+(.venv) jiwan@Jiwanui-MacBookAir NTU-IBM-hackthon2026 % python layout_search.py --backend ibm_kingston --model frozen --candidates 12
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: frozen 3-qubit benchmark (CONVENTIONS §2)  (3 system qubits, 4 total)
+backend: ibm_kingston  (352 directed coupling edges, median 2q err 2.08e-03)
+
+evaluating 12 candidate windows (greedy, seeded from lowest-error edges)
+
+                      window |  depth  2q gates  predicted survival
+----------------------------------------------------------------------
+            (15, 19, 34, 35) |    307        78              0.9045
+        (125, 126, 127, 137) |    311        77              0.9187
+        (140, 141, 142, 143) |    311        77              0.9095
+        (138, 151, 152, 153) |    311        77              0.9185
+            (10, 11, 12, 13) |    310        77              0.8946
+        (100, 101, 102, 116) |    299        72              0.9105
+            (21, 22, 23, 36) |    299        85              0.8930
+            (55, 59, 74, 75) |    309        78              0.8796
+            (72, 73, 74, 75) |    311        77              0.8990
+           (82, 83, 96, 103) |    310        77              0.9078
+            (89, 90, 91, 98) |    310        77              0.8981
+            (91, 92, 93, 94) |    311        77              0.8945
+
+BEST: window (125, 126, 127, 137), 77 two-qubit gates, predicted survival 0.9187
+submit with:
+  python hardware_run.py --submit --backend ibm_kingston --model frozen --initial-layout "125,126,127,137"
+
+(.venv) jiwan@Jiwanui-MacBookAir NTU-IBM-hackthon2026 % python hardware_run.py --submit --backend ibm_kingston --model frozen --initial-layout "125,126,127,137"
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: frozen 3-qubit benchmark (CONVENTIONS §2)
+pinned initial_layout: [125, 126, 127, 137]  (from layout_search.py)
+2 circuits (fixed basis), depth 310, 77 two-qubit gates
+  ibm_kingston median 2q error 1.99e-03 -> naive survival (1-p)^77 = 0.858
+
+JOB_ID: d9umb6c98n5s7393271g
+status : QUEUED
+total shots: 4,000
+
+fetch with:  python hardware_run.py --fetch d9umb6c98n5s7393271g
+(.venv) jiwan@Jiwanui-MacBookAir NTU-IBM-hackthon2026 % python layout_search.py --backend ibm_kingston --model 4site --candidates 20
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: extended 4-site side model -- robustness claims only, NOT the benchmark  (4 system qubits, 5 total)
+backend: ibm_kingston  (352 directed coupling edges, median 2q err 2.08e-03)
+
+evaluating 20 candidate windows (greedy, seeded from lowest-error edges)
+
+                      window |  depth  2q gates  predicted survival
+----------------------------------------------------------------------
+        (15, 19, 33, 34, 35) |   1448       395              0.5670
+   (124, 125, 126, 127, 137) |   1446       386              0.6511
+   (140, 141, 142, 143, 144) |   1450       386              0.5835
+   (138, 150, 151, 152, 153) |   1362       327              0.5917
+        (10, 11, 12, 13, 14) |   1452       386              0.5446
+   (100, 101, 102, 103, 116) |   1420       384              0.1672
+        (21, 22, 23, 24, 36) |   1430       390              0.5435
+        (55, 59, 73, 74, 75) |   1450       395              0.5347
+        (72, 73, 74, 75, 79) |   1416       384              0.5814
+       (81, 82, 83, 96, 103) |   1452       386              0.5909
+        (89, 90, 91, 92, 98) |   1396       353              0.5976
+        (91, 92, 93, 94, 98) |   1429       390              0.5717
+   (122, 123, 124, 125, 136) |   1411       384              0.6032
+    (97, 106, 107, 108, 109) |   1362       327              0.6093
+        (80, 81, 82, 83, 96) |   1444       386              0.5626
+    (97, 105, 106, 107, 117) |   1444       390              0.5450
+        (49, 50, 51, 52, 58) |   1398       353              0.5217
+             (0, 1, 2, 3, 4) |   1445       386              0.5464
+        (17, 25, 26, 27, 28) |   1393       364              0.5372
+        (46, 47, 57, 67, 68) |   1445       386              0.4953
+
+BEST: window (124, 125, 126, 127, 137), 386 two-qubit gates, predicted survival 0.6511
+
+submit with:
+  python hardware_run.py --submit --backend ibm_kingston --model 4site --initial-layout "124,125,126,127,137"
+(.venv) jiwan@Jiwanui-MacBookAir NTU-IBM-hackthon2026 % python hardware_run.py --submit --backend ibm_kingston --model 4site --initial-layout "124,125,126,127,137"
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: extended 4-site side model -- ROBUSTNESS CLAIMS ONLY, not the benchmark, and NOT validated against an exact-spectrum checkpoint like 2site was
+pinned initial_layout: [124, 125, 126, 127, 137]  (from layout_search.py)
+2 circuits (fixed basis), depth 1444, 386 two-qubit gates
+  ibm_kingston median 2q error 1.99e-03 -> naive survival (1-p)^386 = 0.464
+
+JOB_ID: d9umbk498n5s739327k0
+status : QUEUED
+total shots: 4,000
+
+fetch with:  python hardware_run.py --fetch d9umbk498n5s739327k0
+(.venv) jiwan@Jiwanui-MacBookAir NTU-IBM-hackthon2026 % python layout_search.py --backend ibm_miami --model 4site --candidates 20
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: extended 4-site side model -- robustness claims only, NOT the benchmark  (4 system qubits, 5 total)
+backend: ibm_miami  (436 directed coupling edges, median 2q err 2.91e-03)
+
+evaluating 20 candidate windows (greedy, seeded from lowest-error edges)
+
+                      window |  depth  2q gates  predicted survival
+----------------------------------------------------------------------
+      (89, 98, 99, 109, 119) |   1336       374              0.4931
+          (0, 1, 10, 20, 21) |   1328       371              0.5030
+        (72, 81, 82, 91, 92) |   1355       370              0.3916
+   (100, 102, 110, 111, 112) |   1369       398              0.2746
+         (0, 10, 11, 20, 21) |   1334       374              0.4774
+           (7, 8, 9, 18, 28) |   1350       327              0.2912
+         (0, 10, 20, 21, 22) |   1351       381              0.4509
+        (58, 59, 68, 69, 79) |   1362       397              0.3144
+         (0, 10, 20, 21, 30) |   1347       375              0.4727
+        (20, 30, 40, 41, 50) |   1348       375              0.0000
+        (10, 20, 21, 30, 40) |   1342       370              0.6047
+        (43, 44, 53, 54, 64) |   1365       397              0.4192
+        (10, 12, 20, 21, 22) |   1367       398              0.5272
+        (70, 71, 72, 73, 80) |   1396       380              0.4216
+        (30, 40, 41, 50, 51) |   1330       374              0.5574
+        (12, 13, 20, 21, 22) |   1391       403              0.4595
+        (30, 40, 41, 42, 50) |   1361       356              0.5853
+        (45, 46, 55, 56, 66) |   1364       397              0.3649
+        (27, 35, 36, 37, 46) |   1329       356              0.3357
+       (86, 87, 88, 96, 106) |   1344       382              0.3883
+
+BEST: window (10, 20, 21, 30, 40), 370 two-qubit gates, predicted survival 0.6047
+
+submit with:
+  python hardware_run.py --submit --backend ibm_miami --model 4site --initial-layout "10,20,21,30,40"
+(.venv) jiwan@Jiwanui-MacBookAir NTU-IBM-hackthon2026 % python hardware_run.py --submit --backend ibm_miami --model 4site --initial-layout "10,20,21,30,40"
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: extended 4-site side model -- ROBUSTNESS CLAIMS ONLY, not the benchmark, and NOT validated against an exact-spectrum checkpoint like 2site was
+requested initial_layout (sys0..sys3, ancilla): [10, 20, 21, 30, 40]
+compiled initial layout(s): [[10, 20, 21, 30, 40]]
+physical qubits used by 2q gates: [[10, 11, 20, 21, 30, 31, 40]]
+final measurement map(s) cbit->physical: [[[0, 10], [1, 11], [2, 20], [3, 30], [4, 40]]]
+2 circuits (fixed basis), depth 1359, 370 two-qubit gates
+  ibm_miami median 2q error 2.88e-03 -> naive survival (1-p)^370 = 0.343
+
+JOB_ID: d9umcab43mgs73et5th0
+status : QUEUED
+total shots: 4,000
+
+fetch with:  python hardware_run.py --fetch d9umcab43mgs73et5th0
+(.venv) jiwan@Jiwanui-MacBookAir NTU-IBM-hackthon2026 % python layout_search.py --backend ibm_miami --model frozen --candidates 20                    
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: frozen 3-qubit benchmark (CONVENTIONS §2)  (3 system qubits, 4 total)
+backend: ibm_miami  (436 directed coupling edges, median 2q err 2.91e-03)
+
+evaluating 20 candidate windows (greedy, seeded from lowest-error edges)
+
+                      window |  depth  2q gates  predicted survival
+----------------------------------------------------------------------
+           (89, 98, 99, 109) |    301        85              0.8569
+             (0, 10, 20, 21) |    309        84              0.8722
+            (81, 82, 91, 92) |    290        86              0.8232
+        (100, 110, 111, 112) |    314        80              0.8020
+              (0, 1, 10, 20) |    289        82              0.8569
+            (10, 11, 20, 21) |    292        86              0.8882
+               (7, 8, 9, 18) |    299        72              0.9054
+            (10, 20, 21, 22) |    312        80              0.9072
+            (58, 59, 69, 79) |    304        80              0.7677
+            (10, 20, 21, 30) |    293        86              0.8915
+            (30, 40, 41, 50) |    291        86              0.8732
+            (20, 21, 30, 40) |    289        82              0.0000
+            (43, 44, 53, 54) |    291        86              0.8341
+            (12, 20, 21, 22) |    298        84              0.8958
+            (70, 71, 72, 73) |    311        77              0.8616
+          (98, 99, 109, 119) |    301        80              0.8522
+            (40, 41, 50, 51) |    291        86              0.8748
+            (12, 13, 21, 22) |    287        83              0.8421
+            (40, 41, 42, 50) |    293        87              0.8747
+            (45, 55, 56, 66) |    303        84              0.8091
+
+BEST: window (10, 20, 21, 22), 80 two-qubit gates, predicted survival 0.9072
+
+submit with:
+  python hardware_run.py --submit --backend ibm_miami --model frozen --initial-layout "10,20,21,22"
+(.venv) jiwan@Jiwanui-MacBookAir NTU-IBM-hackthon2026 % python hardware_run.py --submit --backend ibm_miami --model frozen --initial-layout "10,20,21,22"
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: frozen 3-qubit benchmark (CONVENTIONS §2)
+requested initial_layout (sys0..sys2, ancilla): [10, 20, 21, 22]
+compiled initial layout(s): [[10, 20, 21, 22]]
+physical qubits used by 2q gates: [[10, 11, 20, 21, 22]]
+final measurement map(s) cbit->physical: [[[0, 20], [1, 10], [2, 11], [3, 22]]]
+2 circuits (fixed basis), depth 295, 82 two-qubit gates
+  ibm_miami median 2q error 2.88e-03 -> naive survival (1-p)^82 = 0.789
+
+JOB_ID: d9umcld35hes73fk4g0g
+status : QUEUED
+total shots: 4,000
+
+fetch with:  python hardware_run.py --fetch d9umcld35hes73fk4g0g
+(.venv) jiwan@Jiwanui-MacBookAir NTU-IBM-hackthon2026 % python layout_search.py --backend ibm_kingston --model 2site --candidates 20
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: reduced 2-site side model -- robustness claims only  (2 system qubits, 3 total)
+backend: ibm_kingston  (352 directed coupling edges, median 2q err 2.08e-03)
+
+evaluating 20 candidate windows (greedy, seeded from lowest-error edges)
+
+                      window |  depth  2q gates  predicted survival
+----------------------------------------------------------------------
+                (19, 34, 35) |     68        16              0.9815
+             (125, 126, 127) |     58        13              0.9870
+             (140, 141, 142) |     58        13              0.9866
+             (151, 152, 153) |     58        13              0.9864
+                (10, 11, 12) |     58        13              0.9835
+             (101, 102, 116) |     55        11              0.9869
+                (21, 22, 36) |     54        11              0.9867
+                (55, 59, 75) |     58        13              0.9812
+                (72, 73, 74) |     58        13              0.9823
+               (83, 96, 103) |     58        13              0.9852
+                (89, 90, 91) |     58        13              0.9828
+                (92, 93, 94) |     58        13              0.9824
+             (122, 123, 124) |     58        13              0.9841
+             (107, 108, 109) |     58        13              0.9802
+                (80, 81, 82) |     58        13              0.9821
+              (97, 106, 107) |     68        16              0.9775
+             (138, 151, 152) |     58        13              0.9849
+                (90, 91, 98) |     58        13              0.9814
+             (126, 127, 137) |     58        13              0.9849
+             (100, 101, 116) |     58        13              0.9845
+
+BEST: window (125, 126, 127), 13 two-qubit gates, predicted survival 0.9870
+
+submit with:
+  python hardware_run.py --submit --backend ibm_kingston --model 2site --initial-layout "125,126,127"
+(.venv) jiwan@Jiwanui-MacBookAir NTU-IBM-hackthon2026 % python hardware_run.py --submit --backend ibm_kingston --model 2site --initial-layout "125,126,127"
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: reduced 2-site side model -- ROBUSTNESS CLAIMS ONLY, not the benchmark
+requested initial_layout (sys0..sys1, ancilla): [125, 126, 127]
+compiled initial layout(s): [[125, 126, 127]]
+physical qubits used by 2q gates: [[125, 126, 127]]
+final measurement map(s) cbit->physical: [[[0, 125], [1, 126], [2, 127]]]
+2 circuits (fixed basis), depth 59, 13 two-qubit gates
+  ibm_kingston median 2q error 1.99e-03 -> naive survival (1-p)^13 = 0.974
+
+JOB_ID: d9umfoou5hac73ahduog
+status : QUEUED
+total shots: 4,000
+
+fetch with:  python hardware_run.py --fetch d9umfoou5hac73ahduog
+(.venv) jiwan@Jiwanui-MacBookAir NTU-IBM-hackthon2026 % python layout_search.py --backend ibm_miami --model 2site --candidates 20                
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: reduced 2-site side model -- robustness claims only  (2 system qubits, 3 total)
+backend: ibm_miami  (436 directed coupling edges, median 2q err 2.91e-03)
+
+evaluating 20 candidate windows (greedy, seeded from lowest-error edges)
+
+                      window |  depth  2q gates  predicted survival
+----------------------------------------------------------------------
+                (89, 98, 99) |     66        16              0.9572
+                (10, 20, 21) |     64        15              0.9814
+                (81, 91, 92) |     63        15              0.9666
+                 (0, 10, 20) |     58        13              0.9854
+             (100, 110, 111) |     63        15              0.9605
+                  (0, 1, 10) |     54        11              0.9868
+                (11, 20, 21) |     65        16              0.9735
+                   (7, 8, 9) |     58        13              0.9835
+                (20, 21, 22) |     58        13              0.9853
+                (59, 69, 79) |     58        13              0.9789
+                (20, 21, 30) |     55        11              0.9875
+                (40, 41, 50) |     55        11              0.9855
+                (20, 30, 40) |     58        13              0.9828
+                (43, 44, 53) |     53        11              0.9825
+                (12, 21, 22) |     66        16              0.9689
+                (70, 71, 72) |     58        13              0.9766
+              (99, 109, 119) |     58        13              0.9782
+                (40, 41, 51) |     58        13              0.9806
+                (12, 13, 22) |     55        11              0.9821
+                (40, 41, 42) |     58        13              0.9802
+
+BEST: window (20, 21, 30), 11 two-qubit gates, predicted survival 0.9875
+
+submit with:
+  python hardware_run.py --submit --backend ibm_miami --model 2site --initial-layout "20,21,30"
+(.venv) jiwan@Jiwanui-MacBookAir NTU-IBM-hackthon2026 % python hardware_run.py --submit --backend ibm_miami --model 2site --initial-layout "20,21,30"
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: reduced 2-site side model -- ROBUSTNESS CLAIMS ONLY, not the benchmark
+requested initial_layout (sys0..sys1, ancilla): [20, 21, 30]
+compiled initial layout(s): [[20, 21, 30]]
+physical qubits used by 2q gates: [[20, 21, 30, 31]]
+final measurement map(s) cbit->physical: [[[0, 20], [1, 30], [2, 31]]]
+2 circuits (fixed basis), depth 52, 13 two-qubit gates
+  ibm_miami median 2q error 2.88e-03 -> naive survival (1-p)^13 = 0.963
+
+JOB_ID: d9umg0gu5hac73ahdv10
+status : QUEUED
+total shots: 4,000
+
+fetch with:  python hardware_run.py --fetch d9umg0gu5hac73ahdv10
+(.venv) jiwan@Jiwanui-MacBookAir NTU-IBM-hackthon2026 % python hardware_run.py --fetch d9umbk498n5s739327k0
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: extended 4-site side model -- ROBUSTNESS CLAIMS ONLY, not the benchmark, and NOT validated against an exact-spectrum checkpoint like 2site was
+basis mode: FIXED basis
+job d9umbk498n5s739327k0 on ibm_kingston: DONE
+
+  hardware chi(0.9) = +0.2680 -0.2910j  (sem 0.0215, 0.0214)
+  exact    chi(0.9) = +0.5560 -0.3800j
+  deviation: 13.4 sigma (re), 4.2 sigma (im)
+  SIGNAL SURVIVAL |chi_hw|/|chi_exact| = 0.587
+
+  system observables NOT reported: this job used a single fixed basis, for
+  which the shadow estimator is not unbiased (BUGLOG B04). Re-run with
+  --shadow for a valid <Q>.
+
+  Report robustness claims only. The exact path is shallower purely because
+  n is small (O(4^n) synthesis); that advantage inverts as n grows.

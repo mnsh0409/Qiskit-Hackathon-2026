@@ -88,3 +88,38 @@ fig.tight_layout(rect=(0, 0, 1, 0.94))
 fig.savefig("/home/martin/Documents/QiskitHackathon/2026/deck/fig_ablation.png",
             dpi=200, bbox_inches="tight")
 print("wrote deck/fig_ablation.png")
+
+# ---------------- chart 3: direct-Z vs shadow (R039) ----------------
+import json as _json
+d = _json.load(open("/home/martin/Documents/QiskitHackathon/2026/evidence/direct_z_ablation.json"))
+fig, (axL, axR) = plt.subplots(1, 2, figsize=(11.4, 4.2))
+
+axL.bar([0, 1], [d["sem_q_direct"], d["sem_q_shadow"]], color=[COL["aqua"], COL["blue"]], width=0.55)
+axL.set_xticks([0, 1]); axL.set_xticklabels(["direct Z\n(1 circuit/setting)", "shadow\n(up to 27)"])
+axL.set_ylabel("mean sem on $\\chi_Q$")
+axL.set_title("Symmetry channel: direct Z is CHEAPER", fontsize=13, pad=10)
+for i, v in enumerate([d["sem_q_direct"], d["sem_q_shadow"]]):
+    axL.annotate(f"{v:.4f}", (i, v), ha="center", va="bottom", fontsize=12.5, weight="bold",
+                 color=COL["ink"])
+axL.annotate(f"{d['shadow_premium']:.2f}$\\times$ premium", (0.5, d["sem_q_shadow"]*0.55),
+             ha="center", fontsize=12, color=COL["ink"], weight="bold")
+axL.set_ylim(0, d["sem_q_shadow"]*1.35); style(axL)
+
+ts = [r["t"] for r in d["H_drift"]]
+axR.axhline(d["H_drift"][0]["H_exact"], color=COL["aqua"], lw=2.4, label="$\\langle H\\rangle$ exact (conserved)")
+axR.plot(ts, [r["H_zdiag"] for r in d["H_drift"]], "o-", color=COL["orange"], lw=2, ms=6,
+         label="$\\langle H\\rangle$ a Z-only experiment sees")
+axR.fill_between(ts, [r["H_exact"] for r in d["H_drift"]], [r["H_zdiag"] for r in d["H_drift"]],
+                 color=COL["orange"], alpha=0.15)
+axR.set_xlabel("t"); axR.set_ylabel("$\\langle H\\rangle$")
+axR.set_title("...but it cannot see 4 of 9 terms of $H$", fontsize=13, pad=10)
+axR.legend(frameon=False, fontsize=10.5, loc="upper right")
+axR.annotate(f"drifts by up to {d['max_gap']:.3f}\non a CONSERVED quantity",
+             (4.2, 0.13), fontsize=11, color=COL["ink"], ha="center")
+style(axR)
+fig.suptitle("Why classical shadows: not better symmetry resolution — everything else",
+             fontsize=14, color=COL["ink"])
+fig.tight_layout(rect=(0, 0, 1, 0.93))
+fig.savefig("/home/martin/Documents/QiskitHackathon/2026/deck/fig_direct_z.png",
+            dpi=200, bbox_inches="tight")
+print("wrote deck/fig_direct_z.png")

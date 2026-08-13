@@ -185,6 +185,20 @@
   \src{R011, R012, R021, R030}
 \end{frame}
 
+% ------------------------------------------------------------------ 6b  MOTIVATION
+\begin{frame}{Do you even need shadows? We checked --- and the answer is nuanced}
+  \centering
+  \includegraphics[width=0.92\linewidth]{fig_direct_z.png}\\
+  \smallskip
+  \small
+  $Q=\sum_j Z_j$ is \emph{diagonal} in the computational basis, so a plain Z readout measures
+  it directly --- \bad{1.56$\times$ cheaper} than our shadow estimator. \src{R039}
+  \\[0.2em]
+  But a Z-only experiment sees \bad{5 of 9} terms of $H$; the 4 it misses are the hopping
+  terms, each with the \emph{largest} coefficient. $\langle H\rangle$ is conserved --- yet
+  what it reports \bad{drifts by 0.147}, and it has no second channel to notice.
+\end{frame}
+
 % ------------------------------------------------------------------ 7
 \begin{frame}{It survives on real hardware once the circuit is shallow enough}
   \begin{columns}[T]

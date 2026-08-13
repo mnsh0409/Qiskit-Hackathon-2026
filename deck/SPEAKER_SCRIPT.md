@@ -117,7 +117,7 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 > Everything is public and reproducible.
 > Our repository has pinned versions, a summary file you can compare against your own run,
-> and thirty-three results rows.
+> and thirty-six results rows.
 > Every single number maps to the exact command that produced it.
 > You can reproduce our main figure in under five minutes, from saved data.
 > If you have quantum hardware access, three commands reproduce our hardware results.

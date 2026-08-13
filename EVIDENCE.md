@@ -90,10 +90,11 @@ C4's brief (b) requires re-deriving ratios and CI widths from raw numbers. The o
    256,000-shot record set (CONVENTIONS §5). The 12-seed study (3,072,000 shots), scaling
    study, noise study and ablation arms are *separately declared*. Any slide saying
    "we used N shots" must say which N it means.
-4. **Hardware now spans 8 jobs** across the frozen benchmark, a 2-site side model, and a
-   4-site side model (R008, R018 x3, R023, R026 + 2 accidental/incidental submissions in
-   BUGLOG B05). All of it supports robustness claims only, never a Part A/B headline — the
-   Part A/B numbers are 100% simulator (R009-R022).
+4. **Hardware spans 13 jobs total** — 7 on our own account (R008; R018 x3; R023; R026; plus
+   one accidental 2-shot submission logged in BUGLOG B05) and 6 run independently by a
+   teammate on a different account, including `ibm_miami` which we cannot reach (R031).
+   All of it supports robustness claims only, never a Part A/B headline — the Part A/B
+   numbers are 100% simulator (R009-R022).
 5. **Going-further: 4 of 18 items have real, committed results** (R027 rank selection —
    honest negative, the derived criterion does NOT beat the magic number here; R028
    correlation/correlated bootstrap — clean, ~20% tighter q uncertainty; R029 variance

@@ -116,7 +116,7 @@ claim appears; no causal claims from single hardware runs (slide 6 states the ca
 
 *Figure: repo QR code + `README.md` quickstart screenshot — TBD-NAME to generate*
 
-- Public repo: pinned environment, `run_summary.json` a judge can diff, 33 sourced results
+- Public repo: pinned environment, `run_summary.json` a judge can diff, 36 sourced results
   rows, and an `EVIDENCE.md` mapping every number to its producing command.
 - Quickstart reproduces the money plot **from saved data** — no long reruns.
 - `hardware_run.py` lets anyone with QPU access reproduce our hardware arm in 3 commands.

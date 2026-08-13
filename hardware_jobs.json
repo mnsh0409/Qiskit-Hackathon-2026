@@ -1,0 +1,252 @@
+{
+  "d9u95vs98n5s7392iao0": {
+    "model": "frozen",
+    "shadow": false,
+    "t": 0.9,
+    "reps": 1,
+    "shots": 2000,
+    "n": 3,
+    "plan": [
+      [
+        0,
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      [
+        1,
+        [
+          0,
+          1,
+          2
+        ]
+      ]
+    ],
+    "method": "trotter",
+    "backend": "ibm_marrakesh"
+  },
+  "d9ujlb0u5hac73ahadu0": {
+    "model": "frozen",
+    "shadow": false,
+    "t": 0.9,
+    "reps": 1,
+    "shots": 2000,
+    "n": 3,
+    "plan": [
+      [
+        0,
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      [
+        1,
+        [
+          0,
+          1,
+          2
+        ]
+      ]
+    ],
+    "method": "exact",
+    "backend": "ibm_kingston"
+  },
+  "d9ujlc0u5hac73ahadvg": {
+    "model": "frozen",
+    "shadow": false,
+    "t": 0.9,
+    "reps": 1,
+    "shots": 2000,
+    "n": 3,
+    "plan": [
+      [
+        0,
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      [
+        1,
+        [
+          0,
+          1,
+          2
+        ]
+      ]
+    ],
+    "method": "exact",
+    "backend": "ibm_marrakesh"
+  },
+  "d9ujld498n5s7392uqeg": {
+    "model": "frozen",
+    "shadow": false,
+    "t": 0.9,
+    "reps": 1,
+    "shots": 2000,
+    "n": 3,
+    "plan": [
+      [
+        0,
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      [
+        1,
+        [
+          0,
+          1,
+          2
+        ]
+      ]
+    ],
+    "method": "trotter",
+    "backend": "ibm_kingston"
+  },
+  "d9uk99k98n5s7392vhsg": {
+    "model": "2site",
+    "shadow": true,
+    "t": 0.9,
+    "method": "exact",
+    "reps": 1,
+    "shots": 2000,
+    "backend": "ibm_kingston",
+    "n": 2,
+    "plan": [
+      [
+        0,
+        [
+          0,
+          0
+        ]
+      ],
+      [
+        0,
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        0,
+        [
+          0,
+          2
+        ]
+      ],
+      [
+        0,
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        0,
+        [
+          1,
+          1
+        ]
+      ],
+      [
+        0,
+        [
+          1,
+          2
+        ]
+      ],
+      [
+        0,
+        [
+          2,
+          0
+        ]
+      ],
+      [
+        0,
+        [
+          2,
+          1
+        ]
+      ],
+      [
+        0,
+        [
+          2,
+          2
+        ]
+      ],
+      [
+        1,
+        [
+          0,
+          0
+        ]
+      ],
+      [
+        1,
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        1,
+        [
+          0,
+          2
+        ]
+      ],
+      [
+        1,
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        1,
+        [
+          1,
+          1
+        ]
+      ],
+      [
+        1,
+        [
+          1,
+          2
+        ]
+      ],
+      [
+        1,
+        [
+          2,
+          0
+        ]
+      ],
+      [
+        1,
+        [
+          2,
+          1
+        ]
+      ],
+      [
+        1,
+        [
+          2,
+          2
+        ]
+      ]
+    ]
+  }
+}

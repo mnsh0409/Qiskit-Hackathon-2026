@@ -12,37 +12,51 @@ so this script cannot drift from the graded code.
     python -c "from qiskit_ibm_runtime import QiskitRuntimeService as S; \
                S.save_account(channel='ibm_cloud', token='YOUR_TOKEN', overwrite=True)"
 
-    python hardware_run.py --list                          # what can you reach?
-    python hardware_run.py --submit --backend ibm_nighthawk
+    python hardware_run.py --list
+    python hardware_run.py --submit --backend ibm_nighthawk                 # chi only, 2 circuits
+    python hardware_run.py --submit --backend ibm_nighthawk --model 2site --shadow
     python hardware_run.py --fetch <JOB_ID>
 
-Defaults reproduce our reference point exactly (t=0.9, both quadratures,
-basis [X,Y,Z], 2000 shots/circuit, optimization_level=1) so results are
-directly comparable to RESULTS.md rows R008 and R018.
+TWO MODES, and the difference matters (see BUGLOG B04):
+
+  default (fixed basis) -- 2 circuits. Estimates chi(t) ONLY. The shadow estimator
+      3^w prod(s_j) 1[b_j == P_j] is unbiased only for i.i.d.-uniform bases; with a
+      single fixed basis the indicator is deterministic and system observables come
+      out as a different quantity entirely. This script REFUSES to report them.
+
+  --shadow (balanced ensemble) -- 3^n bases x 2 quadratures, equal shots each. The
+      empirical basis distribution is then exactly uniform, so system observables
+      (<Q>, <H>, ...) are valid. At n=2 that is only 9x2 = 18 circuits, which is why
+      --model 2site is the cheap way to get a genuine shadow result on hardware.
+
+MODELS:
+  frozen  -- the 3-qubit benchmark of CONVENTIONS §2 (4 qubits with the ancilla)
+  2site   -- a reduced 2-qubit instance (3 qubits total). NOT the frozen benchmark;
+             a separate side model, for ROBUSTNESS CLAIMS ONLY. Going-further
+             robustness item 4 asks for exactly this.
 """
 from __future__ import annotations
 
 import argparse
+import itertools
 import json
 import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 NOTEBOOK = os.path.join(HERE, "shadow_hadamard_challenge_PARTICIPANT.ipynb")
+JOBDB = os.path.join(HERE, "hardware_jobs.json")
 
-# Definition cells pulled from the notebook, in order. Each entry is a marker that
-# must appear in the cell, plus an optional string at which to truncate the cell so
-# its expensive/plotting driver tail is not executed.
 NEEDED = [
-    ("import qiskit", None),                       # imports
-    ("BUDGET =", None),                            # budget constants, SEED
-    ("def check(", None),                          # check(), sub_seed()
-    ("def benchmark_hamiltonian", None),           # HAM, CHARGE, prep, PHI_RE/PHI_IM
-    ("def exact_chi_O", None),                     # exact references (evaluation only)
-    ("def build_controlled_evolution", None),      # Challenge 1
-    ("def build_shadow_hadamard_circuit", "\ndemo = "),   # Challenge 2 (strip the drawing)
-    ("def parse_memory", None),                    # Challenge 3
-    ("def pauli_snapshot_values", None),           # Challenge 4 estimators
+    ("import qiskit", None),
+    ("BUDGET =", None),
+    ("def check(", None),
+    ("def benchmark_hamiltonian", None),
+    ("def exact_chi_O", None),
+    ("def build_controlled_evolution", None),
+    ("def build_shadow_hadamard_circuit", "\ndemo = "),
+    ("def parse_memory", None),
+    ("def pauli_snapshot_values", None),
 ]
 
 
@@ -57,8 +71,8 @@ def load_notebook_definitions(verbose: bool = True) -> dict:
     nb = json.load(open(NOTEBOOK, encoding="utf-8"))
     code = [("".join(c["source"])) for c in nb["cells"] if c["cell_type"] == "code"]
 
-    # A real module object, registered in sys.modules: @dataclass resolves annotations
-    # via sys.modules[cls.__module__], so a bare dict would raise AttributeError.
+    # A real module object registered in sys.modules: @dataclass resolves annotations via
+    # sys.modules[cls.__module__], so a bare dict raises AttributeError.
     mod = types.ModuleType("_nb_defs")
     sys.modules["_nb_defs"] = mod
     ns = mod.__dict__
@@ -69,12 +83,40 @@ def load_notebook_definitions(verbose: bool = True) -> dict:
         if not hits:
             sys.exit(f"notebook cell containing {marker!r} not found -- notebook changed?")
         body = hits[0].split(cut)[0] if cut else hits[0]
-        with contextlib.redirect_stdout(buf):          # the cells print banners; hush them
+        with contextlib.redirect_stdout(buf):
             exec(compile(body, f"<nb:{marker}>", "exec"), ns)
     if verbose:
         print(f"loaded notebook definitions ({ns['N_SYS']} system qubits + 1 ancilla, "
               f"seed {ns['SEED']})")
     return ns
+
+
+def get_model(ns: dict, name: str):
+    """-> (n_sys, H, Q, prep, psi, label). 'frozen' is the graded benchmark."""
+    import numpy as np
+    if name == "frozen":
+        return (ns["N_SYS"], ns["HAM"], ns["CHARGE"], None, ns["PSI"],
+                "frozen 3-qubit benchmark (CONVENTIONS §2)")
+    if name == "2site":
+        SPO, QC, SV = ns["SparsePauliOp"], ns["QuantumCircuit"], ns["Statevector"]
+        n = 2
+        H = SPO.from_sparse_list(
+            [("XX", [0, 1], 0.65), ("YY", [0, 1], 0.65), ("ZZ", [0, 1], 0.25),
+             ("Z", [0], 0.40), ("Z", [1], -0.50)], num_qubits=n).simplify()
+        Q = SPO.from_sparse_list([("Z", [j], 1.0) for j in range(n)], num_qubits=n)
+        prep = QC(n, name="prep"); prep.ry(1.3, 0)
+        return (n, H, Q, prep, np.asarray(SV(prep).data),
+                "reduced 2-site side model -- ROBUSTNESS CLAIMS ONLY, not the benchmark")
+    sys.exit(f"unknown model {name!r}")
+
+
+def _jobdb(update: dict | None = None) -> dict:
+    db = json.load(open(JOBDB)) if os.path.exists(JOBDB) else {}
+    if update:
+        db.update(update)
+        with open(JOBDB, "w") as fh:
+            json.dump(db, fh, indent=2)
+    return db
 
 
 def cmd_list(_args) -> None:
@@ -100,29 +142,40 @@ def cmd_submit(args) -> None:
     import numpy as np
 
     ns = load_notebook_definitions()
+    n, H, Q, prep, psi, label = get_model(ns, args.model)
+    print(f"model: {label}")
+
+    bases = ([list(b) for b in itertools.product(range(3), repeat=n)] if args.shadow
+             else [[0, 1, 2][:n]])
+    phis = [ns["PHI_RE"], ns["PHI_IM"]]
+    plan = [(pi, b) for pi in range(2) for b in bases]           # submission order
+    circs = [ns["build_shadow_hadamard_circuit"](H, args.t, phis[pi], basis=b, prep=prep,
+                                                 method=args.method, reps=args.reps)
+             for pi, b in plan]
+
     svc = QiskitRuntimeService()
     backend = svc.backend(args.backend)
-
-    circs = [ns["build_shadow_hadamard_circuit"](ns["HAM"], args.t, phi,
-                                                 basis=[0, 1, 2], method=args.method, reps=args.reps)
-             for phi in (ns["PHI_RE"], ns["PHI_IM"])]
     isa = transpile(circs, backend=backend, optimization_level=args.opt, seed_transpiler=1234)
-    ops = isa[0].count_ops()
-    twoq = sum(v for k, v in ops.items() if k in ("cz", "cx", "ecr"))
-
-    print(f"backend {backend.name}: depth {isa[0].depth()}, {twoq} two-qubit gates")
+    twoq = max(sum(v for k, v in c.count_ops().items() if k in ("cz", "cx", "ecr")) for c in isa)
+    print(f"{len(circs)} circuits ({'balanced shadow ensemble' if args.shadow else 'fixed basis'}), "
+          f"depth {max(c.depth() for c in isa)}, {twoq} two-qubit gates")
     try:
         props = backend.properties()
         e2 = [props.gate_error(g.gate, g.qubits) for g in props.gates if len(g.qubits) == 2]
         e2 = [e for e in e2 if e is not None and e < 1]
         if e2:
-            print(f"  median 2q error {np.median(e2):.2e} -> naive survival estimate "
-                  f"(1-p)^{twoq} = {(1 - np.median(e2)) ** twoq:.3f}")
+            print(f"  {backend.name} median 2q error {np.median(e2):.2e} -> naive survival "
+                  f"(1-p)^{twoq} = {(1-np.median(e2))**twoq:.3f}")
     except Exception:
         pass
 
     job = SamplerV2(mode=backend).run(isa, shots=args.shots)
+    _jobdb({job.job_id(): dict(model=args.model, shadow=bool(args.shadow), t=args.t,
+                               method=args.method, reps=args.reps, shots=args.shots,
+                               backend=backend.name, n=n,
+                               plan=[[pi, b] for pi, b in plan])})
     print(f"\nJOB_ID: {job.job_id()}\nstatus : {job.status()}")
+    print(f"total shots: {len(circs) * args.shots:,}")
     print(f"\nfetch with:  python {os.path.basename(__file__)} --fetch {job.job_id()}")
 
 
@@ -130,7 +183,16 @@ def cmd_fetch(args) -> None:
     from qiskit_ibm_runtime import QiskitRuntimeService
     import numpy as np
 
+    meta = _jobdb().get(args.fetch)
+    if meta is None:
+        sys.exit(f"job {args.fetch} not in {JOBDB}. It was submitted by a different copy of "
+                 f"this script; re-run --submit or add its metadata by hand.")
+
     ns = load_notebook_definitions()
+    n, H, Q, prep, psi, label = get_model(ns, meta["model"])
+    print(f"model: {label}")
+    print(f"basis mode: {'balanced shadow ensemble' if meta['shadow'] else 'FIXED basis'}")
+
     svc = QiskitRuntimeService()
     job = svc.job(args.fetch)
     print(f"job {args.fetch} on {job.backend().name}: {job.status()}")
@@ -138,28 +200,41 @@ def cmd_fetch(args) -> None:
         sys.exit("job not finished yet")
     res = job.result()
 
-    bits = [res[i].data.c.get_bitstrings() for i in (0, 1)]
-    recs = []
-    for i, phi in enumerate((ns["PHI_RE"], ns["PHI_IM"])):
-        outc, anc = ns["parse_memory"](bits[i], ns["N_SYS"])
-        recs.append(ns["ShadowRecords"](t=args.t, phi=phi,
-                                        bases=np.tile([0, 1, 2], (len(anc), 1)),
-                                        outcomes=outc, ancilla=anc, n_circuits=1))
+    phis = [ns["PHI_RE"], ns["PHI_IM"]]
+    acc = {0: dict(b=[], o=[], a=[]), 1: dict(b=[], o=[], a=[])}
+    for idx, (pi, basis) in enumerate(meta["plan"]):
+        outc, anc = ns["parse_memory"](res[idx].data.c.get_bitstrings(), n)
+        acc[pi]["b"].append(np.tile(basis, (len(anc), 1)))
+        acc[pi]["o"].append(outc)
+        acc[pi]["a"].append(anc)
+    recs = [ns["ShadowRecords"](t=meta["t"], phi=phis[pi],
+                                bases=np.concatenate(acc[pi]["b"]),
+                                outcomes=np.concatenate(acc[pi]["o"]),
+                                ancilla=np.concatenate(acc[pi]["a"]),
+                                n_circuits=len(acc[pi]["b"])) for pi in (0, 1)]
 
     chi, s_re, s_im = ns["estimate_hadamard_signal"](*recs)
-    ref = ns["exact_chi"](ns["HAM"], ns["PSI"], [args.t])[0]
-    damp = abs(chi) / abs(ref)
-    print(f"\n  hardware chi({args.t}) = {chi.real:+.4f} {chi.imag:+.4f}j  "
+    ref = ns["exact_chi"](H, psi, [meta["t"]])[0]
+    print(f"\n  hardware chi({meta['t']}) = {chi.real:+.4f} {chi.imag:+.4f}j  "
           f"(sem {s_re:.4f}, {s_im:.4f})")
-    print(f"  exact    chi({args.t}) = {ref.real:+.4f} {ref.imag:+.4f}j")
+    print(f"  exact    chi({meta['t']}) = {ref.real:+.4f} {ref.imag:+.4f}j")
     print(f"  deviation: {abs(chi.real-ref.real)/s_re:.1f} sigma (re), "
           f"{abs(chi.imag-ref.imag)/s_im:.1f} sigma (im)")
-    print(f"  SIGNAL SURVIVAL |chi_hw|/|chi_exact| = {damp:.3f}")
-    print("\n  our reference points (RESULTS.md R008/R018, 3 system qubits):")
-    print("    trotter reps=1, 435 two-qubit gates, ibm_marrakesh : 0.179")
-    print("    exact path,     101 two-qubit gates                : see R018")
-    print("\n  Report robustness claims only. The exact path is shallower purely")
-    print("  because n=3 is small (O(4^n) synthesis); that inverts as n grows.")
+    print(f"  SIGNAL SURVIVAL |chi_hw|/|chi_exact| = {abs(chi)/abs(ref):.3f}")
+
+    if meta["shadow"]:
+        q_hat, q_sem = ns["estimate_system_observable"](recs, Q)
+        q_ref = ns["exact_system_marginal_expectation"](H, psi, Q, meta["t"])
+        print(f"\n  <Q> from shadows = {q_hat:+.4f} +- {q_sem:.4f}   exact {q_ref:+.4f}   "
+              f"({abs(q_hat-q_ref)/q_sem:.1f} sigma)")
+        print(f"  <Q> survival = {q_hat/q_ref:.3f}")
+    else:
+        print("\n  system observables NOT reported: this job used a single fixed basis, for")
+        print("  which the shadow estimator is not unbiased (BUGLOG B04). Re-run with")
+        print("  --shadow for a valid <Q>.")
+
+    print("\n  Report robustness claims only. The exact path is shallower purely because")
+    print("  n is small (O(4^n) synthesis); that advantage inverts as n grows.")
 
 
 def main() -> None:
@@ -169,11 +244,15 @@ def main() -> None:
     p.add_argument("--submit", action="store_true", help="submit a job")
     p.add_argument("--fetch", metavar="JOB_ID", help="fetch and analyse a finished job")
     p.add_argument("--backend", default=None, help="backend name, e.g. ibm_nighthawk")
+    p.add_argument("--model", default="frozen", choices=["frozen", "2site"],
+                   help="frozen = graded 3-qubit benchmark; 2site = reduced side model")
+    p.add_argument("--shadow", action="store_true",
+                   help="balanced 3^n-basis ensemble; REQUIRED for valid system observables")
     p.add_argument("--method", default="exact", choices=["exact", "trotter"],
-                   help="exact = 101 two-qubit gates (recommended); trotter = 435")
-    p.add_argument("--reps", type=int, default=1, help="Trotter repetitions (method=trotter)")
-    p.add_argument("--shots", type=int, default=2000, help="shots per circuit (2 circuits)")
-    p.add_argument("--t", type=float, default=0.9, help="evolution time (default matches R008)")
+                   help="exact is far shallower at these sizes (recommended)")
+    p.add_argument("--reps", type=int, default=1, help="Trotter repetitions")
+    p.add_argument("--shots", type=int, default=2000, help="shots per circuit")
+    p.add_argument("--t", type=float, default=0.9, help="evolution time")
     p.add_argument("--opt", type=int, default=1, help="transpiler optimization_level")
     a = p.parse_args()
 

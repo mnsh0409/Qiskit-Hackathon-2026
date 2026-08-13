@@ -42,6 +42,37 @@ python hardware_run.py --submit --backend ibm_nighthawk  # ~3 s QPU, prints a JO
 python hardware_run.py --fetch <JOB_ID>                  # after it completes
 ```
 
+### The run we'd most like from you
+
+```bash
+python hardware_run.py --submit --backend ibm_nighthawk --model 2site --shadow
+```
+
+That is the **reduced 2-site instance with a full balanced basis ensemble** — 18 circuits,
+36 000 shots, ~30 s of QPU. It is worth more than the default single-point run for two
+reasons:
+
+1. **It is only 15 two-qubit gates** (depth 64), against 101 for the 3-qubit exact path and
+   435 for the Trotter circuit that failed on our hardware. On a device with 2e-3 two-qubit
+   error that predicts ~97% signal survival, i.e. an actually *usable* result.
+2. **It can report a valid system observable.** At n=2 the whole shadow ensemble is just
+   3²=9 bases, so ⟨Q⟩ comes out unbiased. Every fixed-basis job — including all of ours so
+   far — can only legitimately report χ (see below).
+
+If you have QPU time for exactly one thing, run that.
+
+### ⚠️ Fixed basis vs shadow ensemble (BUGLOG B04 — we got this wrong once)
+
+The shadow estimator `3^w ∏s_j 1[b_j = P_j]` is unbiased **only** for i.i.d.-uniform bases;
+that random draw is what the 3^w factor compensates for. With a single fixed basis the
+indicator becomes deterministic and non-matching Pauli terms contribute structurally zero,
+so the estimator silently returns a *different observable*. We reported a ⟨Q⟩ from
+fixed-basis hardware data and attributed the discrepancy to noise; on a noiseless simulator
+the same code is 65σ off, so it was never a noise effect at all.
+
+`hardware_run.py` now refuses to print system observables unless `--shadow` was used. Please
+don't work around that guard.
+
 That's everything. `hardware_run.py` executes the circuit builder, memory parser and
 estimators **straight out of the graded notebook**, so it cannot drift from our code — it
 reimplements no physics. Defaults reproduce our reference point exactly (t=0.9, both

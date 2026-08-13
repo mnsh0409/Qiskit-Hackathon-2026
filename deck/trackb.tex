@@ -299,21 +299,23 @@ and a way to certify the result from its own garbage}
 
 \begin{frame}{The trap: a phase-blind compiler breaks a phase interferometer}
   \small
-  \texttt{qiskit-addon-aqc-tensor} maximises \hl{state fidelity}
-  $|\langle\psi_{\rm target}|\psi_{\rm ansatz}\rangle|$ --- a \emph{magnitude}, blind to
-  global phase. A Hadamard test measures \bad{exactly that phase}. So a compression that
-  converges beautifully (state infidelity $3\times10^{-4}$) returns
-  \[
-    W|\psi\rangle = e^{i\theta}\,U|\psi\rangle,\qquad
-    \theta \approx 2.3\text{--}3.0\ \text{rad}
-    \quad\Longrightarrow\quad |\Delta\chi| \approx 1.3
-  \]
-  on a quantity bounded by $|\chi|\leq1$. \bad{The error is as large as the signal.}
-  \medskip
+  \texttt{qiskit-addon-aqc-tensor} maximises \hl{state fidelity} --- a \emph{magnitude},
+  blind to global phase. A Hadamard test measures \bad{exactly that phase}. So a compression
+  converging beautifully (state infidelity $3\times10^{-4}$) returns
+  $W|\psi\rangle = e^{i\theta}U|\psi\rangle$ with $\theta\approx2.3$--$3.0$ rad, i.e.
+  \bad{$|\Delta\chi|\approx1.3$} on a quantity bounded by $|\chi|\leq1$ --- an error as
+  large as the signal.
+  \smallskip
 
   \textbf{Why we nearly missed it.} Our earlier certificate reported
   $|\chi_{AB}|$ --- also a magnitude. A magnitude cannot detect a phase error.
   \src{R035, now closed by R046}
+  \par\smallskip
+  \textbf{And it is not only a compiler problem.} Re-reading our teammates'
+  \texttt{ibm\_miami} run: $|\chi|$ survival \good{0.988} --- a near-perfect-looking
+  number --- while the \emph{complex} $\chi$ is \bad{$22.6\sigma$ off}, a $0.77$\,rad phase
+  error. A magnitude-only figure of merit is structurally blind to what a Hadamard test
+  actually measures. \src{R053}
   \medskip
 
   \begin{center}
@@ -324,13 +326,11 @@ and a way to certify the result from its own garbage}
   \smallskip
 
   {\scriptsize\color{orangeA}\textbf{Scope, not buried.} (i) AQC is compressed against
-  \emph{one} input state, so its \emph{process} infidelity is large ($\sim\!0.96$) ---
-  legitimate here, since a Hadamard test's controlled gate only ever acts on that one state,
-  and illegitimate the moment anything feeds it another. \src{R046}
-  (ii) On the \textbf{2D Fermi--Hubbard} model the gate win survives ($34.7\times$ at 8
-  qubits) but accuracy degrades $\sim\!30\times$: $|\Delta\chi|$ after the phase fix rises to
-  $0.021$--$0.046$, at or above the $\sim\!0.02$ shot-noise floor at 2000 shots. There the
-  compression is cheap but \emph{not yet accurate enough to use as-is}. \src{R051}}
+  \emph{one} input state (process infidelity $\sim\!0.96$) --- legitimate for a Hadamard
+  test, illegitimate the moment anything feeds it another. \src{R046}
+  (ii) On \textbf{2D Fermi--Hubbard} the gate win survives ($34.7\times$) but accuracy
+  degrades $\sim\!30\times$, to at or above the shot-noise floor: cheap, not yet accurate
+  enough to use as-is. \src{R051}}
 \end{frame}
 
 % ==================================================================

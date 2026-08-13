@@ -3,3 +3,11 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 apikey.json
+
+# LaTeX build artefacts
+deck/*.aux
+deck/*.log
+deck/*.nav
+deck/*.out
+deck/*.snm
+deck/*.toc

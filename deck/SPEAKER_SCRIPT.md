@@ -1,10 +1,19 @@
 # Speaker script — Topic 5
 
+> **SYNC WARNING (2026-08-13).** This document describes the earlier **10-slide** cut.
+> `slides.tex` / `slides.pdf` is now the authority: 24 main pages + 5 backup, organised into
+> five sections with an outline and section-divider pages. Content slides present in the PDF
+> but **not** written up here: *The protocol, in the authors' own picture* (paper Fig. 1),
+> *What a classical shadow actually is*, *The benchmark: three spins*, *What each choice
+> actually buys*, *Do you even need shadows?*, *What the shadow inversion actually
+> contributes*, *Which protocol can rebuild which observable?*.
+> Cross-references below use slide **titles**, not numbers, because the numbering has moved.
+
 **Written per `deck_arc.md` script rules:** short declarative sentences for non-native
 English speakers, phonetic hints on hard terms, per-member allocation, timed with slack.
 
 **Target: 10 minutes of speech + 10% slack.** Times below sum to **8:50**, leaving a
-70-second buffer. If you are running long, cut slide 9's second bullet and backup slides.
+70-second buffer. If you are running long, cut the second bullet of "What we could not do" and backup slides.
 
 **Pronunciation hints**
 - *ancilla* — an-SIL-la
@@ -68,7 +77,7 @@ If asked something not on a slide, say "that is in our results file, I can show 
 > two six seven.
 > And here is the point. These came from the qubits the standard method throws away.
 > No extra circuits, just a few extra single-qubit gates. There is a statistical cost too,
-> and we quantify it on slide seven.
+> and we quantify it later in the talk.
 
 ---
 
@@ -214,3 +223,23 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 **Total 8:50** — buffer to 10:00. Rehearse once with a timer; non-native speakers should
 read slower than feels natural.
+
+### The 8:50 above is STALE and will overrun — re-time before rehearsing
+
+That table covers 10 content slides. The PDF now has **15** content slides plus an outline
+and 5 section dividers. The seven not timed above are: *paper Fig. 1*, *what a classical
+shadow is*, *the benchmark model*, *what each choice buys*, *four ways to treat the garbage*,
+*what the inversion contributes*, *which protocol rebuilds which observable*.
+
+At the script's own pace that is roughly **+3:30 to +4:00**, i.e. a ~12:30 talk against a
+10:00 limit. **Someone must decide what to cut**, not discover it on stage. Cheapest cuts,
+in order:
+
+1. Drop the section-divider pages (they are `\AtBeginSection`; deleting that block removes
+   all five at once) — saves ~25 s and 5 pages.
+2. Move *what the inversion contributes* and *four ways to treat the garbage* to backup —
+   the observable table already carries the conclusion.
+3. Show the paper Fig. 1 slide silently while speaking the hook, rather than narrating it.
+
+Do **not** cut the benchmark-model slide: the observable table on
+*which protocol rebuilds which observable* refers back to its hopping term.

@@ -44,11 +44,38 @@
 \tiny after Faehrmann, Eisert \& Kueng, \emph{PRL} \textbf{135}, 150603 (2025)}
 \date{\small 14 August 2026}
 
+% section dividers: a "where are we" page before every section
+\setbeamercolor{section in toc}{fg=ink}
+\setbeamercolor{section in toc shaded}{fg=mutedA}
+\setbeamerfont{section in toc}{size=\large,series=\bfseries}
+\setbeamerfont{section in toc shaded}{size=\large,series=\mdseries}
+\setbeamertemplate{section in toc shaded}[default][55]
+\AtBeginSection[]{%
+  \begin{frame}[plain]
+    \vfill
+    \centering
+    \begin{minipage}{0.72\textwidth}
+      \tableofcontents[currentsection, sectionstyle=show/shaded, hideallsubsections]
+    \end{minipage}
+    \vfill
+  \end{frame}}
+
 \begin{document}
 
 \begin{frame}[plain]
   \titlepage
 \end{frame}
+
+\begin{frame}{Outline}
+  \begin{minipage}{0.8\textwidth}
+    \tableofcontents[hideallsubsections]
+  \end{minipage}
+  \vfill
+  {\footnotesize\color{mutedA} Every number on these slides carries the
+  \texttt{RESULTS.md} row that produced it, shown as \src{R0xx}.}
+\end{frame}
+
+\section{The garbage state}
 
 % ------------------------------------------------------------------ 1
 \begin{frame}{Every Hadamard test throws away half its data}
@@ -65,12 +92,46 @@
       We implement this end to end, validate every estimate against exact references,
       \emph{quantify what it costs}, and characterise where it breaks.
     \end{column}
-    \begin{column}{0.44\textwidth}
+    \begin{column}{0.46\textwidth}
       \centering
       \includegraphics[width=\linewidth]{../figures/03_circuit_phi_0_real.png}\\
       \tiny\color{mutedA} 3 system qubits $+$ 1 ancilla
     \end{column}
   \end{columns}
+\end{frame}
+
+% ------------------------------------------------------------------ 1b  PAPER FIG 1
+\begin{frame}{The protocol, in the authors' own picture}
+  \vspace{-1mm}
+  \begin{center}
+    \includegraphics[width=0.93\linewidth]{fig_paper_fig1.png}
+  \end{center}
+  \vspace{-1mm}
+  {\footnotesize
+  \textbf{Left:} the standard test --- $V$ prepares, $c\text{-}U$ evolves, $P(\phi)$ picks
+  the quadrature, and the system register goes \bad{in the bin}.
+  \textbf{Right:} append a random Clifford $C$ and measure it instead:
+  \hl{same circuit, same shots}, now also $\mathrm{Tr}(H\rho)$, fidelities and
+  eigenstate tests.}
+  \par\smallskip
+  {\tiny\color{mutedA} Fig.~1 of Faehrmann, Eisert \& Kueng, \emph{PRL} \textbf{135},
+  150603 (2025), reproduced under CC~BY~4.0. We use $\phi=-\pi/2$ for the imaginary
+  quadrature, per the paper's body text (below its Eq.~2) and \texttt{CONVENTIONS \S5};
+  the printed Fig.~1 caption reads $+\pi/2$.}
+\end{frame}
+
+% ------------------------------------------------------------------ 1c  SHADOWS
+\begin{frame}{What a classical shadow actually is}
+  \vspace{-1mm}
+  \begin{center}
+    \includegraphics[width=0.97\linewidth]{fig_shadow.png}
+  \end{center}
+  \vspace{-1mm}
+  {\footnotesize
+  No new circuits --- only $\leq 2$ extra single-qubit gates per qubit. The randomisation is
+  the whole trick: it is what makes \emph{one} record set an unbiased estimator for
+  \hl{every} Pauli observable simultaneously, instead of one chosen in advance.
+  \src{Hsin-Yuan Huang, Kueng \& Preskill, \emph{Nat.\ Phys.} \textbf{16}, 1050 (2020)}}
 \end{frame}
 
 % ------------------------------------------------------------------ 2
@@ -100,7 +161,7 @@
 \begin{frame}{The benchmark: three spins, nearest-neighbour coupling only}
   \vspace{-2mm}
   \begin{center}
-    \includegraphics[width=0.84\linewidth]{fig_model.png}
+    \includegraphics[width=0.86\linewidth]{fig_model.png}
   \end{center}
   \vspace{-2mm}
   {\footnotesize
@@ -113,10 +174,12 @@
   \src{R002, R012}}
 \end{frame}
 
+\section{Does it work?}
+
 % ------------------------------------------------------------------ 3
 \begin{frame}{Every estimator agrees with theory --- and the error bars are honest}
   \begin{columns}[T]
-    \begin{column}{0.46\textwidth}
+    \begin{column}{0.42\textwidth}
       \begin{itemize}
         \item \good{56/56 checkpoints pass}, zero hard failures, zero advisory warnings.
         \item $\chi(t)$ rms error \hl{0.0290} vs predicted sem \hl{0.0277}
@@ -128,7 +191,7 @@
       {\small The single-shot second moment is exactly $3^{w(P)}$, which predicts the
       measured error bars to \hl{within 2\%}. \src{R029}}
     \end{column}
-    \begin{column}{0.54\textwidth}
+    \begin{column}{0.58\textwidth}
       \centering
       \includegraphics[width=\linewidth]{../figures/06_fundamental_validation.png}
     \end{column}
@@ -138,18 +201,20 @@
 % ------------------------------------------------------------------ 4
 \begin{frame}{Conserved quantities come out flat --- from the very same shots}
   \begin{columns}[T]
-    \begin{column}{0.52\textwidth}
+    \begin{column}{0.57\textwidth}
       \centering
       \includegraphics[width=\linewidth]{../figures/06_conservation.png}
     \end{column}
-    \begin{column}{0.48\textwidth}
-      \[
-        \langle H\rangle = \mhl{+0.0714 \pm 0.0082}\quad(\text{exact }+0.0739)
-      \]
-      \[
-        \langle Q\rangle = \mhl{+2.2708 \pm 0.0052}\quad(\text{exact }+2.2675)
-      \]
-      \small
+    \begin{column}{0.43\textwidth}
+      \vspace{-2mm}
+      \[ \langle H\rangle = \mhl{+0.0714 \pm 0.0082} \]
+      \vspace{-6mm}
+      \begin{center}\footnotesize exact $+0.0739$\end{center}
+      \[ \langle Q\rangle = \mhl{+2.2708 \pm 0.0052} \]
+      \vspace{-6mm}
+      \begin{center}\footnotesize exact $+2.2675$\end{center}
+      \smallskip
+      \footnotesize
       Pooled over all 128 settings, extracted from the \emph{discarded} register of the
       $\chi(t)$ experiment. \src{R010}
       \medskip
@@ -159,7 +224,7 @@
       \medskip
 
       \textbf{No extra circuits} ($\leq 2$ extra 1-qubit gates per system qubit);
-      the statistical cost is on slide 7.
+      the statistical cost is on slide~\ref{slide:cost}.
     \end{column}
   \end{columns}
 \end{frame}
@@ -167,12 +232,12 @@
 % ------------------------------------------------------------------ 5  MONEY PLOT
 \begin{frame}{We recover the spectrum \emph{and} label each line by symmetry sector}
   \begin{columns}[T]
-    \begin{column}{0.60\textwidth}
+    \begin{column}{0.65\textwidth}
       \centering
       \includegraphics[width=\linewidth]{../figures/07_symmetry_resolved_spectrum.png}
     \end{column}
-    \begin{column}{0.40\textwidth}
-      \small
+    \begin{column}{0.35\textwidth}
+      \footnotesize
       All 4 populated levels recovered:\\
       max $|\Delta E| = $ \good{0.033}, max $|\Delta p| = $ \good{0.006},
       \good{every label correct}. \src{R012, R013}
@@ -191,10 +256,12 @@
   \end{columns}
 \end{frame}
 
+\section{What each choice buys}
+
 % ------------------------------------------------------------------ 6
 \begin{frame}{What each choice actually buys}
   \centering
-  \includegraphics[width=0.94\linewidth]{fig_ablation.png}\\
+  \includegraphics[width=0.99\linewidth]{fig_ablation.png}\\
   \smallskip
   \small
   \hl{Estimator} choice buys resolution ($3/4\to4/4$ lines).
@@ -205,7 +272,7 @@
 % ------------------------------------------------------------------ 6b  MOTIVATION
 \begin{frame}{Do you even need shadows? Four ways to treat the garbage}
   \centering
-  \includegraphics[width=0.95\linewidth]{fig_escalation.png}\\
+  \includegraphics[width=\linewidth]{fig_escalation.png}\\
   \smallskip
   \small
   Each rung buys a capability the one below \emph{cannot have at any shot count}.
@@ -242,38 +309,49 @@
 \begin{frame}{Which protocol can rebuild which observable?}
   \scriptsize
   \begin{center}
-  \begin{tabular}{lccc}
+  \begin{tabular}{llccc}
     \toprule
-    & \textbf{discard garbage} & \textbf{post-select all-Z} & \textbf{classical shadow}\\
-    & {\tiny Hadamard only $\to$ DFT} & {\tiny $\to$ matrix pencil} & {\tiny $\to$ matrix pencil}\\
+    \textbf{observable} & \textbf{what it measures physically}
+      & \textbf{discard} & \textbf{post-select all-Z} & \textbf{shadow}\\
+    & & {\tiny Hadamard $\to$ DFT} & {\tiny $\to$ matrix pencil} & {\tiny $\to$ matrix pencil}\\
     \midrule
-    energies            & 3/4 lines & 4/4 & 4/4\\
-    $Z_i$               & \bad{---} & yes {\tiny(err 0.41 at 3.7\% yield)} & \good{yes} {\tiny(0.048)}\\
-    $Z_iZ_j$            & \bad{---} & yes {\tiny(err 0.28)}                & \good{yes} {\tiny(0.057)}\\
-    $H$                 & \bad{---} & \bad{biased} {\tiny(5/9 terms, 2.70)} & \good{yes} {\tiny(0.139)}\\
-    $X_iX_j\!+\!Y_iY_j$ & \bad{---} & \bad{impossible} {\tiny(0/2 terms)}   & \good{yes} {\tiny(0.509)}\\
+    energies & the level structure of $H$
+      & 3/4 lines & 4/4 & 4/4\\
+    $Z_i$ & local magnetisation of spin $i$
+      & \bad{---} & yes {\tiny(err 0.41 at 3.7\% yield)} & \good{yes} {\tiny(0.048)}\\
+    $Z_iZ_j$ & neighbours \hl{aligned} vs \hl{anti-aligned}
+      & \bad{---} & yes {\tiny(err 0.28)} & \good{yes} {\tiny(0.057)}\\
+    $H$ & total energy
+      & \bad{---} & \bad{biased} {\tiny(5/9 terms, 2.70)} & \good{yes} {\tiny(0.139)}\\
+    $X_iX_j\!+\!Y_iY_j$ & \hl{hopping}: excitation exchanged between $i,j$
+      & \bad{---} & \bad{impossible} {\tiny(0/2 terms)} & \good{yes} {\tiny(0.509)}\\
     \bottomrule
   \end{tabular}
   \end{center}
   \smallskip
   \small
-  Discarding the garbage costs you \emph{every} observable --- at any shot count.
-  A Z-only protocol recovers the \emph{diagonal} ones, but is \bad{systematically biased} on
-  $H$ and \bad{blind} to the hopping term: it converges to
-  $\mathrm{Tr}[O_{Z\text{-diag}}U\rho]$, so more shots do not help.
-  \\[0.3em]
-  \centering\textbf{The shadow's exclusive capability is non-commuting observables.} \src{R041}
+  A Z-only protocol sees only what is \emph{diagonal}: it can say how the spins are
+  \emph{oriented}, never how they \emph{move}. The hopping term is precisely the part of $H$
+  that transports an excitation along the chain --- the part that makes the dynamics
+  non-trivial --- and it converges to $\mathrm{Tr}[O_{Z\text{-diag}}U\rho]$, so more shots
+  do not help.
+  \par\smallskip
+  \begin{center}
+  \textbf{The shadow's exclusive capability is non-commuting observables.} \src{R041}
+  \end{center}
 \end{frame}
+
+\section{Real hardware, and the price}
 
 % ------------------------------------------------------------------ 7
 \begin{frame}{It survives on real hardware once the circuit is shallow enough}
   \begin{columns}[T]
-    \begin{column}{0.56\textwidth}
+    \begin{column}{0.61\textwidth}
       \centering
       \includegraphics[width=\linewidth]{fig_hardware_grid.png}
     \end{column}
-    \begin{column}{0.44\textwidth}
-      \small
+    \begin{column}{0.39\textwidth}
+      \footnotesize
       Complete $2\times2$ grid. Depth dominates (\hl{2.4--4.6$\times$}) over device choice
       (1.1--2.1$\times$). \src{R008, R018}
       \medskip
@@ -292,6 +370,7 @@
 
 % ------------------------------------------------------------------ 8
 \begin{frame}{The honest cost: 13 experiments replaced for a 1.07$\times$ variance premium}
+  \label{slide:cost}
   The per-shot Pauli estimator and its exact second moment:
   \[
     \hat P \;=\; 3^{\,w(P)}\prod_{j\in \mathrm{supp}(P)} s_j\;
@@ -323,6 +402,8 @@
   \centering\small
   The $3^{w}$ model predicts the observed error bars to \good{within 2\%}. \src{R029}
 \end{frame}
+
+\section{Reproduce it, and where it breaks}
 
 % ------------------------------------------------------------------ 9
 \begin{frame}{Reproduce it in under five minutes}

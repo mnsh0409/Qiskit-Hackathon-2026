@@ -1,14 +1,23 @@
 # Slide deck — Topic 5: Shadow-Enhanced Hadamard Test
 
+> **SYNC WARNING (2026-08-13).** This document describes the earlier **10-slide** cut.
+> `slides.tex` / `slides.pdf` is now the authority: 24 main pages + 5 backup, organised into
+> five sections with an outline and section-divider pages. Content slides present in the PDF
+> but **not** written up here: *The protocol, in the authors' own picture* (paper Fig. 1),
+> *What a classical shadow actually is*, *The benchmark: three spins*, *What each choice
+> actually buys*, *Do you even need shadows?*, *What the shadow inversion actually
+> contributes*, *Which protocol can rebuild which observable?*.
+> Cross-references below use slide **titles**, not numbers, because the numbering has moved.
+
 **Status: DRAFT for human review.** Every number carries its `R###` source from RESULTS.md.
 Slide titles ARE the takeaway sentences (per `deck_arc.md`). Max 3 bullets each.
 
 **Before presenting, a human must fill in:** every `TBD-NAME` (team members, speaking
-allocation) and confirm the prior-art claim on slide 8. Nothing else is a placeholder.
+allocation) and confirm the prior-art claim on "Reproduce it". Nothing else is a placeholder.
 
 **Banned language check applied** (rubric.md): no "quantum advantage"; no uncosted
-"for free" — the cost is quantified on slide 7 and referenced wherever the shared-record
-claim appears; no causal claims from single hardware runs (slide 6 states the caveat).
+"for free" — the cost is quantified on "The honest cost" and referenced wherever the shared-record
+claim appears; no causal claims from single hardware runs ("It survives on real hardware" states the caveat).
 
 ---
 
@@ -57,7 +66,7 @@ claim appears; no causal claims from single hardware runs (slide 6 states the ca
 - ⟨H⟩ = **+0.0714 ± 0.0082** (exact +0.0739) and ⟨Q⟩ = **+2.2708 ± 0.0052** (exact +2.2675),
   pooled over all 128 settings. [R010]
 - Both are extracted from the *discarded* register of the χ(t) experiment — no extra circuits
-  (≤2 extra 1-qubit gates per system qubit), at a variance cost quantified on slide 7.
+  (≤2 extra 1-qubit gates per system qubit), at a variance cost quantified on "The honest cost".
 - Per-time ⟨Q⟩ is flat within 5σ at every one of the 64 time points. [R010]
 
 **Speaker:** TBD-NAME
@@ -156,7 +165,7 @@ claim appears; no causal claims from single hardware runs (slide 6 states the ca
 - TBD-NAME — TBD-CONTRIBUTION
 
 **Every member must speak** — this is an explicit rubric line. Allocation above must map to
-the "Speaker:" fields on slides 1–9.
+the "Speaker:" fields below.
 
 ---
 

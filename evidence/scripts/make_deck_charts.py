@@ -246,3 +246,112 @@ ax.text(1.0, -2.08,
 fig.savefig("/home/martin/Documents/QiskitHackathon/2026/deck/fig_model.png",
             dpi=200, bbox_inches="tight", facecolor=BG)
 print("wrote deck/fig_model.png")
+
+# ---------------- chart 6: what a classical shadow actually is ----------------
+# Pedagogical, not data: a worked single-record illustration of the HKP estimator.
+# The contribution values are computed from the estimator definition below, not measured.
+from matplotlib.patches import Rectangle, Wedge
+
+XLO, XHI, YLO, YHI = 0.0, 10.6, 0.0, 5.05
+FW, FH = 12.6, 5.5
+fig, ax = plt.subplots(figsize=(FW, FH))
+ax.set_xlim(XLO, XHI); ax.set_ylim(YLO, YHI); ax.axis("off"); ax.set_facecolor(BG)
+
+PAULI_COL = {"X": COL["orange"], "Y": COL["violet"], "Z": COL["blue"]}
+DIV = 4.95
+
+# ============================ LEFT: one shot ============================
+ax.text(0.05, 4.95, "1.  Each shot draws its own random basis",
+        fontsize=14, weight="bold", color=COL["ink"], va="top")
+
+DRAWN, OUTC = ["Z", "Z", "X"], [+1, -1, +1]
+for j, (y, b, s) in enumerate(zip([4.10, 3.50, 2.90], DRAWN, OUTC)):
+    ax.plot([0.62, 3.42], [y, y], color=COL["ink"], lw=1.5, zorder=1)
+    ax.text(0.42, y, rf"$q_{j}$", fontsize=12.5, ha="right", va="center", color=COL["ink"])
+    ax.add_patch(Rectangle((1.52, y - 0.21), 0.66, 0.42, facecolor="white",
+                           edgecolor=PAULI_COL[b], lw=2.2, zorder=2))
+    ax.text(1.85, y, rf"$V_{{{b}}}$", fontsize=12.5, ha="center", va="center",
+            color=PAULI_COL[b], zorder=3)
+    ax.add_patch(Rectangle((2.92, y - 0.21), 0.5, 0.42, facecolor="white",
+                           edgecolor=COL["ink"], lw=1.6, zorder=2))
+    ax.add_patch(Wedge((3.17, y - 0.10), 0.15, 20, 160, width=0.035,
+                       facecolor=COL["ink"], zorder=3))
+    ax.plot([3.17, 3.26], [y - 0.10, y + 0.09], color=COL["ink"], lw=1.3, zorder=3)
+    ax.text(3.58, y, rf"$s_{j}={s:+d}$", fontsize=12, ha="left", va="center",
+            color=COL["ink"])
+
+ax.text(1.85, 4.50, "drawn u.a.r.", fontsize=10.5, ha="center", color=COL["muted"])
+ax.text(0.05, 2.44, r"$b_j \sim \mathrm{Unif}\{X,Y,Z\}$, independently on every"
+                    "\n" r"qubit and every shot", fontsize=11.5, color=COL["muted"], va="top")
+ax.text(0.05, 1.62, "All that is stored per shot:  "
+                    r"$(\,b_0b_1b_2,\;\ s_0s_1s_2\,)$", fontsize=11.5,
+        color=COL["ink"], va="top")
+ax.text(0.05, 1.14,
+        r"$\hat\rho=\bigotimes_j\left(3\,V_{b_j}^{\dagger}|s_j\rangle\langle s_j|V_{b_j}"
+        r"-\mathbb{1}\right)$,    $\mathbb{E}[\hat\rho]=\rho$",
+        fontsize=12.5, color=COL["ink"], va="top")
+ax.text(0.05, 0.50, "one unbiased snapshot — meaningless alone,\n"
+                    "exact in expectation once averaged",
+        fontsize=10.5, color=COL["muted"], va="top")
+
+ax.plot([DIV, DIV], [0.15, 4.88], color=COL["grid"], lw=1.6)
+
+# ============================ RIGHT: the estimator ============================
+ax.text(5.15, 4.95, "2.  One record, every Pauli at once",
+        fontsize=14, weight="bold", color=COL["ink"], va="top")
+ax.text(5.15, 4.50,
+        r"$\hat P = 3^{\,w(P)}\!\!\prod_{j\in\mathrm{supp}(P)}\!\! s_j\;"
+        r"\mathbf{1}\!\left[b_j=P_j\right]$", fontsize=14, color=COL["ink"], va="top")
+
+SHOTS = [(("Z", "Z", "X"), (+1, -1, +1)),
+         (("X", "X", "Z"), (+1, +1, -1)),
+         (("Z", "Y", "Y"), (-1, +1, +1)),
+         (("Z", "Z", "Z"), (+1, +1, +1)),
+         (("Y", "X", "Z"), (-1, -1, +1))]
+CX = [5.22, 6.00, 7.20, 8.45, 9.60]
+YT = 3.55
+for cx, h, dx in zip(CX, ["shot", "basis $b$", "outcome $s$",
+                          r"$\widehat{Z_0Z_1}$", r"$\widehat{X_0X_1}$"],
+                     [0.0, 0.24, 0.24, 0.24, 0.24]):
+    ax.text(cx + dx, YT, h, fontsize=11.5, weight="bold", color=COL["ink"],
+            va="center", ha="center" if dx else "left")
+ax.plot([5.10, 10.40], [YT - 0.25, YT - 0.25], color=COL["muted"], lw=1.2)
+
+
+def contrib(b, s, target):
+    """P-hat for this shot: zero unless the drawn basis matches P on every qubit in supp(P)."""
+    if any(b[j] != p for j, p in target.items()):
+        return None
+    v = 3 ** len(target)
+    for j in target:
+        v *= s[j]
+    return v
+
+
+for i, (b, s) in enumerate(SHOTS):
+    y = YT - 0.58 - 0.44 * i
+    ax.text(CX[0], y, f"{i+1}", fontsize=11.5, color=COL["muted"], va="center")
+    for k, ch in enumerate(b):
+        ax.text(CX[1] + 0.24 * k, y, ch, fontsize=12.5, color=PAULI_COL[ch],
+                va="center", ha="center", weight="bold")
+    for k, sv in enumerate(s):
+        ax.text(CX[2] + 0.24 * k, y, "$+$" if sv > 0 else "$-$", fontsize=13,
+                color=COL["ink"], va="center", ha="center")
+    for cx, tgt in ((CX[3], {0: "Z", 1: "Z"}), (CX[4], {0: "X", 1: "X"})):
+        v = contrib(b, s, tgt)
+        ax.text(cx + 0.24, y, "0" if v is None else f"${v:+d}$",
+                fontsize=12.5, ha="center", va="center",
+                color=COL["muted"] if v is None else COL["aqua"],
+                weight="normal" if v is None else "bold")
+
+ax.text(5.15, 1.02, r"$w=2$: a shot lands with probability $3^{-2}$ and the $3^{2}$"
+                    "\n" r"weight cancels it exactly, so $\mathbb{E}[\hat P]=\mathrm{Tr}[P\rho]$",
+        fontsize=11, color=COL["muted"], va="top")
+ax.text(5.15, 0.46, r"$q_2$'s basis never enters $\widehat{Z_0Z_1}$: only $\mathrm{supp}(P)$"
+                    " must match" "\n" r"$\Rightarrow$ $3^{-w}$, not $3^{-n}$. "
+                    r"The price is $\mathbb{E}[\hat P^{2}]=3^{\,w}$.",
+        fontsize=11, color=COL["orange"], va="top")
+
+fig.savefig("/home/martin/Documents/QiskitHackathon/2026/deck/fig_shadow.png",
+            dpi=200, bbox_inches="tight", facecolor=BG)
+print("wrote deck/fig_shadow.png")

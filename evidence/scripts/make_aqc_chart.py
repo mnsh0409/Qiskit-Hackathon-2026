@@ -47,11 +47,13 @@ style(a1)
 cross = next(r["n"] for r in D if r["aqc_vs_exact"] > 1)
 a1.axvline(cross - 0.5, color=COL["aqua"], ls="--", lw=1.8)
 a1.text(cross - 0.45, 45, f"crossover at $n={cross}$", fontsize=10.5, color=COL["aqua"],
-        va="bottom", ha="left")
+        va="bottom", ha="left", bbox=dict(boxstyle="round,pad=0.2", fc=BG, ec="none"))
 best = max(D, key=lambda r: r["aqc_vs_exact"])
+# below the AQC endpoint: the band above it is crossed by the Trotter line
 a1.annotate(f"{best['aqc_vs_exact']:.0f}$\\times$ fewer",
-            (best["n"], best["aqc_cx"]), xytext=(-14, 46), textcoords="offset points",
-            fontsize=13, weight="bold", color=COL["blue"], ha="center",
+            (best["n"], best["aqc_cx"]), xytext=(-6, -42), textcoords="offset points",
+            fontsize=13, weight="bold", color=COL["blue"], ha="center", va="top",
+            bbox=dict(boxstyle="round,pad=0.22", fc=BG, ec="none"),
             arrowprops=dict(arrowstyle="->", color=COL["blue"], lw=2))
 
 # ---------- right: the phase trap ----------
@@ -61,8 +63,8 @@ a2.bar(x - w / 2, [r["chi_err_naive"] for r in D], w, color=COL["orange"],
 a2.bar(x + w / 2, [r["chi_err_phase_fixed"] for r in D], w, color=COL["aqua"],
        label="$+$ one ancilla $P(-\\theta)$")
 a2.axhline(1.0, color=COL["muted"], ls=":", lw=1.6)
-a2.set_ylim(0, 1.72)
-a2.text(len(NS) / 2 - 0.5, 1.60,
+a2.set_ylim(0, 1.62)
+a2.text(len(NS) / 2 - 0.5, 1.50,
         "$|\\chi|\\leq 1$, so the error is as large as the signal itself",
         fontsize=10, color=COL["muted"], ha="center")
 for i, r in enumerate(D):
@@ -75,7 +77,9 @@ a2.annotate(f"{D[0]['chi_err_phase_fixed']:.3f}", (0 + w / 2, D[0]["chi_err_phas
 a2.set_xticks(x); a2.set_xticklabels([f"$n{{=}}{n}$" for n in NS], fontsize=11)
 a2.set_ylabel(r"$|\chi_{\rm measured}-\chi_{\rm exact}|$")
 a2.set_title("The trap: a phase-blind objective", fontsize=13)
-a2.legend(frameon=False, fontsize=10.5, loc="center right")
+# the bars reach 1.35 across the full width, so any in-axes legend lands on them
+a2.legend(frameon=False, fontsize=10.5, loc="upper center",
+          bbox_to_anchor=(0.5, -0.13), ncol=2)
 style(a2)
 
 fig.tight_layout()

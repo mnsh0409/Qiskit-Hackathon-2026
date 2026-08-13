@@ -186,17 +186,39 @@
 \end{frame}
 
 % ------------------------------------------------------------------ 6b  MOTIVATION
-\begin{frame}{Do you even need shadows? We checked --- and the answer is nuanced}
+\begin{frame}{Do you even need shadows? Four ways to treat the garbage}
   \centering
-  \includegraphics[width=0.92\linewidth]{fig_direct_z.png}\\
+  \includegraphics[width=0.95\linewidth]{fig_escalation.png}\\
   \smallskip
   \small
-  $Q=\sum_j Z_j$ is \emph{diagonal} in the computational basis, so a plain Z readout measures
-  it directly --- \bad{1.56$\times$ cheaper} than our shadow estimator. \src{R039}
-  \\[0.2em]
-  But a Z-only experiment sees \bad{5 of 9} terms of $H$; the 4 it misses are the hopping
-  terms, each with the \emph{largest} coefficient. $\langle H\rangle$ is conserved --- yet
-  what it reports \bad{drifts by 0.147}, and it has no second channel to notice.
+  Each rung buys a capability the one below \emph{cannot have at any shot count}.
+  \src{R039, R040}
+\end{frame}
+
+% ------------------------------------------------------------------ 6c
+\begin{frame}{What the shadow inversion actually contributes}
+  \small
+  $Q=\sum_j Z_j$ is diagonal in the computational basis, so a \hl{dedicated Z readout beats
+  our shadow estimator by 1.56$\times$} on the symmetry channel. We report that. \src{R039}
+  \medskip
+
+  But compare the shadow inversion against \emph{post-selecting the all-Z shots out of its
+  own data}:
+  \[
+    \underbrace{\tfrac{1}{3}}_{\text{per \emph{term} } Z_j:\; b_j=Z}
+    \qquad\text{versus}\qquad
+    \underbrace{\tfrac{1}{3^{\,n}}}_{\text{\emph{all} qubits Z at once}}
+    \;=\;3.7\%\ \text{of shots}
+  \]
+  \begin{center}
+  \good{The inversion beats naive post-selection of the same data by 3.36$\times$}
+  (sem $0.3400\to0.1012$) --- it recovers exactly the shots post-selection discards.
+  \src{R040}
+  \end{center}
+  \medskip
+  \centering
+  \textbf{The case for shadows is not better symmetry resolution.}\\
+  It is that the \emph{same} shots also give you $H$ --- which no Z-only protocol can see.
 \end{frame}
 
 % ------------------------------------------------------------------ 7

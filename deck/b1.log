@@ -216,13 +216,14 @@ Overfull \hbox (18.59978pt too wide) detected at line 148
 0.95 = [][] ([] + \T1/lmss/m/n/10.95 2\OML/lmm/m/it/10.95 :\T1/lmss/m/n/10.95 2
 675\OT1/lmss/m/n/10.95 )
 [5 <../figures/06_conservation.png>] [6 <../figures/07_symmetry_resolved_spectr
-um.png>] [7 <./fig_ablation.png>] [8 <./fig_direct_z.png>] [9 <./fig_hardware_g
-rid.png>] [10] (/usr/share/texmf/tex/latex/lm/t1lmtt.fd) [11] [12] [13]
+um.png>] [7 <./fig_ablation.png>] [8 <./fig_escalation.png>] [9] [10 <./fig_har
+dware_grid.png>] [11] (/usr/share/texmf/tex/latex/lm/t1lmtt.fd) [12] [13]
+[14]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\translate ' on input line 325.
+(hyperref)                removing `\translate ' on input line 347.
 
-[14] [15] [16] [17] [18] (./slides.aux) )
+[15] [16] [17] [18] [19] (./slides.aux) )
 (see the transcript file for additional information){/usr/share/texmf/fonts/enc
 /dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/sh
 are/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm
@@ -243,5 +244,5 @@ s/type1/public/lm/lmsso9.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb
 1/public/lm/lmsy9.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/
 share/texmf/fonts/type1/public/lm/lmtt9.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on slides.pdf (18 pages, 1068530 bytes).
+Output written on slides.pdf (19 pages, 1088554 bytes).
 Transcript written on slides.log.

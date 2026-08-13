@@ -1,0 +1,14 @@
+{
+  "shots_per_setting": 2000,
+  "n_times": 64,
+  "sem_shadow": 0.10115286352885944,
+  "sem_postselect": 0.33997724735180024,
+  "sem_dedicated": 0.065,
+  "postselect_yield": 0.037,
+  "shadow_beats_postselect": 3.3610244484557072,
+  "dedicated_beats_shadow": 1.5561979004439912,
+  "rms_shadow": 0.10077913979941061,
+  "rms_postselect": 0.32246691503437397,
+  "n_terms_zdiag": 5,
+  "n_terms_total": 9
+}

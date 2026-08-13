@@ -123,3 +123,57 @@ fig.tight_layout(rect=(0, 0, 1, 0.93))
 fig.savefig("/home/martin/Documents/QiskitHackathon/2026/deck/fig_direct_z.png",
             dpi=200, bbox_inches="tight")
 print("wrote deck/fig_direct_z.png")
+
+# ---------------- chart 4: the protocol escalation ladder (R040) ----------------
+e = _json.load(open("/home/martin/Documents/QiskitHackathon/2026/evidence/protocol_escalation.json"))
+fig, (axL, axR) = plt.subplots(1, 2, figsize=(12.0, 4.4),
+                               gridspec_kw={"width_ratios": [1.05, 1.0]})
+
+rungs = ["discard\ngarbage", "post-select\nall-Z", "dedicated\nall-Z", "random\nshadow"]
+sems  = [np.nan, e["sem_postselect"], e["sem_dedicated"], e["sem_shadow"]]
+cols  = [COL["muted"], COL["orange"], COL["aqua"], COL["blue"]]
+bars = axL.bar(range(4), [0 if np.isnan(v) else v for v in sems], color=cols, width=0.6)
+axL.set_xticks(range(4)); axL.set_xticklabels(rungs, fontsize=10.5)
+axL.set_ylabel("sem on $\\chi_Q$   (lower is better)")
+axL.set_title("Precision on the symmetry channel", fontsize=13, pad=10)
+axL.text(0, 0.012, "IMPOSSIBLE", ha="center", fontsize=11, color=COL["muted"],
+         weight="bold", rotation=90, va="bottom")
+for i, v in enumerate(sems):
+    if not np.isnan(v):
+        axL.annotate(f"{v:.4f}", (i, v), ha="center", va="bottom", fontsize=12,
+                     weight="bold", color=COL["ink"])
+axL.annotate("", xy=(3, e["sem_shadow"]+0.03), xytext=(1, e["sem_postselect"]+0.03),
+             arrowprops=dict(arrowstyle="->", color=COL["ink"], lw=2))
+axL.text(2, e["sem_postselect"]+0.055, f"inversion beats naive\npost-selection {e['shadow_beats_postselect']:.2f}$\\times$",
+         ha="center", fontsize=11, weight="bold", color=COL["ink"])
+axL.set_ylim(0, e["sem_postselect"]*1.45); style(axL)
+
+axR.axis("off")
+rows = [("discard garbage",  "yes", "--",  "--"),
+        ("post-select all-Z","yes", "yes", "5/9"),
+        ("dedicated all-Z",  "yes", "yes", "5/9"),
+        ("random shadow",    "yes", "yes", "9/9")]
+axR.text(0.5, 0.95, "What each can measure AT ALL", ha="center", fontsize=13,
+         color=COL["ink"], transform=axR.transAxes)
+hdr = ["protocol", "$\\chi(t)$", "$Q$", "$H$ terms"]
+xs = [0.02, 0.46, 0.62, 0.80]
+for x, h in zip(xs, hdr):
+    axR.text(x, 0.80, h, fontsize=11.5, color=COL["muted"], transform=axR.transAxes)
+for r, row in enumerate(rows):
+    y = 0.68 - r*0.125
+    c = COL["blue"] if r == 3 else COL["ink"]
+    for x, cell in zip(xs, row):
+        w = "bold" if (r == 3 or cell == "9/9") else "normal"
+        axR.text(x, y, cell, fontsize=11.5, color=c, weight=w, transform=axR.transAxes)
+axR.text(0.02, 0.02,
+         "Z-only protocols are blind to the 4 hopping terms (0.65 each):\n"
+         "$\\langle H\\rangle$ is conserved, yet what they report drifts by 0.147\n"
+         "— with no second channel to notice.",
+         fontsize=10, color=COL["orange"], transform=axR.transAxes, va="bottom")
+
+fig.suptitle("Four ways to treat the garbage register — each rung buys something",
+             fontsize=14.5, color=COL["ink"])
+fig.tight_layout(rect=(0, 0, 1, 0.92))
+fig.savefig("/home/martin/Documents/QiskitHackathon/2026/deck/fig_escalation.png",
+            dpi=200, bbox_inches="tight")
+print("wrote deck/fig_escalation.png")

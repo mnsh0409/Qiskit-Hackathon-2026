@@ -38,15 +38,15 @@ committed under `evidence/`.
 | R014 | Challenge 11 noise, damping 0.342 | notebook cells 91/93 output | notebook re-run |
 | R016 | Challenge 10 Krylov, E0 −1.5349 | notebook cells 85/87 output | notebook re-run |
 | R017 | **EXPLORATORY/CONFOUNDED** label survival | `evidence/executed/executed_robustness2.ipynb` | `evidence/scripts/robustness_item2.py` |
-| R018 | hardware 2×2, exact+marrakesh 0.822 | `hardware_jobs.json`; `evidence/hw_2x2_jobs.json` | `python hardware_run.py --fetch <id>` |
+| R018 | hardware 2×2 **COMPLETE** (0.179/0.368/0.822/0.878) | `hardware_jobs.json`; `evidence/hw_2x2_jobs.json` | `python hardware_run.py --fetch <id>` |
 | R019 | 12-seed study | `data/multiseed_summary.json`; `data/*.csv` (24 files); `evidence/executed/executed_seedsweep.ipynb` | `evidence/scripts/seed_sweep.py` |
 | R020 | bootstrap validation ratios | same as R019 | recompute from R013 + R019 sds |
 | R021 | ablation A: equivalence, 2×2 grid, cost | `evidence/ablation_results.json`; `evidence/executed/executed_ablation_ab.ipynb` | `evidence/scripts/ablation_a_b.py` |
 | R022 | ablation B: resolution failure boundary | same as R021 | same |
-| R023 | 2-site hardware, **pending** | `hardware_jobs.json`; ideal-sim validation in `evidence/scripts/validate_2site.py` | `python hardware_run.py --fetch d9uk99k98n5s7392vhsg` |
+| R023 | 2-site hardware **RETURNED**: chi survival 0.962, genuine ⟨Q⟩ 0.957 | `hardware_jobs.json`; ideal-sim validation in `evidence/scripts/validate_2site.py` | `python hardware_run.py --fetch d9uk99k98n5s7392vhsg` |
 | R024 | `packing.py` unusable, third-party | — | `python -c "import packing"` (fails) |
 | R025 | transpile cost n=3 vs n=4, corrected | `evidence/scripts/transpile_cost_n3_n4.py` output (cross-checks itself against R018's 101) | `python evidence/scripts/transpile_cost_n3_n4.py` |
-| R026 | 4-site hardware, **pending** | `hardware_jobs.json`; ideal-sim validation in `evidence/scripts/validate_4site.py` | `python hardware_run.py --fetch d9ultm0u5hac73ahd9kg` |
+| R026 | 4-site hardware **RETURNED**: survival 0.275 (vs teammate 0.587, same layout) | `hardware_jobs.json`; ideal-sim validation in `evidence/scripts/validate_4site.py` | `python hardware_run.py --fetch d9ultm0u5hac73ahd9kg` |
 | R027 | rank selection (honest negative result) | `evidence/going_further_trio.json`; `evidence/executed/executed_going_further.ipynb` | `evidence/scripts/going_further_trio.py` |
 | R028 | measured chi/chi_Q correlation + correlated bootstrap | same as R027 | same |
 | R029 | variance budgeting, 3^w rule vs measured | same as R027 | same |
@@ -62,8 +62,9 @@ C4's brief (b) requires re-deriving ratios and CI widths from raw numbers. The o
 
 - **R020 bootstrap ratios** — across-seed sd (R019) ÷ bootstrap sd (R013), per line. Both
   sets of sds are printed in their rows.
-- **R018 depth factor** — 0.822 ÷ 0.179 = 4.6× on marrakesh only (kingston's Trotter arm is
-  still pending, so this is a single-device comparison so far, not "both devices").
+- **R018 depth factor** — grid now COMPLETE. Depth (exact/trotter): marrakesh 0.822/0.179 =
+  4.59×, kingston 0.878/0.368 = 2.39×. Device (kingston/marrakesh): trotter 2.06×, exact
+  1.07×. Depth dominates on both devices; recompute all four from the table in R018.
 - **R021 variance cost factor** — 0.1012 ÷ 0.0949 = 1.07×. The denominator formula is
   `sqrt(terms² / SHOTS) * sqrt(2)` (evidence/scripts/ablation_a_b.py) — 3 Pauli terms sharing
   2000 shots/quadrature, per-shot variance ≤ 1, **times an explicit sqrt(2) for combining

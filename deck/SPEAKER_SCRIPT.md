@@ -177,6 +177,11 @@ If asked something not on a slide, say "that is in our results file, I can show 
 > crossover at four qubits. Beyond that you would need circuit compression, for example
 > tensor-network approximate compiling.
 
+**"Is this the first implementation?"**
+> We are not aware of a prior open implementation. We searched on the thirteenth of August
+> and found none. But we scoped that search narrowly, so we would not claim priority on it.
+> The method is from the paper. What is ours is the characterisation.
+
 **"What would you do next?"**
 > Density of states. The same circuit, with the input state swapped for a maximally mixed
 > one, measures the density of states instead of one state's spectrum. We prototyped it and

@@ -125,10 +125,13 @@ claim appears; no causal claims from single hardware runs (slide 6 states the ca
 
 **Speaker:** TBD-NAME
 
-> ⚠️ **Prior-art claim — do NOT assert "first open implementation" without checking.**
-> `t5-shadow-ship` requires a date-stamped web search of scope before that phrasing is used.
-> If prior art exists, reframe as "tutorial-grade implementation + symmetry-resolved
-> analyzer extension". **This search has not been run.**
+> ✅ **Prior-art search RUN 2026-08-13** — see `deck/PRIOR_ART_SEARCH.md` for queries,
+> results and limits. No public implementation of the paper's protocol was found; two
+> adjacent Qiskit repos exist (classical-shadow-vqe, shadow-tutorial) but neither combines
+> the Hadamard test with shadows.
+> **Use this exact phrasing, not "the first":** *"We are not aware of a prior open
+> implementation; a web search on 2026-08-13 found none."* The search was three queries on
+> one index — defensible, but not proof of priority.
 
 ---
 

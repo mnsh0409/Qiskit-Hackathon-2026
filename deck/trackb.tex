@@ -288,12 +288,13 @@ and a way to certify the result from its own garbage}
   \emph{roughly linearly}, so the crossover is structural --- measured, not extrapolated.
   \textbf{Right.} The trap, next slide. \src{R046}
   \par\smallskip
-  \textbf{And on a 2D lattice?} AQC-Tensor is an MPS method, native to 1D, so we checked.
-  On a $2\times4$ grid the crossover moves right by \emph{one step} ($n{=}4$ becomes a
-  $0.92\times$ loss) and the $n{=}8$ advantage falls $122.8\times\to$ \good{$100.8\times$}
-  --- an 18\% cost for nearly doubling the connectivity. \hl{It does not break.} Infidelity
-  was in fact \emph{better} in 2D ($2.0\times10^{-5}$--$2.0\times10^{-4}$); the MPS concern
-  is deferred, not refuted, and we do not extrapolate past $n{=}8$. \src{R049}}
+  \textbf{2D lattice, and real connectivity.} On a $2\times4$ grid the ideal-count advantage
+  falls only $122.8\times\to$ \good{$100.8\times$} at $n{=}8$. And these counts assume
+  all-to-all: re-transpiled onto \texttt{ibm\_marrakesh}'s heavy-hex map the gap
+  \hl{widens} --- the dense exact block pays $\sim\!2.1\times$ for routing, AQC's shallow
+  ansatz only $\sim\!1.5\times$, so $n{=}6$ goes $10.8\times\to$ \good{$15.4\times$} and the
+  2D $n{=}4$ case \good{flips from a $0.92\times$ loss to a $1.28\times$ win}.
+  \src{R049, R052}}
 \end{frame}
 
 \begin{frame}{The trap: a phase-blind compiler breaks a phase interferometer}

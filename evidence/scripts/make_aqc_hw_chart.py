@@ -46,7 +46,9 @@ def style(ax):
 
 
 nb = len(R)
-fig, axes = plt.subplots(1, nb + 1, figsize=(6.4 + 5.6 * nb, 4.6))
+# taller panels: on the slide this figure renders full-width, so its height on screen
+# is width/aspect -- at the old (17.6 x 4.6) aspect the panels were unreadably short
+fig, axes = plt.subplots(1, nb + 1, figsize=(6.0 + 5.2 * nb, 5.9))
 axes = np.atleast_1d(axes)
 
 for ax, (bname, arms) in zip(axes[:nb], R.items()):

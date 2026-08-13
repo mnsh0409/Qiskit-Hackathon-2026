@@ -382,26 +382,22 @@ and a way to certify the result from its own garbage}
 \begin{frame}{We ran it on a QPU. It failed --- and the failure is instructive}
   \vspace{-1mm}
   \begin{center}
-    \includegraphics[width=0.90\linewidth]{fig_aqc_hw.png}
+    \includegraphics[width=\linewidth]{fig_aqc_hw.png}
   \end{center}
   \vspace{-3mm}
   {\scriptsize
-  \texttt{ibm\_marrakesh} \emph{and} \texttt{ibm\_kingston}, $n{=}6$, three ways to build the
-  controlled evolution, 144{,}000 shots. \bad{Every arm on both devices returned noise} ---
-  the 576-gate AQC arm at \bad{0.026} and \bad{0.033} against the $0.315$ / $0.401$ we
-  recorded \emph{before} submitting. \hl{Two independent QPUs, same verdict.}
+  $n{=}6$, 144{,}000 shots across both devices. \bad{Every arm on both QPUs returned noise}
+  --- AQC (576 gates) at \bad{0.026}/\bad{0.033} vs the \emph{pre-registered}
+  $0.315$/$0.401$. \hl{Two independent QPUs, same verdict.}
+  \textbf{The orange arm is the lesson}: its ``survival'' \good{1.485} is \bad{unphysical}
+  ($|\chi|\approx1.21>1$, near constant, quadratures pinned at $+0.85$) --- the ancilla
+  sitting in $|0\rangle$ ($602\,\mu$s vs $T_1=160\,\mu$s). \hl{A magnitude-only metric
+  scores a dead circuit as the winner}: the compiler's trap, now in our own experiment.
+  \src{R054}
   \par\smallskip
-  \textbf{The orange arm is the lesson.} Its ``survival'' reads \good{1.485}, best of the
-  three, and is \bad{unphysical}: $|\chi|\approx1.21$ against a bound of $1$, near constant
-  in $t$, both quadratures pinned at $+0.85$ --- the ancilla sitting in $|0\rangle$
-  (8{,}850 gates $\times$ 68\,ns $= 602\,\mu$s vs $T_1 = 160\,\mu$s).
-  \hl{A magnitude-only metric scores a dead circuit as the winner}: the compiler's trap
-  again, now in our own headline experiment. \src{R054}
-  \par\smallskip
-  {\color{mutedA}Why $n{=}6$, not the headline's $n{=}7$? The doomed exact-arm \emph{control}
-  dominates QPU time (602\,$\mu$s/shot; $\sim\!4\times$ more at $n{=}7$) and the contrast is
-  already saturated --- predicted $3.6\times10^{-7}$ vs $0.32$. Spending $4\times$ the quota
-  to make a dead arm deader buys no information.}}
+  {\color{mutedA}Why $n{=}6$, not the headline's $n{=}7$? The dead control arm dominates QPU
+  time ($\sim\!4\times$ more at $n{=}7$) for no added contrast --- full arithmetic in
+  appendix~A7. \src{R055}}}
 \end{frame}
 \begin{frame}{First Track B on a QPU --- and the cheap baseline beat us}
   \label{slide:hw}

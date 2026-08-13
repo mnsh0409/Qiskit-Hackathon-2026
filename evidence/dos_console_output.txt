@@ -1,0 +1,39 @@
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+grid: 32 times, dt=0.4, T_max=12.4; 8 basis-state preps; 500 shots/setting
+total 256,000 shots  (Nyquist pi/dt=7.85 vs spectral radius 2.635 -- no aliasing)
+
+full spectrum (all 8 levels): [-2.635, -1.9152, -0.481, 0.45, 0.4636, 0.55, 1.6215, 1.9463]
+their charges:                    [-1, 1, 1, -3, -1, 3, -1, 1]
+full-spectrum min gap: 0.0136  vs Rayleigh limit 2pi/T_max = 0.5067  -> SOME PAIRS UNRESOLVABLE (expected)
+  prep |000>  done (54s elapsed)
+  prep |001>  done (104s elapsed)
+  prep |010>  done (154s elapsed)
+  prep |011>  done (202s elapsed)
+  prep |100>  done (253s elapsed)
+  prep |101>  done (304s elapsed)
+  prep |110>  done (355s elapsed)
+  prep |111>  done (406s elapsed)
+
+measured vs exact trace signals: chi rms 0.0164, chi_Q rms 0.0730
+  chi(0) = +1.0000 (exact 1.0000 -- Tr[I]/2^n)
+  chi_Q(0) = +0.0450 (exact -0.0000 -- Tr[Q]/2^n)
+
+running the unmodified reconstruct() on the DOS signals...
+rank 6, 6 modes
+
+   E found    weight    q_hat |  nearest exact E  its q  degeneracy
+   -2.6468    0.1256   -0.960 |          -2.6350     -1           1
+   -1.9179    0.1272    1.136 |          -1.9152      1           1
+   -0.4818    0.1201    1.466 |          -0.4810      1           1
+    0.4888    0.3541   -0.435 |           0.4636     -1           3
+    1.6005    0.1119   -1.281 |           1.6215     -1           2
+    1.9901    0.1090    0.758 |           1.9463      1           2
+
+weights sum to 0.9478 (expect ~1.0 = Tr[I]/2^n)
+
+INTERPRETATION: peak weights are now DEGENERACIES/2^n, not state populations, and
+q_hat is the mean charge of whatever levels merged into that peak. Pairs closer than
+the Rayleigh limit necessarily merge -- that is a resolution limit of the time grid,
+not a failure of the estimator, and it was predicted before the run.
+
+wrote evidence/dos_prototype_result.json

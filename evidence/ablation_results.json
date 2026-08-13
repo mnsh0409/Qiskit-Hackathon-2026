@@ -1,0 +1,181 @@
+{
+  "equivalence": {
+    "rms_standard": 0.02647739016358318,
+    "rms_shadow": 0.028974254590398506,
+    "mean_sem_standard": 0.027694855010262094,
+    "mean_sem_shadow": 0.027689549883986565,
+    "max_z": 2.1035873950787876,
+    "mean_z": 0.8797940221383832
+  },
+  "grid": {
+    "standard+DFT": {
+      "n_lines": 3,
+      "max_dE": 0.13871036378588109,
+      "labels": "IMPOSSIBLE (no chi_Q)"
+    },
+    "standard+pencil": {
+      "n_lines": 4,
+      "max_dE": 0.012591334670984056,
+      "labels": "IMPOSSIBLE (no chi_Q)"
+    },
+    "shadow+DFT": {
+      "n_lines": 3,
+      "max_dE": 0.1307078630043872,
+      "labels": "available"
+    },
+    "shadow+pencil": {
+      "n_lines": 4,
+      "max_dE": 0.03247287002797661,
+      "labels": "available"
+    }
+  },
+  "shadow_pencil_labels_correct": 4,
+  "cost": {
+    "terms": {
+      "Q": 3,
+      "H": 9,
+      "Z0": 1
+    },
+    "total_extra_experiments": 13,
+    "sem_q_shadow": 0.10115286352885944,
+    "sem_q_dedicated": 0.09486832980505139,
+    "variance_cost_factor": 1.06624480199791
+  },
+  "boundary": [
+    {
+      "M": 8,
+      "T_max": 1.4000000000000001,
+      "dft_lines": 1,
+      "dft_pair": false,
+      "pencil_lines": 1,
+      "pencil_pair": false,
+      "pencil_labels": 1
+    },
+    {
+      "M": 12,
+      "T_max": 2.2,
+      "dft_lines": 1,
+      "dft_pair": false,
+      "pencil_lines": 2,
+      "pencil_pair": false,
+      "pencil_labels": 2
+    },
+    {
+      "M": 16,
+      "T_max": 3.0,
+      "dft_lines": 1,
+      "dft_pair": false,
+      "pencil_lines": 2,
+      "pencil_pair": false,
+      "pencil_labels": 2
+    },
+    {
+      "M": 20,
+      "T_max": 3.8000000000000003,
+      "dft_lines": 1,
+      "dft_pair": false,
+      "pencil_lines": 2,
+      "pencil_pair": false,
+      "pencil_labels": 2
+    },
+    {
+      "M": 24,
+      "T_max": 4.6000000000000005,
+      "dft_lines": 1,
+      "dft_pair": false,
+      "pencil_lines": 2,
+      "pencil_pair": false,
+      "pencil_labels": 2
+    },
+    {
+      "M": 28,
+      "T_max": 5.4,
+      "dft_lines": 2,
+      "dft_pair": false,
+      "pencil_lines": 2,
+      "pencil_pair": false,
+      "pencil_labels": 1
+    },
+    {
+      "M": 32,
+      "T_max": 6.2,
+      "dft_lines": 2,
+      "dft_pair": false,
+      "pencil_lines": 2,
+      "pencil_pair": false,
+      "pencil_labels": 2
+    },
+    {
+      "M": 36,
+      "T_max": 7.0,
+      "dft_lines": 2,
+      "dft_pair": false,
+      "pencil_lines": 3,
+      "pencil_pair": true,
+      "pencil_labels": 3
+    },
+    {
+      "M": 40,
+      "T_max": 7.800000000000001,
+      "dft_lines": 1,
+      "dft_pair": false,
+      "pencil_lines": 4,
+      "pencil_pair": true,
+      "pencil_labels": 4
+    },
+    {
+      "M": 44,
+      "T_max": 8.6,
+      "dft_lines": 1,
+      "dft_pair": false,
+      "pencil_lines": 4,
+      "pencil_pair": true,
+      "pencil_labels": 4
+    },
+    {
+      "M": 48,
+      "T_max": 9.4,
+      "dft_lines": 2,
+      "dft_pair": false,
+      "pencil_lines": 4,
+      "pencil_pair": true,
+      "pencil_labels": 4
+    },
+    {
+      "M": 52,
+      "T_max": 10.200000000000001,
+      "dft_lines": 2,
+      "dft_pair": false,
+      "pencil_lines": 4,
+      "pencil_pair": true,
+      "pencil_labels": 4
+    },
+    {
+      "M": 56,
+      "T_max": 11.0,
+      "dft_lines": 3,
+      "dft_pair": false,
+      "pencil_lines": 4,
+      "pencil_pair": true,
+      "pencil_labels": 4
+    },
+    {
+      "M": 60,
+      "T_max": 11.8,
+      "dft_lines": 3,
+      "dft_pair": false,
+      "pencil_lines": 4,
+      "pencil_pair": true,
+      "pencil_labels": 4
+    },
+    {
+      "M": 64,
+      "T_max": 12.600000000000001,
+      "dft_lines": 3,
+      "dft_pair": false,
+      "pencil_lines": 4,
+      "pencil_pair": true,
+      "pencil_labels": 4
+    }
+  ]
+}

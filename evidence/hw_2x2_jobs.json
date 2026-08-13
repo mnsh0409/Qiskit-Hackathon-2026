@@ -1,0 +1,29 @@
+[
+  {
+    "method": "exact",
+    "backend": "ibm_kingston",
+    "job_id": "d9ujlb0u5hac73ahadu0",
+    "depth": 375,
+    "two_q": 101,
+    "status": "QUEUED",
+    "pending": 16
+  },
+  {
+    "method": "exact",
+    "backend": "ibm_marrakesh",
+    "job_id": "d9ujlc0u5hac73ahadvg",
+    "depth": 375,
+    "two_q": 101,
+    "status": "QUEUED",
+    "pending": 22
+  },
+  {
+    "method": "trotter",
+    "backend": "ibm_kingston",
+    "job_id": "d9ujld498n5s7392uqeg",
+    "depth": 1729,
+    "two_q": 435,
+    "status": "QUEUED",
+    "pending": 17
+  }
+]

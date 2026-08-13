@@ -120,7 +120,7 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 > Everything is public and reproducible.
 > Our repository has pinned versions, a summary file you can compare against your own run,
-> and thirty-six results rows.
+> and thirty-seven results rows.
 > Every single number maps to the exact command that produced it.
 > You can reproduce our headline numbers in under five minutes, from saved data.
 > If you have quantum hardware access, three commands reproduce our hardware results.
@@ -176,6 +176,15 @@ If asked something not on a slide, say "that is in our results file, I can show 
 > The measurement idea scales. Our specific shallow-circuit trick does not — we show the
 > crossover at four qubits. Beyond that you would need circuit compression, for example
 > tensor-network approximate compiling.
+
+**"What would you do next?"**
+> Density of states. The same circuit, with the input state swapped for a maximally mixed
+> one, measures the density of states instead of one state's spectrum. We prototyped it and
+> it works — the peak heights correctly become degeneracies.
+> There is a recent paper doing exactly this for fermions. It gets one particle-number
+> sector per experiment. Our recycled data could get every sector from a single run,
+> because the same shots give us every observable we need. We have checked that is
+> feasible. We have not built it yet.
 
 **"What about the symmetry labels under noise?"**
 > We tested it and the result was confounded, so we are not claiming it. That is honest

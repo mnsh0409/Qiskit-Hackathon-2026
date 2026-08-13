@@ -117,7 +117,7 @@ claim appears; no causal claims from single hardware runs (slide 6 states the ca
 
 *Figure: repo QR code + `README.md` quickstart screenshot — TBD-NAME to generate*
 
-- Public repo: pinned environment, `run_summary.json` a judge can diff, 36 sourced results
+- Public repo: pinned environment, `run_summary.json` a judge can diff, 37 sourced results
   rows, and an `EVIDENCE.md` mapping every number to its producing command.
 - Quickstart reproduces our headline **table** (the 12-seed spectrum) from saved data — no
   long reruns; the money plot itself ships pre-rendered in `figures/`.
@@ -178,6 +178,18 @@ cleanest hardware run (−1.4σ). [R033]
 **B4 — Eigenstate detector (Track C).** Witness calibration from a true eigenstate
 (z = 0.42, correctly undetected) to our benchmark state (z = 62.3), with detection power
 measured against shot budget. [R032]
+
+**B6 — Future work, already prototyped: density of states.** The DOS is the Fourier
+transform of Tr[U(t)] — the *trace*, not a state expectation. Swap our input state for the
+maximally mixed one and **the same experiment becomes a DOS estimator**, with one line
+changed and the entire analysis chain untouched. Prototyped: peak weights correctly become
+degeneracies (isolated levels 0.11–0.13 vs predicted 1/8; a 3-fold merged peak 0.354 vs
+predicted 3/8). Verified against arXiv 2407.03414v2, whose Eq. (7), 1-design construction
+and W=H / W=S†H quadratures all match what we built independently. **The extension we could
+add:** that paper obtains fixed-particle-number DOS with *one experiment per sector*; our
+shadow channel measures ⟨Q^k⟩ from the *same* shots, so the charge moments at each peak
+recover **all sectors from a single run** (Q², Q³ are 4 Pauli terms each; the moment
+inversion has condition number 31). [R038]
 
 **B5 — Bugs we caught, and how.** A fixed-basis shadow estimator silently returns a
 *different observable* — 65σ wrong with **zero noise** (B04). A U-statistic error bar

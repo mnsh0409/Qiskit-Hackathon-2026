@@ -278,15 +278,22 @@ and a way to certify the result from its own garbage}
 \begin{frame}{AQC makes it scale --- crossover at $n=4$, $36\times$ by $n=7$}
   \vspace{-1mm}
   \begin{center}
-    \includegraphics[width=0.99\linewidth]{fig_aqc_scaling.png}
+    \includegraphics[width=0.92\linewidth]{fig_aqc_scaling.png}
   \end{center}
-  \vspace{-2mm}
-  {\footnotesize
-  \textbf{Left.} A Hadamard test's controlled evolution is its bottleneck. The standard
-  construction builds $|0\rangle\!\langle0|\otimes\mathbb{1}+|1\rangle\!\langle1|\otimes U$
-  as one $(n{+}1)$-qubit \texttt{UnitaryGate}, costing $\sim\!4^{\,n+1}$ gates. Controlled
-  AQC grows \emph{roughly linearly}, so the crossover is structural --- measured, not
-  extrapolated. \textbf{Right.} The trap, next slide. \src{R046}}
+  \vspace{-3mm}
+  {\scriptsize
+  \textbf{Left.} The controlled evolution is the bottleneck: the standard construction builds
+  $|0\rangle\!\langle0|\otimes\mathbb{1}+|1\rangle\!\langle1|\otimes U$ as one
+  $(n{+}1)$-qubit \texttt{UnitaryGate}, costing $\sim\!4^{\,n+1}$. Controlled AQC grows
+  \emph{roughly linearly}, so the crossover is structural --- measured, not extrapolated.
+  \textbf{Right.} The trap, next slide. \src{R046}
+  \par\smallskip
+  \textbf{And on a 2D lattice?} AQC-Tensor is an MPS method, native to 1D, so we checked.
+  On a $2\times4$ grid the crossover moves right by \emph{one step} ($n{=}4$ becomes a
+  $0.92\times$ loss) and the $n{=}8$ advantage falls $122.8\times\to$ \good{$100.8\times$}
+  --- an 18\% cost for nearly doubling the connectivity. \hl{It does not break.} Infidelity
+  was in fact \emph{better} in 2D ($2.0\times10^{-5}$--$2.0\times10^{-4}$); the MPS concern
+  is deferred, not refuted, and we do not extrapolate past $n{=}8$. \src{R049}}
 \end{frame}
 
 \begin{frame}{The trap: a phase-blind compiler breaks a phase interferometer}

@@ -1,0 +1,132 @@
+{
+  "aqc": [
+    {
+      "n": 4,
+      "geometry": "1D chain",
+      "bonds": 3,
+      "exact_cx": 236,
+      "trotter_cx": 818,
+      "aqc_cx": 216,
+      "aqc_vs_exact": 1.0925925925925926,
+      "state_infidelity": 0.0002619663725922372,
+      "chi_err_naive": 1.223779682993831,
+      "chi_err_fixed": 0.008018547928511624
+    },
+    {
+      "n": 4,
+      "geometry": "2D 2x2",
+      "bonds": 4,
+      "exact_cx": 236,
+      "trotter_cx": 1092,
+      "aqc_cx": 256,
+      "aqc_vs_exact": 0.921875,
+      "state_infidelity": 5.708571602824897e-05,
+      "chi_err_naive": 0.09720217479353312,
+      "chi_err_fixed": 0.004934284087471006
+    },
+    {
+      "n": 6,
+      "geometry": "1D chain",
+      "bonds": 5,
+      "exact_cx": 4140,
+      "trotter_cx": 1378,
+      "aqc_cx": 384,
+      "aqc_vs_exact": 10.78125,
+      "state_infidelity": 0.0002955589729941588,
+      "chi_err_naive": 1.329702610888471,
+      "chi_err_fixed": 0.007896240467760749
+    },
+    {
+      "n": 6,
+      "geometry": "2D 2x3",
+      "bonds": 7,
+      "exact_cx": 4140,
+      "trotter_cx": 1940,
+      "aqc_cx": 464,
+      "aqc_vs_exact": 8.922413793103448,
+      "state_infidelity": 0.00011372648695906484,
+      "chi_err_naive": 0.1756381785699503,
+      "chi_err_fixed": 0.005622638295397174
+    },
+    {
+      "n": 8,
+      "geometry": "1D chain",
+      "bonds": 7,
+      "exact_cx": 67756,
+      "trotter_cx": 1938,
+      "aqc_cx": 552,
+      "aqc_vs_exact": 122.7463768115942,
+      "state_infidelity": 0.0002896399722304155,
+      "chi_err_naive": 0.5532757374818247,
+      "chi_err_fixed": 0.008251969853274055
+    },
+    {
+      "n": 8,
+      "geometry": "2D 2x4",
+      "bonds": 10,
+      "exact_cx": 67756,
+      "trotter_cx": 2788,
+      "aqc_cx": 672,
+      "aqc_vs_exact": 100.82738095238095,
+      "state_infidelity": 0.00019533142934247127,
+      "chi_err_naive": 0.9778259693501047,
+      "chi_err_fixed": 0.006537659372448898
+    }
+  ],
+  "baselines": [
+    {
+      "n": 4,
+      "geometry": "1D chain",
+      "bonds": 3,
+      "echo_cx": 131,
+      "hst_cx": 198,
+      "track_b_cx": 676,
+      "echo_advantage": 5.1603053435114505
+    },
+    {
+      "n": 4,
+      "geometry": "2D 2x2",
+      "bonds": 4,
+      "echo_cx": 143,
+      "hst_cx": 198,
+      "track_b_cx": 820,
+      "echo_advantage": 5.734265734265734
+    },
+    {
+      "n": 6,
+      "geometry": "1D chain",
+      "bonds": 5,
+      "echo_cx": 1843,
+      "hst_cx": 3578,
+      "track_b_cx": 4872,
+      "echo_advantage": 2.643516006511123
+    },
+    {
+      "n": 6,
+      "geometry": "2D 2x3",
+      "bonds": 7,
+      "echo_cx": 1867,
+      "hst_cx": 3578,
+      "track_b_cx": 5160,
+      "echo_advantage": 2.763792179967863
+    },
+    {
+      "n": 8,
+      "geometry": "1D chain",
+      "bonds": 7,
+      "echo_cx": 29739,
+      "hst_cx": 59326,
+      "track_b_cx": 68780,
+      "echo_advantage": 2.3127879215844516
+    },
+    {
+      "n": 8,
+      "geometry": "2D 2x4",
+      "bonds": 10,
+      "echo_cx": 29775,
+      "hst_cx": 59326,
+      "track_b_cx": 69212,
+      "echo_advantage": 2.324500419815281
+    }
+  ]
+}

@@ -707,18 +707,18 @@ and a way to certify the result from its own garbage}
       \end{tabular}\\[0.5mm]
       {\tiny $^{\dagger}$unphysical: $T_1$ floor, not signal}
       \end{center}
-      \textbf{Effective error, extracted from data:}
+      \textbf{Effective error --- a \emph{lower bound}, not a point estimate:}
       \[
-        \varepsilon_{\rm eff}=\frac{-\ln S}{N_{2q}}
+        \varepsilon_{\rm eff}\;\geq\;\frac{-\ln S}{N_{2q}}
         =\frac{-\ln 0.026}{576}=6.3\times10^{-3}
       \]
-      (kingston: $5.9\times10^{-3}$) --- \bad{3--4$\times$} the calibrated
-      $1.7$--$2.0\times10^{-3}$.
+      (kingston: $5.9\times10^{-3}$; bound because measured $|\chi|$ sits near the
+      estimator's noise floor $\sigma\sqrt{\pi/2}\approx0.020$ at these shots) ---
+      \bad{$\geq$3--4$\times$} the calibrated $1.7$--$2.0\times10^{-3}$.
       \textbf{Budgeted:} $0.315$ (gate error) $\times$
       $e^{-39.2/74}{=}0.59$ (ancilla $T_2$) $=0.186$; measured $0.026$
-      $\Rightarrow$ residual $7.2\times$ $=3.4\times10^{-3}$/gate unattributed.
-      \textbf{Visibility:} $S\gtrsim0.3$ at $576$ gates needs
-      $\varepsilon_{\rm eff}\leq\frac{\ln(1/0.3)}{576}=2.1\times10^{-3}$.
+      $\Rightarrow$ residual $7.2\times$ unattributed; visibility ($S{\gtrsim}0.3$)
+      needs $\varepsilon_{\rm eff}\leq2.1\times10^{-3}$.
     \end{column}
     \begin{column}{0.5\textwidth}
       \textbf{The same job at $n{=}7$, transpiled --- not estimated} \src{R055}
@@ -744,7 +744,7 @@ and a way to certify the result from its own garbage}
       \end{itemize}
       \smallskip
       \bad{Doubles the headline, halves the signal, quadruples the bill.}
-      The win becomes measurable when $\varepsilon_{\rm eff}\lesssim2\times10^{-3}$
+      The win becomes measurable when $\varepsilon_{\rm eff}\lesssim2\times10^{-3}$ (gap $\geq3\times$)
       --- a device generation (Nighthawk's target regime), not a larger $n$.
       \src{R046, R052, R054, R055}
     \end{column}

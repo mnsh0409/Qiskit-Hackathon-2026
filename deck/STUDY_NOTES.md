@@ -159,7 +159,8 @@ would be undeniable, and it was: every arm on both `ibm_marrakesh` and
 0.315/0.401 — 12× short on both.
 
 **The post-mortem number to remember:** effective error per two-qubit gate,
-extracted from data: ε_eff = −ln(S)/N ≈ 6×10⁻³ — about 3–4× the *calibrated*
+bounded from data: ε_eff ≥ −ln(S)/N ≈ 6×10⁻³ (a lower bound — the measured |χ| sits
+near the estimator's noise floor ~0.020 at these shots) — about 3–4× the *calibrated*
 gate error. Ancilla dephasing (T₂) explains part; a ~7× residual is honestly
 labelled unattributed. The win becomes visible when ε_eff ≲ 2×10⁻³ — roughly
 one device generation away (Nighthawk's target regime). Full arithmetic:

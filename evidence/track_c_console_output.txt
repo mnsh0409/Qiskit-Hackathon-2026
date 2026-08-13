@@ -1,0 +1,32 @@
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+reduced grid: 16 points over T_max=12.60  (DT=0.7875 vs official 0.2)
+
+(1) calibration family: theta in [0.0, 0.2, 0.4, 0.65, 1.0, 1.3], 1000 shots/setting
+
+ theta        w1   sem(w1)  z=w1/sem        w2
+------------------------------------------------
+  0.00    0.0016    0.0039      0.42    0.0378
+  0.20    0.0101    0.0040      2.53    0.0283
+  0.40    0.0369    0.0044      8.36    0.0292
+  0.65    0.1015    0.0046     21.94    0.0474
+  1.00    0.2249    0.0055     41.20    0.0777
+  1.30    0.3373    0.0054     62.30    0.1056
+
+calibration family took 210.8s
+theta=0.0 is an EXACT eigenstate (Checkpoint 2: |000> at E=0.55) -- w1/w2 there are
+the noise floor, not an assumption; everything above it is genuine detected mixedness.
+
+(2) detection power vs shot budget: theta in [0.2, 1.3], shots in [200, 800, 3200]
+
+ theta  shots        w1   sem(w1)       z
+------------------------------------------
+  0.20    200    0.0023    0.0095    0.24
+  0.20    800    0.0089    0.0041    2.15
+  0.20   3200    0.0100    0.0022    4.64
+  1.30    200    0.3357    0.0132   25.42
+  1.30    800    0.3489    0.0069   50.46
+  1.30   3200    0.3435    0.0034   99.86
+
+detection-power sub-study took 182.3s
+
+wrote evidence/track_c_result.json

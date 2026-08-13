@@ -64,6 +64,7 @@ NEEDED = [
     ("def build_shadow_hadamard_circuit", "\ndemo = "),
     ("def parse_memory", None),
     ("def pauli_snapshot_values", None),
+    ("def run_time_sweep", None),      # given-complete; needed by Track C etc.
 ]
 
 

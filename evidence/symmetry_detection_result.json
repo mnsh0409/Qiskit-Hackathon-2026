@@ -1,0 +1,53 @@
+[
+  {
+    "source": "ideal_sim",
+    "model": "2site",
+    "n": 2,
+    "populated": [
+      0,
+      2
+    ],
+    "forbidden": [
+      -2
+    ],
+    "total_shots": 36000,
+    "all_z_shots": 4000,
+    "violating": 0,
+    "error_rate": 0.0
+  },
+  {
+    "source": "ideal_sim",
+    "model": "frozen",
+    "n": 3,
+    "populated": [
+      1,
+      3
+    ],
+    "forbidden": [
+      -3,
+      -1
+    ],
+    "total_shots": 108000,
+    "all_z_shots": 4000,
+    "violating": 0,
+    "error_rate": 0.0
+  },
+  {
+    "source": "hardware",
+    "model": "2site",
+    "backend": "ibm_kingston",
+    "job_id": "d9uk99k98n5s7392vhsg",
+    "n": 2,
+    "populated": [
+      0,
+      2
+    ],
+    "forbidden": [
+      -2
+    ],
+    "total_shots": 36000,
+    "all_z_shots": 4000,
+    "violating": 66,
+    "error_rate": 0.0165
+  }
+]

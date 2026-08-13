@@ -1,0 +1,30 @@
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+==============================================================================
+(1) IDEAL SIMULATOR -- the detector must fire at ~0 (no errors to detect)
+==============================================================================
+
+2site (n=2): populated Q sectors [0, 2], forbidden [-2]
+  total shots 36,000 | all-Z shots 4,000 (11.1%, expect 11.1%)
+  symmetry-violating: 0  ->  DETECTED ERROR RATE 0.000%
+
+frozen (n=3): populated Q sectors [1, 3], forbidden [-3, -1]
+  total shots 108,000 | all-Z shots 4,000 (3.7%, expect 3.7%)
+  symmetry-violating: 0  ->  DETECTED ERROR RATE 0.000%
+
+==============================================================================
+(2) REAL HARDWARE -- a genuine error rate, from symmetry alone
+==============================================================================
+
+2site on ibm_kingston (job d9uk99k98n5s7392vhsg), populated [0, 2], forbidden [-2]
+  total shots 36,000 | all-Z shots 4,000 (11.1%)
+  symmetry-violating: 66  ->  DETECTED ERROR RATE 1.650%
+
+==============================================================================
+YIELD / ACCURACY TRADE-OFF (the honest cost of this diagnostic)
+==============================================================================
+  Only 1 shot in 3^n carries a defined charge, so the diagnostic sees 11.1% of the data at n=2.
+  Detection is FREE in circuits (it reuses shots already taken) but the statistical
+  precision of the rate is set by that reduced subset, and it can only ever detect
+  errors that move charge -- a phase error inside a sector is invisible to it.
+
+wrote evidence/symmetry_detection_result.json

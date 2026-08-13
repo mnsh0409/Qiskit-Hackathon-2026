@@ -192,11 +192,15 @@ if "--dry-run" in sys.argv:
 
 sampler = SamplerV2(mode=backend)
 job = sampler.run(circuits, shots=SHOTS)
-out = dict(backend=backend.name, n=N, times=list(TIMES), shots=SHOTS, meta=meta,
-           prediction=pred, job_id=job.job_id(),
+# MERGE into any existing record. Writing a fresh dict here silently destroyed the
+# marrakesh job id the moment the same script was pointed at a second backend.
+path = os.path.join(REPO, "evidence/aqc_hw_job.json")
+out = json.load(open(path)) if os.path.exists(path) else {}
+out.update(n=N, times=list(TIMES), shots=SHOTS, meta=meta,
            aqc={str(t): dict(theta=AQC[t][1], infidelity=AQC[t][2]) for t in TIMES},
            chi_exact={str(t): [chi_exact(t).real, chi_exact(t).imag] for t in TIMES})
-with open(os.path.join(REPO, "evidence/aqc_hw_job.json"), "w") as fh:
+out.setdefault("jobs", {})[backend.name] = dict(job_id=job.job_id(), prediction=pred)
+with open(path, "w") as fh:
     json.dump(out, fh, indent=2)
 print(f"\nsubmitted {len(circuits)} circuits x {SHOTS} shots to {backend.name}")
 print(f"job {job.job_id()}  ->  evidence/aqc_hw_job.json")

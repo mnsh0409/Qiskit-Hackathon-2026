@@ -88,6 +88,72 @@ python hardware_run.py --fetch d9u95vs98n5s7392iao0     # Trotter+marrakesh (the
 python hardware_run.py --fetch d9ujlb0u5hac73ahadu0     # exact+kingston (our best result)
 ```
 
+## 2b. The Track B ask (newer, and the one we actually want most)
+
+Everything above is the Part A ask. **If you can only run one thing, run this instead.**
+Track B (the anti-controlled Hadamard test) has never run on a Nighthawk-class device, and
+it is where our only genuinely open question sits.
+
+### Scripts to hand over
+
+Five files, plus the two they read from. All paths inside them are derived from the repo
+root, so a clone anywhere works:
+
+| file | role |
+|---|---|
+| `hardware_run.py` | **required** — provides `load_notebook_definitions()` and `get_model()` |
+| `shadow_hadamard_challenge_PARTICIPANT.ipynb` | **required** — the definitions are `exec`'d out of it; no kernel needed |
+| `evidence/scripts/track_b_hardware_prep.py` | go/no-go sizing. Run this FIRST |
+| `evidence/scripts/track_b_hardware_submit.py` | validates the identity, then submits |
+| `evidence/scripts/track_b_hardware_fetch.py` | analysis — produces every number we would quote |
+| `evidence/scripts/track_b_baselines.py` | *optional*, classical only, no QPU |
+| `CONVENTIONS.md` | *optional* — read §5 if any sign looks wrong |
+
+### Run order
+
+```bash
+python evidence/scripts/track_b_hardware_prep.py   ibm_nighthawk   # 1. sizing, no QPU time
+python evidence/scripts/track_b_hardware_submit.py --dry-run       # 2. validation only
+python evidence/scripts/track_b_hardware_submit.py ibm_nighthawk   # 3. submit
+python evidence/scripts/track_b_hardware_fetch.py                  # 4. when it finishes
+```
+
+**Budget: 116 circuits × 1000 shots = 116,000 shots**, about a minute of QPU time. The job
+carries four arms so the comparison is same-device, same-hour: our Track-B overlap, our
+per-observable profile, a Loschmidt echo, and a Hilbert–Schmidt test.
+
+### Three things that will bite you, all of which bit us
+
+- **`prep.py` and `submit.py` both refuse to proceed if the statevector identity fails.**
+  That is deliberate — leave it in. It is what caught our own endianness bug (we took the
+  `|1>`-control block as the *upper half* of the gate matrix; the notebook builds the ancilla
+  as the *lowest* bit, so it is the odd sublattice `[1::2,1::2]`). The wrong version passes
+  at `t=0`, where both branches are the identity, and fails at every `t>0`.
+- **The 2-qubit basis gate is auto-detected from the backend target**, not hardcoded. If
+  Nighthawk uses a gate we have never seen, the scripts will say so and stop rather than
+  silently counting zero 2q gates and reporting survival 1.000. If it *does* stop, send us
+  the printed operation list — do not patch around it.
+- **Do not post-select on the charge `Q`.** It is a diagnostic only; filtering on it biases
+  the shadow estimators (our BUGLOG B04 failure class).
+
+### What we predict, so you can falsify it
+
+On `ibm_marrakesh` (2q error ~1.4e-3) we measured, at t = 0.0/0.9/1.8/2.7:
+
+- Loschmidt echo `P0` = 1.0000 / 0.9650 / 0.5420 / 0.1340 against exact 1.0000 / 0.9738 /
+  0.5854 / 0.1069 — the 2-gate baseline is excellent.
+- Our 136-gate Track-B arm: |chi_AB| survival 0.994 / 0.578 / 0.824 / 1.350. The last point
+  is **above 1**, which is unphysical for pure damping — so the errors there are not simple
+  depolarising loss.
+- `<Q>_W - <Q>_U` must be **exactly zero** by conservation; we measured -0.04 / -0.39 /
+  -0.25 / -0.34.
+
+**The interesting question for you:** does a better device move our arm toward the echo, or
+is the gap structural (136 gates vs 2) and therefore permanent? Either answer is publishable
+for us. If our arm stays bad on good hardware, we will say so on the slide.
+
+---
+
 ## 3. What we already know (please don't re-derive this)
 
 **Updated 2026-08-13 — all four arms of the 2×2 have now returned, plus both side-model

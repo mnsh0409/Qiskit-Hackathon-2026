@@ -2,13 +2,17 @@
 (track_b_baselines.json, track_b_hw_result.json) rather than typed in, so the charts
 cannot drift from what was measured.
 """
+import os
+# repo root derived from this file, so the script runs from any clone/checkout
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import json
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-R = "/home/martin/Documents/QiskitHackathon/2026/"
+R = REPO + os.sep
 COL = {"blue": "#2a78d6", "orange": "#eb6834", "aqua": "#1baf7a", "violet": "#4a3aa7",
        "ink": "#0b0b0b", "muted": "#898781", "grid": "#e1e0d9"}
 BG = "#fcfcfb"

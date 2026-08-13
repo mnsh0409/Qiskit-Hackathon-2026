@@ -27,8 +27,12 @@ and measures all of them on the same 2-site instance.
 The honest scoreboard is not "ours wins". It is: the echo is cheaper, the HST is stronger
 per query and costlier in qubits, and ours is the only one that says WHICH OBSERVABLE broke.
 """
+import os
+# repo root derived from this file, so the script runs from any clone/checkout
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import sys, json
-sys.path.insert(0, "/home/martin/Documents/QiskitHackathon/2026")
+sys.path.insert(0, REPO)
 from hardware_run import load_notebook_definitions, get_model
 
 import numpy as np
@@ -137,9 +141,31 @@ def track_b(phi, basis, final_hadamard):
 
 # ---------------- transpiled cost on the device we would actually use ----------------
 from qiskit_ibm_runtime import QiskitRuntimeService
+
+
+def two_qubit_ops(backend):
+    """Names of the backend's 2-qubit basis gates, read from its target rather than guessed.
+
+    Hardcoding ("cz","ecr","cx") silently returns an EMPTY list on any device with a
+    different 2q basis -- and then every gate count reads 0 and every survival reads 1.000,
+    which is exactly the failure you cannot catch on a machine you have no access to.
+    So: derive it, and refuse to continue if nothing is found."""
+    names = set()
+    try:
+        for name, inst in backend.target.items():
+            if inst and any(k is not None and len(k) == 2 for k in inst):
+                names.add(name)
+    except Exception:
+        pass
+    names -= {"measure", "delay", "reset", "barrier"}
+    if not names:
+        names = {g for g in ("cz", "ecr", "cx") if g in backend.operation_names}
+    assert names, (f"could not identify a 2-qubit basis gate on {backend.name}; "
+                   f"operations = {sorted(backend.operation_names)}")
+    return sorted(names)
 svc = QiskitRuntimeService()
 backend = svc.backend(sys.argv[1] if len(sys.argv) > 1 else "ibm_marrakesh")
-TWOQ = [g for g in ("cz", "ecr", "cx") if g in backend.operation_names]
+TWOQ = two_qubit_ops(backend)
 print(f"transpiled cost on {backend.name}:\n")
 
 
@@ -186,7 +212,7 @@ print("  * Neither the echo nor the HST can tell you WHICH observable the approx
 print("    broke -- they return one number. That is the gap arm B fills, at zero extra")
 print("    circuits over Track B itself, because the shadows are already being recorded.")
 
-with open("/home/martin/Documents/QiskitHackathon/2026/evidence/track_b_baselines.json",
+with open(os.path.join(REPO, "evidence/track_b_baselines.json"),
           "w") as fh:
     json.dump(dict(backend=backend.name, t=T, reps_w=REPS_W,
                    exact_state_overlap=[EXACT_OVERLAP.real, EXACT_OVERLAP.imag],
@@ -250,7 +276,7 @@ print("  echo's two evolutions grow at the same rate. Quote 4-6x, never 52x.")
 print("  Either way the echo wins on cost, so our arm is justified by WHAT IT RETURNS")
 print("  (phase, and the per-observable profile), never by being cheaper.")
 
-d = json.load(open("/home/martin/Documents/QiskitHackathon/2026/evidence/track_b_baselines.json"))
+d = json.load(open(os.path.join(REPO, "evidence/track_b_baselines.json")))
 d["scaling"] = scal
-json.dump(d, open("/home/martin/Documents/QiskitHackathon/2026/evidence/track_b_baselines.json", "w"), indent=2)
+json.dump(d, open(os.path.join(REPO, "evidence/track_b_baselines.json"), "w"), indent=2)
 print("\nupdated evidence/track_b_baselines.json with the scaling check")

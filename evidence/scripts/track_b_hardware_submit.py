@@ -26,8 +26,12 @@ hardware run is a method comparison rather than a demonstration of ours alone):
                          (Khatri et al., Quantum 3, 140 (2019)). 4 qubits, 16 CX here.
 Plus, from arm A alone, the GARBAGE baseline (ancilla only, system register discarded).
 """
+import os
+# repo root derived from this file, so the script runs from any clone/checkout
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import sys, json
-sys.path.insert(0, "/home/martin/Documents/QiskitHackathon/2026")
+sys.path.insert(0, REPO)
 from hardware_run import load_notebook_definitions, get_model
 
 import numpy as np
@@ -182,6 +186,28 @@ if "--dry-run" in sys.argv:
     print("dry run -- nothing submitted"); sys.exit(0)
 
 from qiskit_ibm_runtime import QiskitRuntimeService, SamplerV2
+
+
+def two_qubit_ops(backend):
+    """Names of the backend's 2-qubit basis gates, read from its target rather than guessed.
+
+    Hardcoding ("cz","ecr","cx") silently returns an EMPTY list on any device with a
+    different 2q basis -- and then every gate count reads 0 and every survival reads 1.000,
+    which is exactly the failure you cannot catch on a machine you have no access to.
+    So: derive it, and refuse to continue if nothing is found."""
+    names = set()
+    try:
+        for name, inst in backend.target.items():
+            if inst and any(k is not None and len(k) == 2 for k in inst):
+                names.add(name)
+    except Exception:
+        pass
+    names -= {"measure", "delay", "reset", "barrier"}
+    if not names:
+        names = {g for g in ("cz", "ecr", "cx") if g in backend.operation_names}
+    assert names, (f"could not identify a 2-qubit basis gate on {backend.name}; "
+                   f"operations = {sorted(backend.operation_names)}")
+    return sorted(names)
 svc = QiskitRuntimeService()
 targets = [a for a in sys.argv[1:] if a.startswith("ibm_")]
 assert targets, "give at least one backend, e.g. ibm_marrakesh ibm_kingston"
@@ -191,7 +217,8 @@ out = {"model": "2site", "reps_w": REPS_W, "times": list(TIMES), "shots": SHOTS,
 for name in targets:
     backend = svc.backend(name)
     tqcs = transpile(circuits, backend, optimization_level=3, seed_transpiler=2026)
-    n2q = [sum(v for k, v in c.count_ops().items() if k in ("cz", "ecr", "cx")) for c in tqcs]
+    twoq = two_qubit_ops(backend)
+    n2q = [sum(v for k, v in c.count_ops().items() if k in twoq) for c in tqcs]
     sampler = SamplerV2(mode=backend)
     job = sampler.run(tqcs, shots=SHOTS)
     out["jobs"][name] = dict(job_id=job.job_id(), max_2q=int(max(n2q)),
@@ -199,6 +226,6 @@ for name in targets:
     print(f"  {name}: job {job.job_id()}  median 2q {int(np.median(n2q))}  "
           f"max depth {max(c.depth() for c in tqcs)}")
 
-with open("/home/martin/Documents/QiskitHackathon/2026/evidence/track_b_hw_jobs.json", "w") as fh:
+with open(os.path.join(REPO, "evidence/track_b_hw_jobs.json"), "w") as fh:
     json.dump(out, fh, indent=2)
 print("\nwrote evidence/track_b_hw_jobs.json  (fetch with track_b_hardware_fetch.py)")

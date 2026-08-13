@@ -6,8 +6,12 @@ Four arms, each compared against the exact reference recorded BEFORE submission:
   C  Loschmidt echo P(0..0) = |<psi|W+U|psi>|^2  -- literature baseline, cheaper than ours
   D  Hilbert-Schmidt P(0..0) = |Tr[W+U]/d|^2     -- literature baseline, state-independent
 """
+import os
+# repo root derived from this file, so the script runs from any clone/checkout
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import sys, json
-sys.path.insert(0, "/home/martin/Documents/QiskitHackathon/2026")
+sys.path.insert(0, REPO)
 from hardware_run import load_notebook_definitions, get_model
 
 import numpy as np
@@ -15,7 +19,7 @@ import numpy as np
 ns = load_notebook_definitions()
 SPO = ns["SparsePauliOp"]
 N2, H2, Q2, PREP2, PSI2, _ = get_model(ns, "2site")
-JOBS = json.load(open("/home/martin/Documents/QiskitHackathon/2026/evidence/track_b_hw_jobs.json"))
+JOBS = json.load(open(os.path.join(REPO, "evidence/track_b_hw_jobs.json")))
 REF, META, TIMES = JOBS["exact_reference"], JOBS["meta"], JOBS["times"]
 
 OBS = {
@@ -124,7 +128,7 @@ for name, j in JOBS["jobs"].items():
     if r:
         report(r); results.append(r)
 if results:
-    with open("/home/martin/Documents/QiskitHackathon/2026/evidence/track_b_hw_result.json",
+    with open(os.path.join(REPO, "evidence/track_b_hw_result.json"),
               "w") as fh:
         json.dump(results, fh, indent=2)
     print("\nwrote evidence/track_b_hw_result.json")

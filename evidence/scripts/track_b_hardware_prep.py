@@ -13,8 +13,12 @@ estimates -- is whether the doubled circuit still fits inside the coherence budg
 
 Nothing here submits. It prints gate counts and a falsifiable survival prediction.
 """
+import os
+# repo root derived from this file, so the script runs from any clone/checkout
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import sys
-sys.path.insert(0, "/home/martin/Documents/QiskitHackathon/2026")
+sys.path.insert(0, REPO)
 from hardware_run import load_notebook_definitions, get_model
 
 import json
@@ -100,10 +104,32 @@ print("\n" + "=" * 74)
 print("2. TRANSPILED COST ON REAL HARDWARE")
 print("=" * 74)
 from qiskit_ibm_runtime import QiskitRuntimeService
+
+
+def two_qubit_ops(backend):
+    """Names of the backend's 2-qubit basis gates, read from its target rather than guessed.
+
+    Hardcoding ("cz","ecr","cx") silently returns an EMPTY list on any device with a
+    different 2q basis -- and then every gate count reads 0 and every survival reads 1.000,
+    which is exactly the failure you cannot catch on a machine you have no access to.
+    So: derive it, and refuse to continue if nothing is found."""
+    names = set()
+    try:
+        for name, inst in backend.target.items():
+            if inst and any(k is not None and len(k) == 2 for k in inst):
+                names.add(name)
+    except Exception:
+        pass
+    names -= {"measure", "delay", "reset", "barrier"}
+    if not names:
+        names = {g for g in ("cz", "ecr", "cx") if g in backend.operation_names}
+    assert names, (f"could not identify a 2-qubit basis gate on {backend.name}; "
+                   f"operations = {sorted(backend.operation_names)}")
+    return sorted(names)
 svc = QiskitRuntimeService()          # saved account, same path hardware_run.py uses
 backend = svc.backend(sys.argv[1] if len(sys.argv) > 1 else "ibm_kingston")
 props = backend.properties()
-TWOQ = [g for g in ("cz", "ecr", "cx") if g in backend.operation_names]
+TWOQ = two_qubit_ops(backend)
 print(f"backend {backend.name}, {backend.num_qubits} qubits, 2q basis {TWOQ}\n")
 
 
@@ -162,7 +188,7 @@ print("\n  Prediction recorded BEFORE submission, and deliberately stated as a R
 print("  gate-error-only survival is the optimistic end; multiply by roughly exp(-t/T1)")
 print("  per active qubit for the pessimistic end. R023's baseline came in at 0.962")
 print("  against a 0.984 gate-error prediction, i.e. the model ran ~2% optimistic there.")
-with open("/home/martin/Documents/QiskitHackathon/2026/evidence/track_b_hw_sizing.json",
+with open(os.path.join(REPO, "evidence/track_b_hw_sizing.json"),
           "w") as fh:
     json.dump(dict(backend=backend.name, two_q_basis=TWOQ,
                    identity_worst_dev=worst, rows=rows), fh, indent=2)

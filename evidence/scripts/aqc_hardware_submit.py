@@ -224,5 +224,7 @@ out.update(n=N, times=list(TIMES), shots=SHOTS, meta=meta,
 out.setdefault("jobs", {})[backend.name] = dict(job_id=job.job_id(), prediction=pred)
 with open(path, "w") as fh:
     json.dump(out, fh, indent=2)
-print(f"\nsubmitted {len(circuits)} circuits x {SHOTS} shots to {backend.name}")
+shots_desc = (f"{SHOTS} shots" if EXACT_SHOTS is None
+              else f"{SHOTS} shots ({EXACT_SHOTS} on the exact arm)")
+print(f"\nsubmitted {len(circuits)} circuits x {shots_desc} to {backend.name}")
 print(f"job {job.job_id()}  ->  evidence/aqc_hw_job.json")

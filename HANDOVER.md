@@ -272,7 +272,17 @@ negative and we say so.
 **Flags** (all verified by dry run): `--n 7` runs the larger instance (default 6 — and we
 recommend keeping 6: at n=7 the exact control arm alone is 36,114 routed gates, 4.1× the
 quantum time, while the AQC arm's expected signal *halves*; the full arithmetic is R055 and
-appendix A7 of the Track B deck). `--shots N` and `--cheap` as above. Note `--dry-run` with
+appendix A7 of the Track B deck). `--shots N` and `--cheap` as above.
+
+**Escalation rule — run n=7 only as a follow-up, never first:**
+- Run `--cheap` at the default n=6 and fetch. A null at n=7-first is uninterpretable
+  (device not good enough vs n too deep); n=6 separates those.
+- **If** the n=6 AQC arm survives ≥ ~0.2 (⇒ effective error ≲ 2.8e-3/gate), escalate:
+  `--n 7 --cheap`. At that error rate the 702-gate n=7 arm predicts 0.15–0.25 — measurable,
+  and it answers a new question (does the win *scale* on hardware). With `--cheap` the n=7
+  job is only ~2× the n=6 circuit time.
+- If n=6 fails on miami too, stop: that is a clean three-architecture negative at matched
+  n, and n=7 would add cost, not information. Note `--dry-run` with
 no `ibm_*` argument is statevector-only and touches no backend; with a backend name it also
 transpiles and prints the cost table without submitting.
 

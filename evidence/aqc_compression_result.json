@@ -16,8 +16,10 @@
     "chi_ab_aqc": 0.9998648561171706,
     "chi_ab_trotter": 0.9998685232559885,
     "cx_ratio": 7.555555555555555,
-    "beats_exact_synthesis": true,
-    "verdict": "AQC beats Trotter (7.6x fewer CX) and ALSO beats exact synthesis at infidelity 1.4e-04"
+    "verdict_uncontrolled": "AQC beats Trotter (7.6x fewer CX) and ALSO beats exact synthesis at infidelity 1.4e-04",
+    "beats_exact_synthesis_uncontrolled": true,
+    "verdict_controlled": "CONTROLLED (what a Hadamard test actually runs): notebook exact 50 CX vs AQC 132 CX = 0.38x -> AQC LOSES by 2.64x",
+    "note": "The uncontrolled verdict is NOT the headline. Controlling an AQC ansatz pays per-gate overhead, while build_controlled_evolution('exact') builds the block matrix directly and pays none. See R035."
   },
   {
     "model": "4site",
@@ -36,7 +38,9 @@
     "chi_ab_aqc": 0.9997380336274078,
     "chi_ab_trotter": 0.9997342917758774,
     "cx_ratio": 6.933333333333334,
-    "beats_exact_synthesis": true,
-    "verdict": "AQC beats Trotter (6.9x fewer CX) and ALSO beats exact synthesis at infidelity 2.6e-04"
+    "verdict_uncontrolled": "AQC beats Trotter (6.9x fewer CX) and ALSO beats exact synthesis at infidelity 2.6e-04",
+    "beats_exact_synthesis_uncontrolled": true,
+    "verdict_controlled": "CONTROLLED (what a Hadamard test actually runs): notebook exact 236 CX vs AQC 216 CX = 1.09x -> AQC WINS",
+    "note": "The uncontrolled verdict is NOT the headline. Controlling an AQC ansatz pays per-gate overhead, while build_controlled_evolution('exact') builds the block matrix directly and pays none. See R035."
   }
 ]

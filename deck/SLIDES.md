@@ -56,8 +56,8 @@ claim appears; no causal claims from single hardware runs (slide 6 states the ca
 
 - ⟨H⟩ = **+0.0714 ± 0.0082** (exact +0.0739) and ⟨Q⟩ = **+2.2708 ± 0.0052** (exact +2.2675),
   pooled over all 128 settings. [R010]
-- Both are extracted from the *discarded* register of the χ(t) experiment — no extra circuits,
-  at a measured variance cost quantified on slide 7.
+- Both are extracted from the *discarded* register of the χ(t) experiment — no extra circuits
+  (≤2 extra 1-qubit gates per system qubit), at a variance cost quantified on slide 7.
 - Per-time ⟨Q⟩ is flat within 5σ at every one of the 64 time points. [R010]
 
 **Speaker:** TBD-NAME
@@ -104,8 +104,9 @@ claim appears; no causal claims from single hardware runs (slide 6 states the ca
 
 - Conventional route needs **13 dedicated modified Hadamard tests** (Q=3, H=9, Z₀=1 Pauli
   terms) to obtain the same three joint observables. [R021]
-- Shadow route: **0 extra circuits**, paying a measured **1.07×** variance premium on χ_Q
-  (sem 0.1012 measured vs 0.0949 for dedicated tests at equal shots). [R021]
+- Shadow route: **0 extra circuits** (≤2 extra 1-qubit gates per system qubit), paying a
+  measured **1.07×** variance premium on χ_Q specifically (sem 0.1012 measured vs 0.0949
+  for dedicated tests at equal shots). [R021]
 - The 3^w variance model predicts the measured error bars to within **2%**. [R029]
 
 **Speaker:** TBD-NAME
@@ -118,7 +119,8 @@ claim appears; no causal claims from single hardware runs (slide 6 states the ca
 
 - Public repo: pinned environment, `run_summary.json` a judge can diff, 36 sourced results
   rows, and an `EVIDENCE.md` mapping every number to its producing command.
-- Quickstart reproduces the money plot **from saved data** — no long reruns.
+- Quickstart reproduces our headline **table** (the 12-seed spectrum) from saved data — no
+  long reruns; the money plot itself ships pre-rendered in `figures/`.
 - `hardware_run.py` lets anyone with QPU access reproduce our hardware arm in 3 commands.
 
 **Speaker:** TBD-NAME
@@ -137,7 +139,7 @@ claim appears; no causal claims from single hardware runs (slide 6 states the ca
 - The windowed DFT baseline **never** resolves the 1.031-spaced pair at any T_max we tested;
   the matrix pencil resolves it from T_max ≥ 7.0. Method choice, not shots. [R011, R022]
 - Exact-synthesis shallowness is an **n=3 artefact** — the advantage falls 3.41× → 1.16×
-  going to n=4 and inverts beyond. Not a scalable recipe. [R025]
+  going to n=4 and is *expected* to invert beyond (measured at n=3,4 only). [R025]
 - One noise study (R017) came out **confounded** and we exclude it rather than report it.
 
 **Speaker:** TBD-NAME
@@ -164,7 +166,8 @@ extracts q from χ alone. Standard and shadow Hadamard give *statistically ident
 
 **B2 — QPE comparison.** At matched evolution budget QPE recovers 4/4 lines (max |dE| 0.079)
 — better than DFT, worse than pencil — but yields **no symmetry labels at any cost**, since
-its ancillas are fully consumed by phase estimation. 8 qubits and 277 CX vs our 4 and 101. [R030]
+its ancillas are fully consumed by phase estimation. 8 qubits and 277 CX vs our 4 and 50
+(both all-to-all basis, like for like — 5.5x deeper). [R030, R034]
 
 **B3 — Self-validating decoherence witness (Track E).** Tr[(ρ^(I))²] = (1+|χ|²)/2 links the
 system channel to the ancilla channel, so their gap detects decoherence with **no exact

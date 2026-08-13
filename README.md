@@ -16,7 +16,7 @@ got wrong and retracted.
 
 ---
 
-## 5-minute quickstart (reproduces the headline figure from saved data)
+## 5-minute quickstart (reproduces the headline numbers from saved data)
 
 No long reruns, no quantum hardware, no IBM account needed.
 
@@ -26,7 +26,8 @@ python -m venv .venv && source .venv/bin/activate
 pip install "qiskit==2.5.1" "qiskit-aer==0.17.2" "numpy<2.5" "scipy<1.18" \
             matplotlib pylatexenc
 
-# the headline result, recomputed from the 12 saved per-seed CSVs in data/
+# the headline result, read back from the saved 12-seed summary in data/
+# (the per-seed CSVs behind it are also in data/; regenerate with evidence/scripts/seed_sweep.py)
 python -c "
 import json; d = json.load(open('data/multiseed_summary.json'))
 print(f\"{'exact E':>9} {'recovered':>20} {'exact q':>8} {'recovered q':>16}  seeds OK\")
@@ -36,12 +37,15 @@ for r in d['rows']:
 "
 ```
 
-Expected output: four energy levels recovered to ~0.006, and **12/12 seeds label every
-level correctly**.
+Expected output: four energy levels with across-seed sd 0.002-0.013 (max deviation from
+exact 0.004), and **12/12 seeds label every level correctly**.
 
 Then open [`figures/07_symmetry_resolved_spectrum.png`](figures/07_symmetry_resolved_spectrum.png)
-— the money plot. Grey is what a conventional Hadamard test gives you; the coloured stems
-are our reconstruction, coloured by the symmetry sector recovered from the recycled data.
+— the money plot. Grey is the plain windowed Fourier transform of the ancilla signal; the
+coloured stems are our reconstruction, coloured by the symmetry sector recovered from the
+recycled data. (The grey blur is an *estimator* limitation, not a limitation of the standard
+protocol — R021 shows the standard protocol with a good estimator recovers energies just as
+well. What it cannot do, at any shot count, is produce the colour.)
 
 **Full rerun** (~10 min, all 56 checkpoints, regenerates every figure):
 

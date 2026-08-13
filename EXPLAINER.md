@@ -13,7 +13,7 @@ command or notebook cell that produced it.*
 We ran a standard quantum-computing experiment that normally throws away most of
 its measurement data, kept the "garbage" instead, and showed that this garbage
 contains enough extra information to label the energy levels of a small magnet —
-without running a single extra experiment.
+with no extra circuits, at a measured cost of about 7% more statistical noise.
 
 ---
 
@@ -119,13 +119,14 @@ the same operation needs only about 100 two-qubit operations — roughly 4×
 fewer — because at this small system size (3 qubits) it happens to compile
 more efficiently than the standard method. We reran the identical experiment
 with that shallower circuit, on the same hardware: the signal survived at
-**82%**, not 18%. Switching to the best-calibrated of the three IBM devices we
-could reach pushed that to **88%** — close to a clean simulator result. So the
-real lesson wasn't "this doesn't work on hardware," it was "this doesn't work
-on a needlessly deep circuit" — and once we fixed the circuit, it did. (One
-honest caveat: this shortcut is a quirk of small system sizes and would not
-hold at scale, so we're reporting it as a robustness finding about *this*
-benchmark, not a general recipe.)
+**82%**, not 18%. Running it on a better-calibrated device pushed that to **88%** —
+close to a clean simulator result. So the real lesson wasn't "this doesn't work on
+hardware," it was "this doesn't work on a needlessly deep circuit." Two honest
+caveats. First, each of these is a *single run*, and hardware genuinely varies — an
+independent run of one identical circuit half an hour later differed by more than a
+factor of two. Second, this shortcut is a quirk of small system sizes and would not
+hold at scale, so we report it as a robustness finding about *this* benchmark, not a
+general recipe.
 
 **Bonus (Challenge 10).** The same recorded data also feeds a completely
 different algorithm — a "Krylov" energy solver that estimates the lowest
@@ -140,8 +141,9 @@ Measurements on quantum computers are expensive — shots cost time and money,
 and on today's noisy hardware you want every drop of information per shot.
 This project demonstrates, end to end and with error bars, that a widely used
 protocol has been leaving information on the table: data that is routinely
-discarded can label a system's energy levels by symmetry sector, at the cost of
-only smarter post-processing of shots you were already taking.
+discarded can label a system's energy levels by symmetry sector, for no additional
+circuits — at a measured cost of about 7% more statistical noise on the recycled
+quantity, plus at most two extra single-qubit gates per qubit.
 
 ### 6. Honesty notes
 
@@ -150,8 +152,10 @@ only smarter post-processing of shots you were already taking.
   never as a headline number: our first attempt (deep circuit) did not
   survive, later attempts (shallow circuit) survived well (82-88%). Hardware
   never contributes to the reported spectrum or its uncertainties.
-- Everything comes from **one** shared dataset of 256,000 shots plus small,
-  separately-declared side runs (scaling study, noise study, hardware job).
+- Headline Part A/B numbers come from **one** shared dataset of 256,000 shots. Side
+  studies are declared separately and are *not* all small: a 12-seed reproducibility
+  study (3,072,000 shots, 12× the headline set), the scaling and noise studies, five
+  method ablations, Tracks B/C/E, and 13 hardware jobs across three devices.
 - Uncertainties are bootstrap-based; validation gates were set at 5σ.
 - We make no claims about outperforming classical computers — a laptop solves
   this three-spin system instantly. The system is small *on purpose*, so that

@@ -58,8 +58,8 @@ reasons:
 2. **It can report a valid system observable.** At n=2 the whole shadow ensemble is just
    3²=9 bases, so ⟨Q⟩ comes out unbiased. Every fixed-basis job — including all our χ-only
    jobs — can only legitimately report χ (see below). This is genuinely the one result we
-   don't yet have confirmed on our own hardware either (our own 2-site job is queued, not
-   returned — see §3), so it's not "give us something we already have," it's a real gap.
+   have on only ONE device so far (our own 2-site job returned at chi survival 0.962 and
+   a valid ⟨Q⟩ at 0.957 — see §3), so it's not "give us something we already have" on a *third* device tier.
 
 If you have QPU time for exactly one thing, run that.
 
@@ -90,8 +90,8 @@ python hardware_run.py --fetch d9ujlb0u5hac73ahadu0     # exact+kingston (our be
 
 ## 3. What we already know (please don't re-derive this)
 
-**Updated 2026-08-13 — this used to say the 2×2 was still queued; two of three arms have
-since returned, and the result is good news.**
+**Updated 2026-08-13 — all four arms of the 2×2 have now returned, plus both side-model
+jobs. The result is good news.**
 
 The single most important finding: **circuit depth dominates device quality, by a lot** —
 and once you fix the depth, real hardware works.
@@ -99,8 +99,10 @@ and once you fix the depth, real hardware works.
 | circuit | two-qubit gates (kingston) | depth | measured survival |
 |---|---|---|---|
 | Trotter reps=1, marrakesh (worst device) | 435 | 1729 | **0.179** (35σ off — effectively no signal) |
+| Trotter reps=1, kingston | 435 | 1729 | **0.368** |
 | **exact path, marrakesh** | **101** | 375 | **0.822** (5.8σ, 5.0σ) |
 | **exact path, kingston** | **101** | 375 | **0.878** (4.4σ, 0.9σ) — best result we have |
+| 2-site side model, kingston (full shadow ensemble) | 15 | 64 | **0.962**, and a valid ⟨Q⟩ at **0.957** |
 
 So: changing only the circuit (Trotter → exact, same device) took survival from 0.18 to
 0.82 — roughly 4.6×. Changing only the device on top of that (marrakesh → kingston, exact
@@ -109,9 +111,9 @@ smaller, real, additional effect. (One caveat we're keeping honest: this is a si
 comparison per arm, not a repeated-trial average — treat the *pattern*, depth >> device, as
 solid; treat the exact percentages as one data point each.)
 
-The remaining arm (Trotter on kingston) is still queued — that's the one number that would
-let us claim the depth effect is confirmed on *both* devices rather than just marrakesh so
-far.
+The depth effect is now confirmed on **both** devices: exact/Trotter is 4.59× on marrakesh
+and 2.39× on kingston. Device choice at fixed circuit is smaller (1.07× exact, 2.06×
+Trotter). Depth dominates throughout.
 
 **So please use `--method exact` (the default) — it's not just theoretically better, it's
 now confirmed to work on two real devices.** `--method trotter` is available if you want the

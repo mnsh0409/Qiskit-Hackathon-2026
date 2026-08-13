@@ -3,8 +3,8 @@
 **Written per `deck_arc.md` script rules:** short declarative sentences for non-native
 English speakers, phonetic hints on hard terms, per-member allocation, timed with slack.
 
-**Target: 10 minutes of speech + 10% slack.** Times below sum to **9:00**, leaving a
-1-minute buffer. If you are running long, cut slide 9's second bullet and backup slides.
+**Target: 10 minutes of speech + 10% slack.** Times below sum to **8:50**, leaving a
+70-second buffer. If you are running long, cut slide 9's second bullet and backup slides.
 
 **Pronunciation hints**
 - *ancilla* — an-SIL-la
@@ -67,14 +67,16 @@ If asked something not on a slide, say "that is in our results file, I can show 
 > We measured the magnetisation as two point two seven one. The exact value is two point
 > two six seven.
 > And here is the point. These came from the qubits the standard method throws away.
-> No extra circuits. There is a cost, and we will quantify it on slide seven.
+> No extra circuits, just a few extra single-qubit gates. There is a statistical cost too,
+> and we quantify it on slide seven.
 
 ---
 
 ## Slide 5 — MONEY PLOT (75 s) — Speaker: TBD-NAME
 
 > This is our main result.
-> The grey curve is what a standard Hadamard test gives you. It is a blur.
+> The grey band is the plain Fourier transform of the ancilla signal. It is a blur.
+> A better estimator sharpens it. But no estimator can colour it.
 > The coloured lines are our reconstruction. We recover all four energy levels.
 > Our worst energy error is zero point zero three three.
 > But look at the colour. The colour is the symmetry sector of each line.
@@ -107,7 +109,8 @@ If asked something not on a slide, say "that is in our results file, I can show 
 > To get the same three observables the conventional way, you need thirteen separate
 > experiments.
 > We need zero extra circuits.
-> But our estimator is noisier. We measured the penalty. It is one point zero seven times.
+> We do add a few single-qubit gates. And our estimator is noisier on the recycled
+> quantity. We measured that penalty. It is one point zero seven times.
 > Seven percent more noise, to replace thirteen experiments.
 > And we can predict that noise from theory, to within two percent.
 
@@ -119,7 +122,7 @@ If asked something not on a slide, say "that is in our results file, I can show 
 > Our repository has pinned versions, a summary file you can compare against your own run,
 > and thirty-six results rows.
 > Every single number maps to the exact command that produced it.
-> You can reproduce our main figure in under five minutes, from saved data.
+> You can reproduce our headline numbers in under five minutes, from saved data.
 > If you have quantum hardware access, three commands reproduce our hardware results.
 
 ---
@@ -154,7 +157,8 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 **"What is new here? The paper already exists."**
 > The method is from the paper. What is new is the systematic characterisation.
-> We measured the cost, found the failure modes, ran a five-way method comparison, and
+> We measured the cost, found the failure modes, compared four spectral estimators --
+> Fourier, matrix pencil, phase estimation, and Krylov -- plus a protocol ablation, and
 > tested it on three different real devices.
 
 **"How do you know your error bars are right?"**

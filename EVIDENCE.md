@@ -95,14 +95,17 @@ C4's brief (b) requires re-deriving ratios and CI widths from raw numbers. The o
    teammate on a different account, including `ibm_miami` which we cannot reach (R031).
    All of it supports robustness claims only, never a Part A/B headline — the Part A/B
    numbers are 100% simulator (R009-R022).
-5. **Going-further: 4 of 18 items have real, committed results** (R027 rank selection —
-   honest negative, the derived criterion does NOT beat the magic number here; R028
-   correlation/correlated bootstrap — clean, ~20% tighter q uncertainty; R029 variance
-   budgeting — clean, within 2%; and the hardware-instance item, done twice over with 2site
-   and 4site). One item (R017, label survival under noise) was attempted and found
-   confounded — do not cite it. The remaining ~13 items were not attempted. Any claim of
-   "we explored the extensions" must be scoped exactly to R027-R029 plus the hardware items,
-   not the full list.
+5. **Going-further: 6 of 18 items have committed results, 1 is excluded, 11 untouched.**
+   DONE: variance budgeting (R029), chi/chi_Q correlation + correlated bootstrap (R028,
+   covering both its listings), rank selection (R027 — an honest NEGATIVE: the derived
+   criterion does not beat the magic number, though it does no harm either), sector
+   post-selection (R036), reduced hardware instance (R023, extended to 4-site in R026).
+   PARTIAL: "push until it breaks" (R022 — the T_max axis only; not shots, not a 5th
+   near-degenerate level). EXCLUDED: label-survival-under-noise (R017, confounded — do not
+   cite). NOT ATTEMPTED: the remaining 11, including readout mitigation.
+   Separately, work BEYOND the going-further lists: Tracks B/C/E (R034/R032/R033), the QPE
+   ablation (R030), AQC-Tensor compression (R035), and the SKQD pipeline (R037).
+   Any claim of "we explored the extensions" must be scoped to exactly this list.
 
 ## Banned-language checklist (rubric.md)
 

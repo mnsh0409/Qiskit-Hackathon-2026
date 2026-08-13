@@ -1,0 +1,399 @@
+% Qiskit Hackathon 2026 — Topic 5 — Team Garbage Collectors
+% Build:  cd deck && pdflatex -interaction=nonstopmode slides.tex && pdflatex -interaction=nonstopmode slides.tex
+% Every number carries its RESULTS.md row id. Do not edit numbers here without editing RESULTS.md.
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usetheme{default}
+\usecolortheme{default}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\definecolor{ink}{HTML}{0B0B0B}
+\definecolor{blueA}{HTML}{2A78D6}
+\definecolor{orangeA}{HTML}{EB6834}
+\definecolor{aquaA}{HTML}{1BAF7A}
+\definecolor{mutedA}{HTML}{898781}
+\definecolor{bgA}{HTML}{FCFCFB}
+
+\setbeamercolor{normal text}{fg=ink,bg=bgA}
+\setbeamercolor{frametitle}{fg=ink,bg=bgA}
+\setbeamercolor{structure}{fg=blueA}
+\setbeamercolor{itemize item}{fg=blueA}
+\setbeamercolor{itemize subitem}{fg=mutedA}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}{\textbullet}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamertemplate{footline}{%
+  \hfill\tiny\color{mutedA}\insertframenumber/\inserttotalframenumber\hspace{2ex}\vspace{1ex}}
+
+% every claim gets its source row
+\newcommand{\src}[1]{{\tiny\color{mutedA}[#1]}}
+\newcommand{\hl}[1]{{\color{blueA}\textbf{#1}}}
+\newcommand{\mhl}[1]{{\color{blueA}\boldsymbol{#1}}}
+\newcommand{\good}[1]{{\color{aquaA}\textbf{#1}}}
+\newcommand{\bad}[1]{{\color{orangeA}\textbf{#1}}}
+
+\title{\textbf{Garbage Collectors}}
+\subtitle{Every Hadamard test throws away half its data. We recycle it.}
+\author{TBD-NAME \and TBD-NAME \and TBD-NAME}
+\institute{\small Qiskit Hackathon 2026 --- Topic 5\\
+\tiny after Faehrmann, Eisert \& Kueng, \emph{PRL} \textbf{135}, 150603 (2025)}
+\date{\small 14 August 2026}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% ------------------------------------------------------------------ 1
+\begin{frame}{Every Hadamard test throws away half its data}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      The standard Hadamard test measures \hl{one ancilla qubit}
+      and \bad{discards the system register}.
+      \medskip
+
+      Measure that ``garbage'' in \emph{random bases} instead and it becomes a
+      \hl{classical shadow} --- the same shots now also carry the system's observables.
+      \medskip
+
+      We implement this end to end, validate every estimate against exact references,
+      \emph{quantify what it costs}, and characterise where it breaks.
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{../figures/03_circuit_phi_0_real.png}\\
+      \tiny\color{mutedA} 3 system qubits $+$ 1 ancilla
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ------------------------------------------------------------------ 2
+\begin{frame}{One circuit, one set of shots, seven physical quantities}
+  The ancilla alone gives the interference signal:
+  \[
+    \langle Z_a\rangle_\phi \;=\; \mathrm{Re}\!\left[e^{i\phi}\,\mathrm{Tr}(U\rho)\right],
+    \qquad \phi=0 \to \mathrm{Re}\,\chi,\quad \phi=-\tfrac{\pi}{2}\to \mathrm{Im}\,\chi
+  \]
+  Tracing out the ancilla leaves the \emph{unweighted} shadow target, and weighting each
+  snapshot by the ancilla outcome $a=\pm1$ leaves the \emph{joint} one:
+  \[
+    \rho^{(I)}=\tfrac{1}{2}\bigl(\rho+U\rho U^{\dagger}\bigr),
+    \qquad
+    \mathbb{E}\bigl[a\,\hat P\bigr]=\mathrm{Re}\!\left[e^{i\phi}\mathrm{Tr}(P\,U\rho)\right]
+  \]
+  \begin{center}
+  \small From \hl{one} record set: $\chi(t)$, $\chi_Q(t)$, $\chi_H(t)$, $\chi_{Z_0}(t)$,
+  $\langle H\rangle$, $\langle Q\rangle$, $\langle Z_0\rangle$ \src{R009}
+  \end{center}
+  \begin{center}
+  \textbf{3{,}456 circuits $\cdot$ 256{,}000 shots} --- one experiment, not seven.
+  \end{center}
+\end{frame}
+
+% ------------------------------------------------------------------ 3
+\begin{frame}{Every estimator agrees with theory --- and the error bars are honest}
+  \begin{columns}[T]
+    \begin{column}{0.46\textwidth}
+      \begin{itemize}
+        \item \good{56/56 checkpoints pass}, zero hard failures, zero advisory warnings.
+        \item $\chi(t)$ rms error \hl{0.0290} vs predicted sem \hl{0.0277}
+              --- ratio \hl{1.05}, so the error bars neither over- nor under-state. \src{R010}
+        \item Shot-noise slope \hl{$-0.463$} vs theory $-0.5$: unbiased,
+              statistics-limited. \src{R010}
+      \end{itemize}
+      \medskip
+      {\small The single-shot second moment is exactly $3^{w(P)}$, which predicts the
+      measured error bars to \hl{within 2\%}. \src{R029}}
+    \end{column}
+    \begin{column}{0.54\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{../figures/06_fundamental_validation.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ------------------------------------------------------------------ 4
+\begin{frame}{Conserved quantities come out flat --- from the very same shots}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{../figures/06_conservation.png}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \[
+        \langle H\rangle = \mhl{+0.0714 \pm 0.0082}\quad(\text{exact }+0.0739)
+      \]
+      \[
+        \langle Q\rangle = \mhl{+2.2708 \pm 0.0052}\quad(\text{exact }+2.2675)
+      \]
+      \small
+      Pooled over all 128 settings, extracted from the \emph{discarded} register of the
+      $\chi(t)$ experiment. \src{R010}
+      \medskip
+
+      Per-time $\langle Q\rangle$ is flat within $5\sigma$ at every one of the 64 time
+      points (max $2.2\sigma$). \src{R010}
+      \medskip
+
+      \textbf{No extra circuits} ($\leq 2$ extra 1-qubit gates per system qubit);
+      the statistical cost is on slide 7.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ------------------------------------------------------------------ 5  MONEY PLOT
+\begin{frame}{We recover the spectrum \emph{and} label each line by symmetry sector}
+  \begin{columns}[T]
+    \begin{column}{0.60\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{../figures/07_symmetry_resolved_spectrum.png}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \small
+      All 4 populated levels recovered:\\
+      max $|\Delta E| = $ \good{0.033}, max $|\Delta p| = $ \good{0.006},
+      \good{every label correct}. \src{R012, R013}
+      \medskip
+
+      Reproducible: \good{12/12 independent seeds} got all four labels right. \src{R019}
+      \medskip
+
+      \textbf{The colour is the deliverable.} It is information the grey curve does not
+      contain --- and it cost \emph{no additional circuits}.
+      \medskip
+
+      {\footnotesize\color{mutedA} The grey band is the plain windowed Fourier transform.
+      A better estimator sharpens it; \emph{no} estimator can colour it.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ------------------------------------------------------------------ 6
+\begin{frame}{What each choice actually buys}
+  \centering
+  \includegraphics[width=0.94\linewidth]{fig_ablation.png}\\
+  \smallskip
+  \small
+  \hl{Estimator} choice buys resolution ($3/4\to4/4$ lines).
+  \hl{Protocol} choice buys the labels --- and nothing else can.
+  \src{R011, R012, R021, R030}
+\end{frame}
+
+% ------------------------------------------------------------------ 7
+\begin{frame}{It survives on real hardware once the circuit is shallow enough}
+  \begin{columns}[T]
+    \begin{column}{0.56\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{fig_hardware_grid.png}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \small
+      Complete $2\times2$ grid. Depth dominates (\hl{2.4--4.6$\times$}) over device choice
+      (1.1--2.1$\times$). \src{R008, R018}
+      \medskip
+
+      With a \emph{full random-basis ensemble} on hardware:
+      $\chi$ survival \good{0.962}, and a valid
+      $\langle Q\rangle$ at \good{0.957} --- the core claim, on a real QPU. \src{R023}
+      \medskip
+
+      {\footnotesize\color{orangeA}\textbf{Caveat, stated plainly:} one run per
+      configuration. An independent run of an identical circuit 30 minutes later differed
+      by $>2\times$. Hardware varies; we report that. \src{R026, R031}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ------------------------------------------------------------------ 8
+\begin{frame}{The honest cost: 13 experiments replaced for a 1.07$\times$ variance premium}
+  The per-shot Pauli estimator and its exact second moment:
+  \[
+    \hat P \;=\; 3^{\,w(P)}\prod_{j\in \mathrm{supp}(P)} s_j\;
+    \mathbf{1}\!\left[b_j = P_j\right],
+    \qquad
+    \mathbb{E}\bigl[\hat P^{2}\bigr] \;=\; 3^{\,w(P)}
+  \]
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \small
+      Conventional route: \hl{13 dedicated} modified Hadamard tests
+      ($Q\!=\!3$, $H\!=\!9$, $Z_0\!=\!1$ Pauli terms).
+      \medskip
+
+      Shadow route: \hl{0 extra circuits}
+      ($\leq2$ extra 1q gates per qubit).
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \small
+      Price paid instead --- measured, not asserted:
+      \[
+        \frac{\mathrm{sem}_{\text{shadow}}}{\mathrm{sem}_{\text{dedicated}}}
+        = \frac{0.1012}{0.0949} = \mhl{1.07\times}
+      \]
+      on $\chi_Q$ specifically. \src{R021}
+    \end{column}
+  \end{columns}
+  \medskip
+  \centering\small
+  The $3^{w}$ model predicts the observed error bars to \good{within 2\%}. \src{R029}
+\end{frame}
+
+% ------------------------------------------------------------------ 9
+\begin{frame}{Reproduce it in under five minutes}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \small
+      \begin{itemize}
+        \item \hl{37 sourced results rows} --- every number maps to the command that
+              produced it (\texttt{EVIDENCE.md}).
+        \item Quickstart reproduces our headline \emph{table} from saved data; the money
+              plot ships pre-rendered.
+        \item \texttt{hardware\_run.py} reproduces our hardware arm in 3 commands.
+        \item \texttt{BUGLOG.md} --- including the numbers we got wrong and retracted.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \centering
+      \fbox{\parbox{0.9\linewidth}{\centering\vspace{2em}
+      \textbf{QR CODE}\\\footnotesize TBD-NAME: paste repo QR here
+      \vspace{2em}}}
+    \end{column}
+  \end{columns}
+  \vfill
+  {\footnotesize\color{mutedA} First open implementation of PRL \textbf{135}, 150603.
+  Prior-art search 2026-08-13; scope and limits recorded in
+  \texttt{deck/PRIOR\_ART\_SEARCH.md}.}
+\end{frame}
+
+% ------------------------------------------------------------------ 10
+\begin{frame}{What we could not do, and where it breaks}
+  \small
+  \begin{itemize}
+    \item The windowed DFT \bad{never} resolves the 1.031-spaced pair at \emph{any}
+          $T_{\max}$ we tested; the matrix pencil resolves it from $T_{\max}\geq7.0$.
+          A method limit, not a shot-count limit. \src{R011, R022}
+    \item Exact-synthesis shallowness is an \bad{$n{=}3$ artefact} --- the advantage falls
+          $3.41\times\!\to\!1.16\times$ from $n{=}3$ to $n{=}4$ and is \emph{expected} to
+          invert beyond (measured at $n{=}3,4$ only). Not a scalable recipe. \src{R025}
+    \item One noise study came out \bad{confounded}; we exclude it rather than report it.
+          \src{R017}
+    \item Hardware supports \emph{robustness claims only} --- never a headline number.
+          All Part A/B results are simulator.
+  \end{itemize}
+  \vfill
+  \centering
+  \textbf{We make no claim of outperforming classical computation.}\\
+  {\small The system is 3 qubits; a laptop diagonalises it instantly. It is small
+  \emph{on purpose}, so every estimate can be graded against an exact answer.}
+\end{frame}
+
+% ------------------------------------------------------------------ 11
+\begin{frame}{Team}
+  \begin{itemize}
+    \item \textbf{TBD-NAME} --- TBD-CONTRIBUTION
+    \item \textbf{TBD-NAME} --- TBD-CONTRIBUTION
+    \item \textbf{TBD-NAME} --- TBD-CONTRIBUTION
+  \end{itemize}
+  \vfill
+  \centering
+  \Large\textbf{Garbage Collectors}\\
+  \normalsize Thank you --- questions welcome.
+\end{frame}
+
+% ================================================================== BACKUP
+\appendix
+\begin{frame}[plain]
+  \centering\Large\textbf{Backup slides}
+\end{frame}
+
+\begin{frame}{Backup --- the standard and shadow protocols give \emph{identical} $\chi$}
+  \small
+  Measured, not assumed: a genuine textbook Hadamard test over the full 64-point grid at
+  identical budget gives
+  \[
+    \text{rms}_{\text{std}} = 0.0265,\quad \text{rms}_{\text{shadow}} = 0.0290,
+    \qquad \text{mean sem } 0.0277 \text{ vs } 0.0277
+  \]
+  with $|\chi_{\text{std}}-\chi_{\text{shadow}}|/\text{combined sem}$: max $2.10\sigma$,
+  mean $0.88\sigma$ --- statistically the \hl{same random variable}. \src{R021}
+  \medskip
+
+  So measuring the garbage register costs the ancilla signal \emph{nothing}, and the two
+  axes factorise cleanly: estimator $\to$ resolution, protocol $\to$ labels.
+\end{frame}
+
+\begin{frame}{Backup --- a self-validating decoherence witness}
+  For a pure input state, exactly:
+  \[
+    \mathrm{Tr}\!\left[(\rho^{(I)})^{2}\right] \;=\; \tfrac{1}{2}\left(1+|\chi(t)|^{2}\right)
+  \]
+  \small
+  Left side from the \hl{system register alone} (shadow snapshot pairs); right side from the
+  \hl{ancilla alone}. Two independent channels of the same experiment, so their gap
+  certifies decoherence with \good{no exact diagonalisation and no classical simulation} ---
+  it survives to sizes where nothing can be verified.
+  \medskip
+
+  \centering
+  \begin{tabular}{lr}
+    \toprule
+    ideal simulator & $-0.1\sigma$ \quad(correct null)\\
+    noisy sim, $1\times$ & $-7.6\sigma$ \quad(fires)\\
+    noisy sim, $5\times$ & $-17.2\sigma$ \quad(dose-response)\\
+    real hardware (cleanest run) & $-1.4\sigma$ \quad(correct null)\\
+    \bottomrule
+  \end{tabular}
+  \\[0.5em] \src{R033}
+\end{frame}
+
+\begin{frame}{Backup --- future work, already prototyped: density of states}
+  The DOS is the Fourier transform of the \emph{trace} of the propagator:
+  \[
+    G(t) \;=\; \frac{1}{\sqrt{2\pi}}\,\mathrm{Tr}\!\left[e^{-i\hat H t}\right]
+    \qquad\text{\scriptsize (Goh \& Koczor, arXiv:2407.03414v2, Eq.~7)}
+  \]
+  \small
+  Our $\chi(t)=\mathrm{Tr}[U(t)\rho]$. Set $\rho = \mathbb{1}/2^n$ and \hl{the same
+  experiment becomes a DOS estimator} --- one line changed, analysis chain untouched.
+  \medskip
+
+  Prototyped: peak weights correctly become \emph{degeneracies}
+  (isolated levels $0.11$--$0.13$ vs predicted $1/8$; a 3-fold merged peak
+  $0.354$ vs predicted $3/8$). \src{R038}
+  \medskip
+
+  \textbf{Where we could improve on that paper:} it obtains fixed-particle-number DOS with
+  \emph{one experiment per sector}. Our shadow channel measures $\langle Q^k\rangle$ from
+  the \emph{same} shots, so the charge moments at each peak recover \hl{all sectors from a
+  single run}. Feasibility checked: $Q^2,Q^3$ are 4 Pauli terms each; moment inversion
+  condition number 31.
+\end{frame}
+
+\begin{frame}{Backup --- two bugs we caught, and how}
+  \small
+  \textbf{B04 --- a fixed-basis shadow estimator silently returns a \emph{different}
+  observable.} The estimator is unbiased only for i.i.d.-uniform bases; with one fixed basis
+  the indicator is deterministic and non-matching terms contribute structurally zero. We
+  reported a hardware $\langle Q\rangle$ this way and blamed noise. On a \emph{noiseless}
+  simulator the same code is \bad{65$\sigma$ off} --- so it was never noise. Retracted;
+  \texttt{hardware\_run.py} now refuses to print system observables without
+  \texttt{-{}-shadow}.
+  \medskip
+
+  \textbf{B06 --- an error bar computed over the wrong units.} Purity is a U-statistic over
+  \emph{pairs} of snapshots; we used $\mathrm{std}/\sqrt{n_{\text{pairs}}}$, but pairs share
+  shots, so the effective sample size is the number of \emph{shots}. That faked a
+  $2.2\sigma$ signal. \good{Only the ideal-simulator control leg exposed it} --- the
+  hardware number alone looked fine.
+  \medskip
+
+  \centering\emph{A witness validated only where the truth is unknown cannot be trusted.}
+\end{frame}
+
+\end{document}

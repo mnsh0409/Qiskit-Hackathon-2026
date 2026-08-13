@@ -40,6 +40,19 @@ neither implements the shadow-Hadamard combination:
    recently-published repository would not appear here.
 3. **Not checked with the authors.** The most reliable disconfirmation would be asking them.
 
+## Decision (2026-08-13): advisor authorised the "first" claim
+
+The project advisor judged the claim supportable and instructed us to state it. That is
+consistent with `t5-shadow-ship`'s own rule, which reads: *"None found → state the claim with
+a date-stamped note of search scope."* The search below found none, so the rule's condition
+is met and the claim is stated on slide 9 **with the scope note attached**.
+
+**The scope note is not optional.** It is what makes the claim defensible rather than
+merely asserted, and it is the difference between a claim that survives a challenge from
+someone in the room and one that does not. Do not strip it when exporting slides.
+
+## Alternative phrasing if you want to hedge further
+
 ## Recommended phrasing (conservative, defensible)
 
 > "We are not aware of a prior open implementation; a web search on 2026-08-13 across the

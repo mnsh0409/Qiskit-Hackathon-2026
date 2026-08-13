@@ -245,6 +245,30 @@ python evidence/scripts/aqc_hardware_fetch.py                       # when it fi
 
 Job `d9uv5h50vrcc73boj8a0` was submitted to `ibm_marrakesh` on 2026-08-14; compare against it.
 
+### The concrete target: `ibm_miami` (Nighthawk) on the paid/teammate account
+
+The number to beat, from our two Heron runs: the AQC arm's measured survival 0.026–0.033 at
+576 routed gates implies an **effective error ≈ 6×10⁻³ per two-qubit gate** (4× the
+calibrated gate error — the residual is crosstalk/coherence we could not separate, R054).
+For the AQC arm to show clear signal it needs **effective error ≲ 2×10⁻³** at that depth.
+Nighthawk is the architecture IBM aims at exactly this regime (~5,000-gate circuits), so
+`ibm_miami` is the best available shot at flipping our negative into "the compilation win
+reaches hardware on the newest architecture."
+
+**Two things to check before spending money:**
+1. Your own log records miami's *median calibrated* 2q error as **2.91e-3 — worse than
+   kingston's 2.08e-3**. If miami wins, it wins on coherence/crosstalk, not headline gate
+   error. So run the dry run first and look at the predicted survivals it prints:
+   `python evidence/scripts/aqc_hardware_submit.py ibm_miami --dry-run`
+2. Cost: our Heron jobs burned 50–72 quantum seconds each, and **77% of that is the
+   deliberately-dead exact arm**. Submit with `--cheap` (exact arm at 500 shots — still
+   plenty to certify a corpse) and optionally `--shots 2000`; together they cut the
+   quantum-seconds bill roughly 4–5× with no loss to the conclusion.
+
+Either outcome is reportable: predictions print before submission, and `aqc_hardware_fetch.py`
+compares against them. If miami's AQC arm also returns noise, that is a three-architecture
+negative and we say so.
+
 ### Why a better device matters more here than anywhere else
 
 Our predicted AQC survival is only ~0.32 on marrakesh -- good enough to see a signal, not

@@ -42,7 +42,16 @@ sim = QuimbSimulator(quimb.tensor.CircuitMPS, autodiff_backend="jax")
 
 N = 6
 TIMES = (0.3, 0.6, 0.9)
-SHOTS = 4000
+SHOTS = 4000                     # override with --shots N
+# The exact arm exists only to be dead (it is the control), yet at equal shots it eats 77%
+# of the job's quantum seconds (602 us/shot at n=6). --cheap keeps its role but not its
+# bill: 500 shots still resolves 'noise vs signal' at the +-0.045 level, plenty to certify
+# a corpse. Use for paid-plan runs (e.g. ibm_miami / Nighthawk via the teammate account).
+EXACT_SHOTS = None               # --cheap sets 500
+if "--shots" in sys.argv:
+    SHOTS = int(sys.argv[sys.argv.index("--shots") + 1])
+if "--cheap" in sys.argv:
+    EXACT_SHOTS = 500
 FIELDS = [0.40, -0.50, 0.15, 0.20, -0.30, 0.10]
 BONDS = [(i, i + 1) for i in range(N - 1)]
 
@@ -191,7 +200,16 @@ if "--dry-run" in sys.argv:
     print("\ndry run -- nothing submitted"); sys.exit(0)
 
 sampler = SamplerV2(mode=backend)
-job = sampler.run(circuits, shots=SHOTS)
+if EXACT_SHOTS is None:
+    job = sampler.run(circuits, shots=SHOTS)
+else:
+    pubs = [(c, None, EXACT_SHOTS if m["arm"] == "exact" else SHOTS)
+            for c, m in zip(circuits, meta)]
+    est = sum(m["two_q"] * 68e-9 * (EXACT_SHOTS if m["arm"] == "exact" else SHOTS)
+              for m in meta)
+    print(f"  --cheap: exact arm at {EXACT_SHOTS} shots; rough execution estimate "
+          f"{est:.1f} s of circuit time (vs {sum(m['two_q']*68e-9*SHOTS for m in meta):.1f} s)")
+    job = sampler.run(pubs)
 # MERGE into any existing record. Writing a fresh dict here silently destroyed the
 # marrakesh job id the moment the same script was pointed at a second backend.
 path = os.path.join(REPO, "evidence/aqc_hw_job.json")

@@ -160,6 +160,15 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 ## Q&A crib sheet
 
+**"How can the compilation trend succeed at n=7 if hardware fails harder there?"**
+> They measure different things. The trend is a *ratio* — exact grows like 4^(n+1), AQC
+> roughly linearly, so the relative advantage grows. Hardware survival depends on the
+> *absolute* depth of the AQC circuit, which still deepens with n: survival ~ exp(-eps ×
+> gates). Both move at once: relative advantage up, absolute feasibility down. From our own
+> data the effective error is ~6e-3 per gate at 576 gates; the win becomes visible when
+> that reaches ~2e-3 — a factor ~3, which is a device-generation step (Nighthawk's target
+> regime), not a protocol fix. [R046, R054]
+
 **"Your AQC headline is n=7 but the hardware run is n=6 — why?"**
 > Different questions. n=7 is the last point of the compilation *scaling trend* (gate
 > counts only). The hardware test needs the 8,850-gate exact arm alongside as the doomed

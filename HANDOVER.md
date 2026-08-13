@@ -154,6 +154,67 @@ for us. If our arm stays bad on good hardware, we will say so on the slide.
 
 ---
 
+## 2c. The AQC ask (newest, and the one with the biggest headroom)
+
+Section 2b is Track B. **This one is smaller, shorter, and has more to gain from a better
+device than anything else in the project.**
+
+We claim (R046/R052) that Approximate Quantum Compiling makes a Hadamard test's controlled
+evolution affordable: at n=6 system qubits the standard exact block routes to **8,850**
+two-qubit gates, controlled Trotter to **2,119**, and controlled AQC to **576**. This job
+runs all three, as the *same* Hadamard test, and asks whether the gate-count advantage
+becomes a measured one.
+
+### Scripts
+
+| file | role |
+|---|---|
+| `hardware_run.py`, `shadow_hadamard_challenge_PARTICIPANT.ipynb` | **required**, as in §2b |
+| `evidence/scripts/aqc_hardware_submit.py` | validates all three arms, then submits |
+| `evidence/scripts/aqc_hardware_fetch.py` | analysis |
+
+Extra dependency beyond §2b: `pip install qiskit-addon-aqc-tensor quimb jax`.
+
+```bash
+python evidence/scripts/aqc_hardware_submit.py --dry-run            # statevector only
+python evidence/scripts/aqc_hardware_submit.py ibm_nighthawk --dry-run   # + costs, no submit
+python evidence/scripts/aqc_hardware_submit.py ibm_nighthawk        # submit
+python evidence/scripts/aqc_hardware_fetch.py                       # when it finishes
+```
+
+**Budget: 18 circuits x 4000 shots = 72,000 shots.** 3 times x 3 arms x 2 quadratures.
+
+### Our numbers on `ibm_marrakesh`, as falsifiable predictions
+
+| arm | 2q gates | predicted \|chi\| survival |
+|---|---|---|
+| exact block | 8850 | 3.6e-07 (should be noise) |
+| Trotter r=2 | 2119 | 0.01 |
+| **AQC + phase fix** | **576** | **0.32** |
+
+Job `d9uv5h50vrcc73boj8a0` was submitted to `ibm_marrakesh` on 2026-08-14; compare against it.
+
+### Why a better device matters more here than anywhere else
+
+Our predicted AQC survival is only ~0.32 on marrakesh -- good enough to see a signal, not
+good enough to be comfortable. On a device with lower two-qubit error the AQC arm should
+climb sharply while the exact arm stays dead (it is 8,850 gates; nothing rescues that). **The
+cleaner the device, the more decisive this experiment gets** -- which is the opposite of most
+of our runs, where a better device would only have made an already-fine number slightly finer.
+
+### Three things that will bite you
+
+- **Do not remove the `P(-theta)` on the ancilla.** AQC-Tensor optimises state fidelity,
+  which is blind to global phase; a Hadamard test measures precisely that phase. Without the
+  correction chi comes back wrong by ~3 radians and the run is worthless. The script computes
+  theta at compile time and applies it; the pre-flight check will fail loudly if it is
+  dropped (R046).
+- **The script refuses to submit if the statevector pre-flight fails.** Leave that in.
+- **The exact arm is expected to fail.** That is the point of including it, not a bug --
+  do not "fix" it by lowering n or raising shots.
+
+---
+
 ## 3. What we already know (please don't re-derive this)
 
 **Updated 2026-08-13 — all four arms of the 2×2 have now returned, plus both side-model

@@ -1,0 +1,166 @@
+{
+  "backend": "ibm_marrakesh",
+  "n": 6,
+  "times": [
+    0.3,
+    0.6,
+    0.9
+  ],
+  "shots": 4000,
+  "meta": [
+    {
+      "arm": "exact",
+      "t": 0.3,
+      "phi": "re",
+      "two_q": 8850
+    },
+    {
+      "arm": "exact",
+      "t": 0.3,
+      "phi": "im",
+      "two_q": 8850
+    },
+    {
+      "arm": "exact",
+      "t": 0.6,
+      "phi": "re",
+      "two_q": 8850
+    },
+    {
+      "arm": "exact",
+      "t": 0.6,
+      "phi": "im",
+      "two_q": 8850
+    },
+    {
+      "arm": "exact",
+      "t": 0.9,
+      "phi": "re",
+      "two_q": 8850
+    },
+    {
+      "arm": "exact",
+      "t": 0.9,
+      "phi": "im",
+      "two_q": 8850
+    },
+    {
+      "arm": "trotter",
+      "t": 0.3,
+      "phi": "re",
+      "two_q": 2119
+    },
+    {
+      "arm": "trotter",
+      "t": 0.3,
+      "phi": "im",
+      "two_q": 2119
+    },
+    {
+      "arm": "trotter",
+      "t": 0.6,
+      "phi": "re",
+      "two_q": 2119
+    },
+    {
+      "arm": "trotter",
+      "t": 0.6,
+      "phi": "im",
+      "two_q": 2119
+    },
+    {
+      "arm": "trotter",
+      "t": 0.9,
+      "phi": "re",
+      "two_q": 2119
+    },
+    {
+      "arm": "trotter",
+      "t": 0.9,
+      "phi": "im",
+      "two_q": 2119
+    },
+    {
+      "arm": "aqc",
+      "t": 0.3,
+      "phi": "re",
+      "two_q": 576
+    },
+    {
+      "arm": "aqc",
+      "t": 0.3,
+      "phi": "im",
+      "two_q": 576
+    },
+    {
+      "arm": "aqc",
+      "t": 0.6,
+      "phi": "re",
+      "two_q": 576
+    },
+    {
+      "arm": "aqc",
+      "t": 0.6,
+      "phi": "im",
+      "two_q": 576
+    },
+    {
+      "arm": "aqc",
+      "t": 0.9,
+      "phi": "re",
+      "two_q": 576
+    },
+    {
+      "arm": "aqc",
+      "t": 0.9,
+      "phi": "im",
+      "two_q": 576
+    }
+  ],
+  "prediction": {
+    "exact": {
+      "median_2q": 8850.0,
+      "median_edge_error": 0.0016749618442075398,
+      "predicted_survival": 3.60475974982563e-07
+    },
+    "trotter": {
+      "median_2q": 2119.0,
+      "median_edge_error": 0.0020027608015041054,
+      "predicted_survival": 0.014291282694594926
+    },
+    "aqc": {
+      "median_2q": 576.0,
+      "median_edge_error": 0.0020027608015041054,
+      "predicted_survival": 0.3151372726179474
+    }
+  },
+  "job_id": "d9uv5h50vrcc73boj8a0",
+  "aqc": {
+    "0.3": {
+      "theta": 1.13750639073498,
+      "infidelity": 5.545283766617004e-06
+    },
+    "0.6": {
+      "theta": -1.5144792864942493,
+      "infidelity": 3.188636946083179e-05
+    },
+    "0.9": {
+      "theta": -2.803610247230843,
+      "infidelity": 0.0002955589729938257
+    }
+  },
+  "chi_exact": {
+    "0.3": [
+      0.9255956986770218,
+      -0.2374586710713064
+    ],
+    "0.6": [
+      0.7210121417929304,
+      -0.42085980480690505
+    ],
+    "0.9": [
+      0.43450611062334776,
+      -0.5146289575595957
+    ]
+  }
+}

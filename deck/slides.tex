@@ -542,7 +542,7 @@
 \begin{frame}{Backup --- where SKQD helps, and why not here}
   \vspace{-2mm}
   \begin{center}
-    \includegraphics[width=0.82\linewidth]{fig_skqd_boundary.png}
+    \includegraphics[width=0.72\linewidth]{fig_skqd_boundary.png}
   \end{center}
   \vspace{-3mm}
   {\scriptsize
@@ -552,10 +552,16 @@
   \ In \textbf{2D} (11 bonds $\to$ 17, same sector) it is \bad{worse where hopping dominates}
   and \good{identical once localised}. \src{R048}
   \par\smallskip
-  \textbf{Real physics, or our toy model?} Repeated on the \hl{2D Fermi--Hubbard model}
-  (2$\times$3, 12 qubits, half filling), where the knob is $U/t$: same boundary ---
-  \good{12.5\%} of the sector at $U/t{=}16$ (Mott), \bad{never} for $U/t\leq4$ (metallic).
-  That is why SQD succeeds in chemistry and not here. \src{R050}}
+  \textbf{Real physics, or our toy model?} Repeated on \hl{2D Fermi--Hubbard} (12 qubits,
+  half filling), knob $U/t$: same boundary --- \good{12.5\%} of the sector at $U/t{=}16$
+  (Mott), \bad{never} for $U/t\leq4$ (metallic). That is why SQD succeeds in chemistry and
+  not here. \src{R050}
+  \par\smallskip
+  \textbf{And the part that DID work, on a real QPU:} \hl{symmetry-based configuration
+  recovery} on our kingston shots removed \emph{exactly} the artefact noise introduced ---
+  66/4{,}000 charge-violating shots leaked one \bad{spurious eigenvalue} ($+0.35$) into the
+  subspace; recovery: dim $4\to3$, spurious \bad{1}$\,\to\,$\good{0}, with no reference
+  state and no simulation. \src{R037}}
 \end{frame}
 
 \begin{frame}{Backup --- two bugs we caught, and how}

@@ -9,6 +9,50 @@ Budget: **2 circuits × 2000 shots ≈ 3 seconds of QPU time.** That is the whol
 
 ---
 
+## 0. What to copy (the whole handover is 10 files)
+
+Verified by copying exactly these into an empty directory and running both dry-runs there;
+both reproduced the numbers below identically. Everything resolves its own paths from
+`__file__`, so any location works. **Nothing else in the repo is needed.**
+
+| file | why |
+|---|---|
+| `hardware_run.py` | provides `load_notebook_definitions()` / `get_model()`; also the Part A tool |
+| `shadow_hadamard_challenge_PARTICIPANT.ipynb` | the definitions are `exec`'d out of it — no kernel, never executed |
+| `evidence/scripts/track_b_hardware_prep.py` | §2b go/no-go sizing, no QPU time |
+| `evidence/scripts/track_b_hardware_submit.py` | §2b validate-then-submit |
+| `evidence/scripts/track_b_hardware_fetch.py` | §2b analysis |
+| `evidence/scripts/aqc_hardware_submit.py` | §2c validate-then-submit |
+| `evidence/scripts/aqc_hardware_fetch.py` | §2c analysis |
+| `evidence/scripts/track_b_baselines.py` | *optional* — echo/Hilbert–Schmidt costs, classical only |
+| `CONVENTIONS.md` | *optional* — read §5 if any sign looks wrong |
+| `HANDOVER.md` | this file |
+
+Or simply `git clone` the repo, which is public:
+`https://github.com/mnsh0409/Qiskit-Hackathon-2026`
+
+**Pick one job if you only have time for one: §2c (AQC).** It is the shortest (72,000 shots),
+and it is the only one of ours whose *conclusion* improves with a better device rather than
+just its error bars.
+
+**Both submit scripts refuse to run if their statevector pre-flight fails.** Leave that in —
+it is what caught an endianness bug and a phase bug before either reached a QPU.
+
+### Smoke test before you submit anything
+
+```bash
+python evidence/scripts/track_b_hardware_submit.py --dry-run   # expect 116 circuits, arms A-D
+python evidence/scripts/aqc_hardware_submit.py    --dry-run    # expect pre-flight PASSED
+```
+
+Expected output from the second, verified on a clean copy:
+```
+worst |chi_circuit - chi_exact|:  exact 4.00e-16,  trotter 1.47e-02,  AQC+phase 7.90e-03
+PRE-FLIGHT PASSED
+```
+
+---
+
 ## 1. Setup (~5 minutes)
 
 ```bash

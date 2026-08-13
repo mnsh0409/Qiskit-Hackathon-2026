@@ -53,6 +53,7 @@ committed under `evidence/`.
 | R030 | QPE ablation, 4/4 lines, no labels at any cost | `evidence/qpe_ablation_result.json` | `python evidence/scripts/qpe_ablation.py` |
 | R031 | teammate's 6 real-hardware jobs (incl. ibm_miami), survival + phase-error finding | `real_machine/*.json` (raw job dumps, credential-checked); `evidence/real_machine_analysis.json` | `python evidence/scripts/load_real_machine_results.py` |
 | R032 | Track C eigenstate detective: calibration curve + detection power vs shots | `evidence/track_c_result.json`; `evidence/track_c_console_output.txt` | `python evidence/scripts/track_c_eigenstate_detective.py` (~7 min) |
+| R033 | Track E consistency witness (3-leg validation) + product-state fidelity | `evidence/track_e_result.json`; `evidence/track_e_console_output.txt` | `python evidence/scripts/track_e_consistency_witness.py` (~4 min) |
 
 ## Derived quantities C4 should independently recompute
 

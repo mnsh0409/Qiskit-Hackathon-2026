@@ -1,0 +1,50 @@
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+==============================================================================
+(1) IDEAL SIMULATOR -- does the identity hold? (validates the estimator itself)
+==============================================================================
+
+--- ideal sim, 2site (n=2) ---
+  LHS Tr[(rho^I)^2] from SHADOWS  = 0.7127 +- 0.0127
+  RHS (1+|chi|^2)/2 from ANCILLA  = 0.7142 +- 0.0027
+  GAP (LHS - RHS)                 = -0.0015 +- 0.0130   (-0.1 sigma)
+  fidelity <|0..0><0..0|> shadows = 0.6330 +- 0.0042  (exact 0.6337, 0.2 sigma)
+
+--- ideal sim, frozen (n=3) ---
+  LHS Tr[(rho^I)^2] from SHADOWS  = 0.6930 +- 0.0271
+  RHS (1+|chi|^2)/2 from ANCILLA  = 0.7285 +- 0.0016
+  GAP (LHS - RHS)                 = -0.0355 +- 0.0272   (-1.3 sigma)
+  fidelity <|0..0><0..0|> shadows = 0.6330 +- 0.0032  (exact 0.6337, 0.2 sigma)
+
+==============================================================================
+(2) NOISY SIMULATOR -- does the witness actually FIRE when decoherence is present?
+     (the control leg: without this, a null result on clean hardware is uninformative)
+==============================================================================
+
+--- NOISY sim 1x (toy depolarising+readout), 2site ---
+  LHS Tr[(rho^I)^2] from SHADOWS  = 0.6103 +- 0.0102
+  RHS (1+|chi|^2)/2 from ANCILLA  = 0.6897 +- 0.0026
+  GAP (LHS - RHS)                 = -0.0794 +- 0.0105   (-7.6 sigma)
+  fidelity <|0..0><0..0|> shadows = 0.5986 +- 0.0042  (exact 0.6337, 8.3 sigma)
+
+--- NOISY sim 5x (toy depolarising+readout), 2site ---
+  LHS Tr[(rho^I)^2] from SHADOWS  = 0.4501 +- 0.0098
+  RHS (1+|chi|^2)/2 from ANCILLA  = 0.6234 +- 0.0023
+  GAP (LHS - RHS)                 = -0.1733 +- 0.0101   (-17.2 sigma)
+  fidelity <|0..0><0..0|> shadows = 0.5096 +- 0.0041  (exact 0.6337, 30.2 sigma)
+
+==============================================================================
+(3) REAL HARDWARE -- the witness applied to actual QPU data (no exact ref needed)
+==============================================================================
+
+--- REAL HARDWARE ibm_kingston, 2site (job d9uk99k98n5s7392vhsg) ---
+  LHS Tr[(rho^I)^2] from SHADOWS  = 0.6739 +- 0.0139
+  RHS (1+|chi|^2)/2 from ANCILLA  = 0.6940 +- 0.0037
+  GAP (LHS - RHS)                 = -0.0201 +- 0.0144   (-1.4 sigma)
+  fidelity <|0..0><0..0|> shadows = 0.6228 +- 0.0060  (exact 0.6337, 1.8 sigma)
+
+interpretation: a NEGATIVE gap means measured purity fell below what the ancilla
+predicts -- the decoherence signature derived in this file's header. Crucially this
+comparison used no exact diagonalisation at all, so it remains available at sizes
+where classical verification is impossible.
+
+wrote evidence/track_e_result.json

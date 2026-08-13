@@ -1,0 +1,138 @@
+{
+  "identity_max_deviation": 8.992806499463768e-15,
+  "identity_ok": true,
+  "overlap_rows": [
+    {
+      "t": 0.0,
+      "reps": 1,
+      "measured_abs": 1.0000079999680003,
+      "exact_abs": 0.9999999999999998
+    },
+    {
+      "t": 0.0,
+      "reps": 2,
+      "measured_abs": 1.000000499999875,
+      "exact_abs": 0.9999999999999998
+    },
+    {
+      "t": 0.0,
+      "reps": 4,
+      "measured_abs": 1.0007028779812717,
+      "exact_abs": 0.9999999999999998
+    },
+    {
+      "t": 0.9,
+      "reps": 1,
+      "measured_abs": 0.9823181765599168,
+      "exact_abs": 0.9858051784067301
+    },
+    {
+      "t": 0.9,
+      "reps": 2,
+      "measured_abs": 0.9995361424180719,
+      "exact_abs": 0.9993001288390504
+    },
+    {
+      "t": 0.9,
+      "reps": 4,
+      "measured_abs": 1.0000661228138867,
+      "exact_abs": 0.9999591320058128
+    },
+    {
+      "t": 1.8,
+      "reps": 1,
+      "measured_abs": 0.7792889387127216,
+      "exact_abs": 0.7797614810667579
+    },
+    {
+      "t": 1.8,
+      "reps": 2,
+      "measured_abs": 0.9779450393554845,
+      "exact_abs": 0.981978439092035
+    },
+    {
+      "t": 1.8,
+      "reps": 4,
+      "measured_abs": 0.9998126074420146,
+      "exact_abs": 0.9990454075180879
+    },
+    {
+      "t": 2.7,
+      "reps": 1,
+      "measured_abs": 0.6266677748217153,
+      "exact_abs": 0.6257957960874485
+    },
+    {
+      "t": 2.7,
+      "reps": 2,
+      "measured_abs": 0.788670400103871,
+      "exact_abs": 0.7656805194768603
+    },
+    {
+      "t": 2.7,
+      "reps": 4,
+      "measured_abs": 0.9908392907025841,
+      "exact_abs": 0.9883251477242259
+    },
+    {
+      "t": 3.6,
+      "reps": 1,
+      "measured_abs": 0.5960429934157434,
+      "exact_abs": 0.6196035486564005
+    },
+    {
+      "t": 3.6,
+      "reps": 2,
+      "measured_abs": 0.5809117833199805,
+      "exact_abs": 0.5741821593624743
+    },
+    {
+      "t": 3.6,
+      "reps": 4,
+      "measured_abs": 0.9378072829744926,
+      "exact_abs": 0.9417736703418987
+    },
+    {
+      "t": 4.5,
+      "reps": 1,
+      "measured_abs": 0.8985613501592421,
+      "exact_abs": 0.8893565485614082
+    },
+    {
+      "t": 4.5,
+      "reps": 2,
+      "measured_abs": 0.8775833293767606,
+      "exact_abs": 0.8593761650242956
+    },
+    {
+      "t": 4.5,
+      "reps": 4,
+      "measured_abs": 0.7709117978082837,
+      "exact_abs": 0.7621871828788749
+    }
+  ],
+  "gate_cost": [
+    {
+      "circuit": "plain_hadamard_exact",
+      "depth": 220,
+      "cx": 50
+    },
+    {
+      "circuit": "ab_tester_reps1",
+      "depth": 866,
+      "cx": 344
+    },
+    {
+      "circuit": "ab_tester_reps2",
+      "depth": 1400,
+      "cx": 588
+    },
+    {
+      "circuit": "ab_tester_reps4",
+      "depth": 2468,
+      "cx": 1076
+    }
+  ],
+  "shots_per_setting": 4000,
+  "scope": "PARTIAL: overlap curves + gate cost; per-observable X-basis disagreement profiles NOT attempted"
+}

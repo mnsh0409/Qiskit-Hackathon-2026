@@ -1,0 +1,39 @@
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+==============================================================================
+(1) STATEVECTOR VALIDATION of the derived identity  <Z_a> = Re[e^{i phi} <W'U>]
+==============================================================================
+  max deviation over 3 times x 2 reps x 2 quadratures = 8.99e-15
+  identity CONFIRMED (want < 1e-10)
+  sanity: chi_AB(0) = 1.000000-0.000000j  (must be exactly 1 -- both evolutions are the identity at t=0)
+
+==============================================================================
+(2) OVERLAP vs TIME -- how fast does the product formula drift from true dynamics?
+==============================================================================
+
+    t | reps=1: |chi_AB| (exact) | reps=2: |chi_AB| (exact) | reps=4: |chi_AB| (exact)
+------------------------------------------------------------------------------
+  0.0 |          1.000 (1.000) |          1.000 (1.000) |          1.001 (1.000)
+  0.9 |          0.982 (0.986) |          1.000 (0.999) |          1.000 (1.000)
+  1.8 |          0.779 (0.780) |          0.978 (0.982) |          1.000 (0.999)
+  2.7 |          0.627 (0.626) |          0.789 (0.766) |          0.991 (0.988)
+  3.6 |          0.596 (0.620) |          0.581 (0.574) |          0.938 (0.942)
+  4.5 |          0.899 (0.889) |          0.878 (0.859) |          0.771 (0.762)
+
+  |chi_AB| = 1 means the two dynamics agree exactly; it falls as Trotter error grows.
+  More reps -> closer to 1 at fixed t, and all curves start at exactly 1.0 at t=0.
+
+==============================================================================
+(3) GATE COST -- what the A/B comparison costs vs a plain Hadamard test
+==============================================================================
+
+                     circuit   depth     CX
+--------------------------------------------
+      plain Hadamard (exact)     220     50
+   A/B tester, W=trotter r=1     866    344
+   A/B tester, W=trotter r=2    1400    588
+   A/B tester, W=trotter r=4    2468   1076
+
+  The A/B circuit carries BOTH evolutions, so it is necessarily deeper than either
+  alone -- the scaffold's own 'roughly doubles the controlled-evolution depth' note.
+
+wrote evidence/track_b_result.json

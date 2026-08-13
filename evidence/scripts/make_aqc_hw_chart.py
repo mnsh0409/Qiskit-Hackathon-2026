@@ -75,23 +75,32 @@ for ax, (bname, arms) in zip(axes[:nb], R.items()):
     style(ax)
 
 ax = axes[-1]
-x = np.arange(len(ARMS)); w = 0.34
+# One group per arm, 2 bars per backend (predicted, measured). A first version drew every
+# backend at the SAME offsets, so the bars and their labels stacked on top of each other.
+x = np.arange(len(ARMS))
+nser = 2 * nb
+w = 0.82 / nser
+HATCH = ["", "//"]
 for bi, (bname, arms) in enumerate(R.items()):
+    short = bname.split("_")[-1]
     pred = [arms[a]["prediction"]["predicted_survival"] for a in ARMS]
     meas = [arms[a]["mean_survival"] for a in ARMS]
-    ax.bar(x - w / 2, pred, w, color=COL["muted"], alpha=0.6, label="predicted (gate error)")
-    ax.bar(x + w / 2, meas, w, color=[ARM_COL[a] for a in ARMS], label="measured")
-    for i, (p, m) in enumerate(zip(pred, meas)):
-        ax.annotate(f"{p:.2g}", (i - w / 2, p), xytext=(0, 4), textcoords="offset points",
-                    ha="center", fontsize=9, color=COL["muted"])
-        ax.annotate(f"{m:.2g}", (i + w / 2, m), xytext=(0, 4), textcoords="offset points",
-                    ha="center", fontsize=9.5, weight="bold", color=COL["ink"])
+    xp = x - 0.41 + (2 * bi) * w + w / 2
+    xm = x - 0.41 + (2 * bi + 1) * w + w / 2
+    ax.bar(xp, pred, w, color=COL["muted"], alpha=0.45, hatch=HATCH[bi % 2],
+           edgecolor="white", label=f"predicted ({short})")
+    ax.bar(xm, meas, w, color=[ARM_COL[a] for a in ARMS], hatch=HATCH[bi % 2],
+           edgecolor="white", label=f"measured ({short})")
+    for xi, m in zip(xm, meas):
+        ax.annotate(f"{m:.3g}", (xi, m), xytext=(0, 3), textcoords="offset points",
+                    ha="center", fontsize=8.5, weight="bold", color=COL["ink"])
 ax.axhline(1.0, color=COL["ink"], ls=":", lw=1.4)
-ax.set_xticks(x); ax.set_xticklabels(["exact\nblock", "Trotter\n$r{=}2$", "AQC $+$\nphase fix"],
-                                     fontsize=10.5)
-ax.set_ylabel(r"mean $|\chi|$ survival"); ax.set_ylim(0, 1.75)
+ax.text(-0.45, 1.03, r"$|\chi|\leq 1$", fontsize=9.5, color=COL["ink"], va="bottom")
+ax.set_xticks(x)
+ax.set_xticklabels(["exact\nblock", "Trotter\n$r{=}2$", "AQC $+$\nphase fix"], fontsize=10.5)
+ax.set_ylabel(r"mean $|\chi|$ survival"); ax.set_ylim(0, 1.85)
 ax.set_title("Predicted before submission vs measured", fontsize=12.5)
-ax.legend(frameon=False, fontsize=10, loc="upper center")
+ax.legend(frameon=False, fontsize=8.5, ncol=2, loc="upper center")
 style(ax)
 
 fig.tight_layout()

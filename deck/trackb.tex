@@ -83,9 +83,10 @@ and a way to certify the result from its own garbage}
           is the bottleneck: the standard exact block costs $\sim\!4^{\,n+1}$ two-qubit
           gates. We measured the crossover at \hl{$n=4$} and \good{$36\times$ fewer gates by
           $n=7$} (16{,}812 $\to$ 468), at state infidelity $3\times10^{-4}$. \src{R046}
-    \item \bad{On hardware it does not translate --- we ran it and it failed.} At $n{=}6$ on
-          \texttt{ibm\_marrakesh} the 576-gate AQC arm returned \bad{0.026} survival against
-          our own pre-registered \bad{0.315}. All three arms returned noise. \src{R054}
+    \item \bad{On hardware it does not translate --- we ran it and it failed, twice.} At
+          $n{=}6$ the 576-gate AQC arm returned \bad{0.026} (marrakesh) and \bad{0.033}
+          (kingston) against pre-registered $0.315$ / $0.401$. All arms, both devices,
+          returned noise. \src{R054}
     \item \bad{But shipping AQC into a Hadamard test silently breaks it.} The compiler
           optimises \emph{state fidelity}, which is blind to global phase --- and a Hadamard
           test is an interferometer that measures exactly that. A converged compression
@@ -372,9 +373,10 @@ and a way to certify the result from its own garbage}
   \end{center}
   \vspace{-3mm}
   {\scriptsize
-  One job on \texttt{ibm\_marrakesh}, $n{=}6$, three ways to build the controlled evolution.
-  \bad{All three arms returned noise} --- the 576-gate AQC arm at \bad{0.026} against the
-  \bad{0.315} we recorded \emph{before} submitting.
+  \texttt{ibm\_marrakesh} \emph{and} \texttt{ibm\_kingston}, $n{=}6$, three ways to build the
+  controlled evolution, 144{,}000 shots. \bad{Every arm on both devices returned noise} ---
+  the 576-gate AQC arm at \bad{0.026} and \bad{0.033} against the $0.315$ / $0.401$ we
+  recorded \emph{before} submitting. \hl{Two independent QPUs, same verdict.}
   \par\smallskip
   \textbf{The orange arm is the lesson.} Its ``survival'' reads \good{1.485}, best of the
   three, and is \bad{unphysical}: $|\chi|\approx1.21$ against a bound of $1$, near constant
@@ -452,9 +454,9 @@ and a way to certify the result from its own garbage}
   \smallskip
   \textbf{We do not claim}
   \begin{itemize}\itemsep 0pt
-    \item \bad{That the gate-count win becomes a hardware win.} We tested it and it did
-          not: at $n{=}6$ every arm returned noise, AQC at $0.026$ against a predicted
-          $0.315$. \src{R054}
+    \item \bad{That the gate-count win becomes a hardware win.} We tested it on two QPUs
+          and it did not: every arm returned noise, AQC at $0.026$/$0.033$ against predicted
+          $0.315$/$0.401$. \src{R054}
     \item \bad{That AQC helps at small $n$.} Below the crossover it is \emph{worse} ---
           $2.6\times$ at $n{=}3$ --- and the compressed circuit is valid \bad{only for the
           state it was compiled against}. \src{R046}

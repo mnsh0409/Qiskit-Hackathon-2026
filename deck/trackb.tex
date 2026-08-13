@@ -536,7 +536,7 @@ and a way to certify the result from its own garbage}
 \begin{frame}[plain]
   \centering\Large\textbf{Appendix --- derivations}\\[1em]
   {\normalsize\color{mutedA} A1 anti-control \quad A2 the Track B identity \quad
-  A3 the two readouts\\ A4 classical shadows \quad A5 shadows on the Track B circuit}
+  A3 the two readouts\\ A4 classical shadows \quad A5 shadows on the Track B circuit \quad A7 the $n{=}6$/$n{=}7$ arithmetic}
 \end{frame}
 
 \begin{frame}{A1 --- Anti-control, and A2 --- the Track B identity}
@@ -692,6 +692,68 @@ and a way to certify the result from its own garbage}
   ($n{+}1$ vs $2n$) for the Trotter case. \bad{We checked this rather than claiming the phase
   everywhere.} A measured nonzero $\mathrm{Im}$ in the second row is therefore another
   reference-free error signal. \src{R045}}
+\end{frame}
+
+\begin{frame}{A7 --- the $n{=}6$ vs $n{=}7$ arithmetic, in full}
+  \scriptsize
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \textbf{Measured anatomy at $n{=}6$} (marrakesh: cz $68$\,ns,
+      $T_1{=}160\,\mu$s, $T_2{=}74\,\mu$s) \src{R054}
+      \begin{center}
+      \begin{tabular}{lrrrr}
+        \toprule
+        arm & 2q & dur & $t/T_2$ & meas.\\
+        \midrule
+        exact   & 8850 & $602\,\mu$s & 8.1 & \bad{1.49}$^{\dagger}$\\
+        Trotter & 2119 & $144\,\mu$s & 1.9 & 0.033\\
+        AQC     & 576  & $39\,\mu$s  & 0.53 & 0.026\\
+        \bottomrule
+      \end{tabular}\\[0.5mm]
+      {\tiny $^{\dagger}$unphysical: $T_1$ floor, not signal}
+      \end{center}
+      \textbf{Effective error, extracted from data:}
+      \[
+        \varepsilon_{\rm eff}=\frac{-\ln S}{N_{2q}}
+        =\frac{-\ln 0.026}{576}=6.3\times10^{-3}
+      \]
+      (kingston: $5.9\times10^{-3}$) --- \bad{3--4$\times$} the calibrated
+      $1.7$--$2.0\times10^{-3}$.
+      \textbf{Budgeted:} $0.315$ (gate error) $\times$
+      $e^{-39.2/74}{=}0.59$ (ancilla $T_2$) $=0.186$; measured $0.026$
+      $\Rightarrow$ residual $7.2\times$ $=3.4\times10^{-3}$/gate unattributed.
+      \textbf{Visibility:} $S\gtrsim0.3$ at $576$ gates needs
+      $\varepsilon_{\rm eff}\leq\frac{\ln(1/0.3)}{576}=2.1\times10^{-3}$.
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{The same job at $n{=}7$, transpiled --- not estimated} \src{R055}
+      \begin{center}
+      \begin{tabular}{lrrr}
+        \toprule
+        arm & 2q & dur & pred.\\
+        \midrule
+        exact   & 36{,}114 & $2.46$\,ms & $3\times10^{-28}$\\
+        Trotter & 2{,}549  & $173\,\mu$s & $6\times10^{-3}$\\
+        AQC     & 702      & $48\,\mu$s  & 0.245$^{\ast}$\\
+        \bottomrule
+      \end{tabular}\\[0.5mm]
+      {\tiny $^{\ast}$gate-error only; at the \emph{measured}
+      $\varepsilon_{\rm eff}$: $e^{-6.1\times10^{-3}\times702}\approx0.013$}
+      \end{center}
+      \textbf{What moving to $n{=}7$ does, quantitatively:}
+      \begin{itemize}\itemsep 1pt
+        \item ratio (compilation): $16{,}812/468=\mhl{35.9\times}$ --- \emph{grows}
+        \item AQC signal: $0.026\to\sim0.013$ --- \emph{halves}
+        \item quantum time: whole job $\times3.4$, exact control arm
+              $\times4.1$ ($36{,}114/8{,}850$)
+      \end{itemize}
+      \smallskip
+      \bad{Doubles the headline, halves the signal, quadruples the bill.}
+      The win becomes measurable when $\varepsilon_{\rm eff}\lesssim2\times10^{-3}$
+      --- a device generation (Nighthawk's target regime), not a larger $n$.
+      \src{R046, R052, R054, R055}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \end{document}

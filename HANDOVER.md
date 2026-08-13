@@ -269,6 +269,13 @@ Either outcome is reportable: predictions print before submission, and `aqc_hard
 compares against them. If miami's AQC arm also returns noise, that is a three-architecture
 negative and we say so.
 
+**Flags** (all verified by dry run): `--n 7` runs the larger instance (default 6 — and we
+recommend keeping 6: at n=7 the exact control arm alone is 36,114 routed gates, 4.1× the
+quantum time, while the AQC arm's expected signal *halves*; the full arithmetic is R055 and
+appendix A7 of the Track B deck). `--shots N` and `--cheap` as above. Note `--dry-run` with
+no `ibm_*` argument is statevector-only and touches no backend; with a backend name it also
+transpiles and prints the cost table without submitting.
+
 ### Why a better device matters more here than anywhere else
 
 Our predicted AQC survival is only ~0.32 on marrakesh -- good enough to see a signal, not

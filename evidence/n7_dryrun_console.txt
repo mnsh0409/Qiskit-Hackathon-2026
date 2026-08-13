@@ -1,0 +1,30 @@
+/home/martin/Documents/QiskitHackathon/2026/evidence/scripts/aqc_hardware_submit.py:89: DeprecationWarning: The class ``qiskit_addon_aqc_tensor.objective.OneMinusFidelity`` is deprecated as of qiskit-addon-aqc-tensor 0.2.0. It will be removed no earlier than v0.4.0. This class has been renamed to ``MaximizeStateFidelity``.
+  res = minimize(OneMinusFidelity(tensornetwork_from_circuit(ft, sim), fa, sim),
+An NVIDIA GPU may be present on this machine, but a CUDA-enabled jaxlib is not installed. Falling back to cpu.
+/home/martin/Documents/QiskitHackathon/2026/evidence/scripts/aqc_hardware_submit.py:89: DeprecationWarning: The class ``qiskit_addon_aqc_tensor.objective.OneMinusFidelity`` is deprecated as of qiskit-addon-aqc-tensor 0.2.0. It will be removed no earlier than v0.4.0. This class has been renamed to ``MaximizeStateFidelity``.
+  res = minimize(OneMinusFidelity(tensornetwork_from_circuit(ft, sim), fa, sim),
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+==============================================================================
+PRE-FLIGHT -- all three arms must reproduce chi(t) on the statevector
+==============================================================================
+  t=0.3: AQC compiled, state infidelity 5.13e-06, theta=-1.3775 rad
+  t=0.6: AQC compiled, state infidelity 3.52e-05, theta=+2.0920 rad
+  t=0.9: AQC compiled, state infidelity 2.93e-04, theta=-2.6823 rad
+
+  worst |chi_circuit - chi_exact|:  exact 5.56e-16,  trotter 1.47e-02,  AQC+phase 8.31e-03
+  PRE-FLIGHT PASSED (the Trotter arm carries genuine product-formula error, as it should)
+
+==============================================================================
+TRANSPILED COST AND PREDICTION on ibm_marrakesh  (2q basis ['cz'])
+==============================================================================
+     exact: median    36114 two-qubit gates   predicted |chi| survival 3.08e-28
+   trotter: median     2549 two-qubit gates   predicted |chi| survival 6.04e-03
+       aqc: median      702 two-qubit gates   predicted |chi| survival 2.45e-01
+
+  PREDICTION, recorded before submission and falsifiable:
+    exact arm returns noise (survival 3.1e-28);
+    AQC arm returns a recognisable chi(t) (survival 0.24).
+    If the AQC arm is ALSO noise, the compilation advantage does not translate to
+    hardware at this size, and we report that.
+
+dry run -- nothing submitted

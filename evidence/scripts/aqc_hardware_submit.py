@@ -40,7 +40,9 @@ SPO = ns["SparsePauliOp"]
 PHI_RE, PHI_IM = ns["PHI_RE"], ns["PHI_IM"]
 sim = QuimbSimulator(quimb.tensor.CircuitMPS, autodiff_backend="jax")
 
-N = 6
+N = 6                            # override with --n (7 supported; FIELDS covers it)
+if "--n" in sys.argv:
+    N = int(sys.argv[sys.argv.index("--n") + 1])
 TIMES = (0.3, 0.6, 0.9)
 SHOTS = 4000                     # override with --shots N
 # The exact arm exists only to be dead (it is the control), yet at equal shots it eats 77%
@@ -52,7 +54,7 @@ if "--shots" in sys.argv:
     SHOTS = int(sys.argv[sys.argv.index("--shots") + 1])
 if "--cheap" in sys.argv:
     EXACT_SHOTS = 500
-FIELDS = [0.40, -0.50, 0.15, 0.20, -0.30, 0.10]
+FIELDS = [0.40, -0.50, 0.15, 0.20, -0.30, 0.10, 0.25]   # 7 entries: supports --n 7
 BONDS = [(i, i + 1) for i in range(N - 1)]
 
 
@@ -147,7 +149,9 @@ print("  PRE-FLIGHT PASSED (the Trotter arm carries genuine product-formula erro
       "as it should)\n")
 
 # ============================ COST + PREDICTION ============================
-if "--dry-run" in sys.argv and len(sys.argv) == 2:
+# statevector-only when no backend named: the old check (len(sys.argv)==2) silently fell
+# through to a real backend query the moment any other flag (--n, --shots) was present.
+if "--dry-run" in sys.argv and not [a for a in sys.argv if a.startswith("ibm_")]:
     print("dry run: statevector only, no backend contacted"); sys.exit(0)
 
 from qiskit_ibm_runtime import QiskitRuntimeService, SamplerV2

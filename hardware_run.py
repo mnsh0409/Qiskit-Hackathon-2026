@@ -189,6 +189,11 @@ def cmd_submit(args) -> None:
     except Exception:
         pass
 
+    if args.dry_run:
+        print(f"\n--dry-run: transpiled and scored, NOT submitted "
+              f"({len(circs) * args.shots:,} shots would have been requested)")
+        return
+
     job = SamplerV2(mode=backend).run(isa, shots=args.shots)
     _jobdb({job.job_id(): dict(model=args.model, shadow=bool(args.shadow), t=args.t,
                                method=args.method, reps=args.reps, shots=args.shots,
@@ -279,6 +284,10 @@ def main() -> None:
     p.add_argument("--initial-layout", default=None,
                    help="comma-separated physical qubits, e.g. from layout_search.py's "
                         "recommendation; default lets the transpiler choose")
+    p.add_argument("--dry-run", action="store_true",
+                   help="build, transpile and score circuits; print everything --submit would, "
+                        "but stop before SamplerV2(...).run(...) -- use this to test CLI "
+                        "arguments (see BUGLOG B05, an accidental real submission)")
     a = p.parse_args()
 
     if a.list:

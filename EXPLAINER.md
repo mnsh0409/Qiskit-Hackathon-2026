@@ -105,13 +105,27 @@ every piece of code that knows the exact answer with a boobytrap that explodes
 if touched, then re-runs our analysis. It produced identical output — proof the
 estimator never peeked at the answer sheet.
 
-**Tried it on a real quantum computer.** We sent a small job (4,000 shots) to
-IBM's `ibm_marrakesh` processor overnight. The result came back heavily
-degraded: the signal was damped to about 18% of its true size, worse than the
-~34% that a generic textbook noise model predicts for a circuit this deep
-(about 435 two-qubit gates). We report this as-is. It is a real, quantified
-finding about hardware noise at this circuit depth — not a success story, and
-we don't dress it up as one.
+**Tried it on a real quantum computer — first attempt failed, and the failure
+told us exactly what to fix.** We sent a small job (4,000 shots) to IBM's
+`ibm_marrakesh` processor overnight, using a circuit-construction method that
+turns out to need about 435 two-qubit operations for this problem size. The
+result came back heavily degraded: the signal survived at only about 18% of
+its true size — worse than the ~34% a generic textbook noise model predicts
+for a circuit this deep. We reported that as-is; it's a real finding about
+hardware noise, not a success story.
+
+But the circuit didn't need to be that deep. An alternative way of building
+the same operation needs only about 100 two-qubit operations — roughly 4×
+fewer — because at this small system size (3 qubits) it happens to compile
+more efficiently than the standard method. We reran the identical experiment
+with that shallower circuit, on the same hardware: the signal survived at
+**82%**, not 18%. Switching to the best-calibrated of the three IBM devices we
+could reach pushed that to **88%** — close to a clean simulator result. So the
+real lesson wasn't "this doesn't work on hardware," it was "this doesn't work
+on a needlessly deep circuit" — and once we fixed the circuit, it did. (One
+honest caveat: this shortcut is a quirk of small system sizes and would not
+hold at scale, so we're reporting it as a robustness finding about *this*
+benchmark, not a general recipe.)
 
 **Bonus (Challenge 10).** The same recorded data also feeds a completely
 different algorithm — a "Krylov" energy solver that estimates the lowest
@@ -131,8 +145,11 @@ only smarter post-processing of shots you were already taking.
 
 ### 6. Honesty notes
 
-- All headline results are from an ideal (noiseless) simulator; the one real
-  hardware run is reported separately and did not survive the circuit depth.
+- All headline (Part A/B) results are from an ideal (noiseless) simulator.
+  Real hardware runs are reported separately, always as robustness evidence,
+  never as a headline number: our first attempt (deep circuit) did not
+  survive, later attempts (shallow circuit) survived well (82-88%). Hardware
+  never contributes to the reported spectrum or its uncertainties.
 - Everything comes from **one** shared dataset of 256,000 shots plus small,
   separately-declared side runs (scaling study, noise study, hardware job).
 - Uncertainties are bootstrap-based; validation gates were set at 5σ.

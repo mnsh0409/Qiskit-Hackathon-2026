@@ -56,8 +56,10 @@ reasons:
    435 for the Trotter circuit that failed on our hardware. On a device with 2e-3 two-qubit
    error that predicts ~97% signal survival, i.e. an actually *usable* result.
 2. **It can report a valid system observable.** At n=2 the whole shadow ensemble is just
-   3²=9 bases, so ⟨Q⟩ comes out unbiased. Every fixed-basis job — including all of ours so
-   far — can only legitimately report χ (see below).
+   3²=9 bases, so ⟨Q⟩ comes out unbiased. Every fixed-basis job — including all our χ-only
+   jobs — can only legitimately report χ (see below). This is genuinely the one result we
+   don't yet have confirmed on our own hardware either (our own 2-site job is queued, not
+   returned — see §3), so it's not "give us something we already have," it's a real gap.
 
 If you have QPU time for exactly one thing, run that.
 
@@ -79,33 +81,46 @@ reimplements no physics. Defaults reproduce our reference point exactly (t=0.9, 
 quadratures, basis [X,Y,Z], 2000 shots, `optimization_level=1`), so your number is directly
 comparable to ours.
 
-Sanity check before trusting it — this must print survival `0.179`:
+Sanity check before trusting it — these must print survival `0.179` and `0.878` respectively:
 
 ```bash
-python hardware_run.py --fetch d9u95vs98n5s7392iao0     # our marrakesh run
+python hardware_run.py --fetch d9u95vs98n5s7392iao0     # Trotter+marrakesh (the bad one)
+python hardware_run.py --fetch d9ujlb0u5hac73ahadu0     # exact+kingston (our best result)
 ```
 
 ## 3. What we already know (please don't re-derive this)
 
-The single most important finding: **circuit depth dominates device quality, by a lot.**
+**Updated 2026-08-13 — this used to say the 2×2 was still queued; two of three arms have
+since returned, and the result is good news.**
 
-| circuit | two-qubit gates | depth |
-|---|---|---|
-| Trotter reps=1 | 435 | 1729 |
-| **exact path** | **101** | **375** |
+The single most important finding: **circuit depth dominates device quality, by a lot** —
+and once you fix the depth, real hardware works.
 
-Measured 2-qubit error rates: kingston 1.99e-3, fez 2.73e-3, marrakesh 3.23e-3. Naive
-survival `(1-p)^n_2q` then predicts changing *machine* buys ~1.7×, changing *circuit* buys
-~4.3×. Our one completed run (Trotter on marrakesh, the worst device — we picked it on queue
-length before checking fidelity, which was a mistake) came back at **0.179 signal survival**,
-i.e. 35σ from the exact answer. Effectively no signal.
+| circuit | two-qubit gates (kingston) | depth | measured survival |
+|---|---|---|---|
+| Trotter reps=1, marrakesh (worst device) | 435 | 1729 | **0.179** (35σ off — effectively no signal) |
+| **exact path, marrakesh** | **101** | 375 | **0.822** (5.8σ, 5.0σ) |
+| **exact path, kingston** | **101** | 375 | **0.878** (4.4σ, 0.9σ) — best result we have |
 
-**So please use `--method exact` (the default).** `--method trotter` is available if you want
-the deep-circuit arm for comparison, but expect it to be mostly noise.
+So: changing only the circuit (Trotter → exact, same device) took survival from 0.18 to
+0.82 — roughly 4.6×. Changing only the device on top of that (marrakesh → kingston, exact
+path both times) added another ~7% (0.822 → 0.878). Depth dominates; device choice is a
+smaller, real, additional effect. (One caveat we're keeping honest: this is a single-run
+comparison per arm, not a repeated-trial average — treat the *pattern*, depth >> device, as
+solid; treat the exact percentages as one data point each.)
 
-We have three more jobs queued on our own hardware to measure the depth-vs-device split
-directly (RESULTS.md R018, predictions recorded before submission). If those return in time
-we'll have the 2×2; a Nighthawk point would extend it to a third device tier.
+The remaining arm (Trotter on kingston) is still queued — that's the one number that would
+let us claim the depth effect is confirmed on *both* devices rather than just marrakesh so
+far.
+
+**So please use `--method exact` (the default) — it's not just theoretically better, it's
+now confirmed to work on two real devices.** `--method trotter` is available if you want the
+deep-circuit arm for comparison on Nighthawk, but expect it to be mostly noise based on what
+we've seen.
+
+Kingston (2q error 1.99e-3) has been our best-calibrated and best-performing device so far.
+If Nighthawk's error rates are in the same range or better, we'd expect survival in the
+0.85-0.95+ region on the exact path — genuinely comparable to a good simulator result.
 
 ## 4. What to send back
 
@@ -136,7 +151,9 @@ Please keep these if you report anything publicly:
 
 - `EXPLAINER.md` — plain-language description of what the project does
 - `RESULTS.md` — every number, with the command that produced it (R008 and R018 are hardware)
-- `BUGLOG.md` — B03 is the hardware failure analysis
+- `BUGLOG.md` — B03 is the initial hardware finding, B04 is a real mistake we made and fixed
+  (reported a hardware ⟨Q⟩ from a fixed-basis job — wrong, since the shadow estimator needs
+  random bases; caught it, retracted it, added the `--shadow` guard in this tool)
 - `CONVENTIONS.md` — the frozen conventions; §2 has the Hamiltonian, §5 the shot budget
 - `figures/07_symmetry_resolved_spectrum.png` — the headline result the hardware run is
   ultimately trying to support

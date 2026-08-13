@@ -160,6 +160,15 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 ## Q&A crib sheet
 
+**"Your AQC headline is n=7 but the hardware run is n=6 — why?"**
+> Different questions. n=7 is the last point of the compilation *scaling trend* (gate
+> counts only). The hardware test needs the 8,850-gate exact arm alongside as the doomed
+> *control*, and that arm dominates QPU time — 602 µs per shot, about 4× more at n=7 on an
+> open-plan quota. The contrast was already saturated at n=6 (predicted 3.6e-7 vs 0.32),
+> so n=7 would spend 4× the quantum time making a dead arm deader. And since AQC failed at
+> n=6, it would only fail harder at n=7 — the choice of n doesn't soften the negative. [R046, R054]
+
+
 **"Is this faster than a classical computer?"**
 > No, and we do not claim that. Our system is three qubits. A laptop solves it instantly.
 > It is small on purpose, so we can check every number against the exact answer.

@@ -393,7 +393,12 @@ and a way to certify the result from its own garbage}
   in $t$, both quadratures pinned at $+0.85$ --- the ancilla sitting in $|0\rangle$
   (8{,}850 gates $\times$ 68\,ns $= 602\,\mu$s vs $T_1 = 160\,\mu$s).
   \hl{A magnitude-only metric scores a dead circuit as the winner}: the compiler's trap
-  again, now in our own headline experiment. \src{R054}}
+  again, now in our own headline experiment. \src{R054}
+  \par\smallskip
+  {\color{mutedA}Why $n{=}6$, not the headline's $n{=}7$? The doomed exact-arm \emph{control}
+  dominates QPU time (602\,$\mu$s/shot; $\sim\!4\times$ more at $n{=}7$) and the contrast is
+  already saturated --- predicted $3.6\times10^{-7}$ vs $0.32$. Spending $4\times$ the quota
+  to make a dead arm deader buys no information.}}
 \end{frame}
 
 % ==================================================================

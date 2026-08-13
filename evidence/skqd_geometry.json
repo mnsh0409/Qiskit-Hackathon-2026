@@ -1,0 +1,87 @@
+{
+  "n": 12,
+  "k": 6,
+  "sector_dim": 924,
+  "rows": [
+    {
+      "delta_over_J": 0.38,
+      "geometry": "1D chain (11 bonds)",
+      "bonds": 11,
+      "ground_90pct": 173,
+      "ground_90pct_frac": 0.18722943722943722,
+      "dim_needed": 800,
+      "frac": 0.8658008658008658,
+      "e0": -11.267073270535192
+    },
+    {
+      "delta_over_J": 0.38,
+      "geometry": "2D grid 3x4 (17 bonds)",
+      "bonds": 17,
+      "ground_90pct": 406,
+      "ground_90pct_frac": 0.4393939393939394,
+      "dim_needed": null,
+      "frac": null,
+      "e0": -14.81997660223818
+    },
+    {
+      "delta_over_J": 1.0,
+      "geometry": "1D chain (11 bonds)",
+      "bonds": 11,
+      "ground_90pct": 101,
+      "ground_90pct_frac": 0.10930735930735931,
+      "dim_needed": 600,
+      "frac": 0.6493506493506493,
+      "e0": -13.86957639804694
+    },
+    {
+      "delta_over_J": 1.0,
+      "geometry": "2D grid 3x4 (17 bonds)",
+      "bonds": 17,
+      "ground_90pct": 201,
+      "ground_90pct_frac": 0.21753246753246752,
+      "dim_needed": 800,
+      "frac": 0.8658008658008658,
+      "e0": -17.92826451548783
+    },
+    {
+      "delta_over_J": 2.0,
+      "geometry": "1D chain (11 bonds)",
+      "bonds": 11,
+      "ground_90pct": 30,
+      "ground_90pct_frac": 0.032467532467532464,
+      "dim_needed": 150,
+      "frac": 0.16233766233766234,
+      "e0": -19.062393181200683
+    },
+    {
+      "delta_over_J": 2.0,
+      "geometry": "2D grid 3x4 (17 bonds)",
+      "bonds": 17,
+      "ground_90pct": 13,
+      "ground_90pct_frac": 0.01406926406926407,
+      "dim_needed": 150,
+      "frac": 0.16233766233766234,
+      "e0": -26.120969211413843
+    },
+    {
+      "delta_over_J": 5.0,
+      "geometry": "1D chain (11 bonds)",
+      "bonds": 11,
+      "ground_90pct": 3,
+      "ground_90pct_frac": 0.003246753246753247,
+      "dim_needed": 25,
+      "frac": 0.027056277056277056,
+      "e0": -38.507268108451996
+    },
+    {
+      "delta_over_J": 5.0,
+      "geometry": "2D grid 3x4 (17 bonds)",
+      "bonds": 17,
+      "ground_90pct": 1,
+      "ground_90pct_frac": 0.0010822510822510823,
+      "dim_needed": 25,
+      "frac": 0.027056277056277056,
+      "e0": -57.56027587302241
+    }
+  ]
+}

@@ -539,6 +539,26 @@
   condition number 31.
 \end{frame}
 
+\begin{frame}{Backup --- where SKQD helps, and why not here}
+  \vspace{-1mm}
+  \begin{center}
+    \includegraphics[width=0.90\linewidth]{fig_skqd_boundary.png}
+  \end{center}
+  \vspace{-3mm}
+  {\scriptsize
+  Sample-based Krylov diagonalisation spans a subspace instead of enumerating one. Its
+  advantage is governed by \hl{how localised the ground state is}, which $\Delta/J$ controls:
+  at $\Delta/J=5$ it needs \good{2.7\%} of the charge sector, at our benchmark's
+  \hl{$\Delta/J=0.38$} it needs \bad{86.6\%} --- so SKQD buys us nothing \emph{on this
+  Hamiltonian}. Measured at 12 sites, sector $\binom{12}{6}=924$, against exact
+  diagonalisation. \src{R047}
+  \par\smallskip
+  \textbf{And in 2D?} Same 12 sites and same sector, 11 bonds $\to$ 17. More connectivity
+  makes it \bad{strictly worse where hopping dominates} (2D never converges at
+  $\Delta/J=0.38$) and \good{changes nothing once localised} ($\Delta/J\geq2$: identical in
+  both). A 2D version of our benchmark would be worse for SKQD, not better. \src{R048}}
+\end{frame}
+
 \begin{frame}{Backup --- two bugs we caught, and how}
   \small
   \textbf{B04 --- a fixed-basis shadow estimator silently returns a \emph{different}

@@ -4,6 +4,11 @@ __pycache__/
 .ipynb_checkpoints/
 apikey.json
 
+# third-party, unusable here (R024/EVIDENCE.md): imports a sibling module ('.layout')
+# that does not exist on this machine. Kept on disk for anyone who wants to see the
+# failure themselves; deliberately not tracked so "never part of this repo" stays true.
+packing.py
+
 # LaTeX build artefacts
 deck/*.aux
 deck/*.log

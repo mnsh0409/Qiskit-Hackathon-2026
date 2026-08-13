@@ -177,3 +177,72 @@ fig.tight_layout(rect=(0, 0, 1, 0.92))
 fig.savefig("/home/martin/Documents/QiskitHackathon/2026/deck/fig_escalation.png",
             dpi=200, bbox_inches="tight")
 print("wrote deck/fig_escalation.png")
+
+# ---------------- chart 5: the benchmark model itself ----------------
+# CONVENTIONS section 2, frozen. Open 3-site chain: bonds (0,1) and (1,2) ONLY.
+from matplotlib.patches import Ellipse, FancyArrowPatch, Arc
+
+XLO, XHI, YLO, YHI = -0.85, 2.90, -2.10, 1.80
+FIGW, FIGH = 11.0, 5.6
+fig, ax = plt.subplots(figsize=(FIGW, FIGH))
+ax.set_xlim(XLO, XHI); ax.set_ylim(YLO, YHI); ax.axis("off")
+ax.set_facecolor(BG)
+
+# axes are deliberately not equal-aspect (equal aspect wastes slide width), so the sites
+# are ellipses pre-corrected by the data->inches ratio, which renders them round
+ASP = (FIGW / (XHI - XLO)) / (FIGH / (YHI - YLO))
+
+SITES = [0.0, 1.0, 2.0]
+FIELDS = [0.40, -0.50, 0.15]            # h_0, h_1, h_2
+R = 0.155
+
+# --- the two nearest-neighbour bonds ---
+for x0, x1 in zip(SITES[:-1], SITES[1:]):
+    ax.plot([x0 + R, x1 - R], [0, 0], color=COL["ink"], lw=3.5, zorder=2,
+            solid_capstyle="round")
+    xm = 0.5 * (x0 + x1)
+    ax.text(xm, 0.42, r"$0.65\,(X_iX_j\!+\!Y_iY_j)$", ha="center", fontsize=12.5,
+            color=COL["blue"], zorder=3)
+    ax.text(xm, 0.21, r"$+\ 0.25\,Z_iZ_j$", ha="center", fontsize=12.5,
+            color=COL["aqua"], zorder=3)
+
+# --- the bond that is NOT there: q0-q2, drawn dashed and struck out ---
+ax.add_patch(Arc((1.0, 0.0), 2.12, 2.05, theta1=25, theta2=155, lw=1.8,
+                 color=COL["muted"], ls=(0, (5, 4)), zorder=1))
+for dx, dy in ((-1, -1), (-1, 1)):
+    ax.plot([1 - 0.07 * dx, 1 + 0.07 * dx], [1.025 - 0.09 * dy, 1.025 + 0.09 * dy],
+            color=COL["orange"], lw=3.2, zorder=4)
+ax.text(1.17, 1.025, "no $q_0$\u2013$q_2$ term:\nonly nearest neighbours interact",
+        ha="left", va="center", fontsize=12.5, color=COL["orange"], zorder=4,
+        bbox=dict(boxstyle="round,pad=0.25", fc=BG, ec="none"))
+
+# --- the three spin-1/2 sites ---
+for i, (x, h) in enumerate(zip(SITES, FIELDS)):
+    ax.add_patch(Ellipse((x, 0), 2 * R, 2 * R * ASP, facecolor="white",
+                         edgecolor=COL["ink"], lw=2.4, zorder=5))
+    ax.add_patch(FancyArrowPatch((x, -0.17), (x, 0.18), arrowstyle="-|>",
+                                 mutation_scale=16, color=COL["violet"], lw=2.6, zorder=6))
+    ax.text(x, -0.50, rf"$q_{i}$", ha="center", va="top", fontsize=15, color=COL["ink"])
+    # local Z field; the arrow direction carries the sign
+    y0, y1 = (-1.06, -0.78) if h > 0 else (-0.78, -1.06)
+    ax.add_patch(FancyArrowPatch((x, y0), (x, y1), arrowstyle="-|>", mutation_scale=14,
+                                 color=COL["orange"], lw=2.2, zorder=6))
+    ax.text(x, -1.24, rf"$h_{i}={h:+.2f}$", ha="center", va="top", fontsize=12.5,
+            color=COL["orange"])
+
+ax.text(XLO + 0.05, 1.75, "3 spin-$\\frac{1}{2}$ particles, open chain",
+        fontsize=15, color=COL["ink"], weight="bold", ha="left", va="top")
+ax.text(XHI - 0.05, 1.75, "conserved:  $Q=\\sum_j Z_j$,   $[H,Q]=0$",
+        fontsize=12.5, color=COL["aqua"], ha="right", va="top")
+ax.text(XHI - 0.05, 1.47, "$\\Rightarrow$ the spectrum splits into charge sectors",
+        fontsize=11, color=COL["muted"], ha="right", va="top")
+ax.text(1.0, -1.52, "the three local fields are unequal, so no two levels coincide",
+        fontsize=11.5, color=COL["orange"], ha="center", va="top")
+ax.text(1.0, -2.08,
+        r"$H=\sum_{i=0}^{1}\left[\,0.65\,(X_iX_{i+1}+Y_iY_{i+1})+0.25\,Z_iZ_{i+1}\right]"
+        r"\;+\;0.40\,Z_0-0.50\,Z_1+0.15\,Z_2$",
+        fontsize=13.5, color=COL["ink"], ha="center", va="bottom")
+
+fig.savefig("/home/martin/Documents/QiskitHackathon/2026/deck/fig_model.png",
+            dpi=200, bbox_inches="tight", facecolor=BG)
+print("wrote deck/fig_model.png")

@@ -1,0 +1,95 @@
+# =======================================================================
+#  SOLUTION MATERIAL — MUST NEVER BE COMMITTED
+# =======================================================================
+# This is a PARTICIPANT-FACING repository. Everything in this block gives
+# away the answers to the 11 challenges. If you add a file here, check it
+# against this list first.
+#
+# The complete reference implementation:
+shadow_hadamard_challenge_RUN.ipynb
+*_RUN.ipynb
+*_SOLUTION.ipynb
+*_solutions.ipynb
+
+# Outputs of a solved run: the recovered spectrum, weights, symmetry
+# labels, DFT ratios and resource table are the deliverables participants
+# are supposed to derive themselves.
+figures/
+run_summary.json
+
+# Any locally executed copy of the participant notebook — it will contain
+# the participant's own (or the reference) answers in its outputs.
+*_executed.ipynb
+executed.ipynb
+*_asis.ipynb
+shadow_hadamard_challenge_PARTICIPANT_solved.ipynb
+
+# =======================================================================
+#  Internal working documents — not for the public repo
+# =======================================================================
+PARTICIPANT_REVIEW.md
+PROSE_EDITS.md
+FINAL_EDITS.md
+
+# Claude Code session artifacts (logs, local settings)
+.claude/
+HANDOFF.md
+SUMMARY.md
+
+# =======================================================================
+#  Editor / IDE
+# =======================================================================
+# .vscode/settings.json holds absolute, machine-specific interpreter
+# paths. Setup is documented in the README instead.
+.vscode/
+.idea/
+*.swp
+
+# =======================================================================
+#  Jupyter
+# =======================================================================
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# =======================================================================
+#  Python
+# =======================================================================
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.python-version
+
+# =======================================================================
+#  Caches / tooling
+# =======================================================================
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipython/
+
+# =======================================================================
+#  Scratch
+# =======================================================================
+outputs/
+temp/
+*.log
+
+# =======================================================================
+#  Credentials
+# =======================================================================
+# Qiskit Runtime stores IBM Quantum API tokens here. Never commit them.
+.qiskit/
+qiskit-ibm.json
+.env
+.env.*
+*.pem
+*.key
+
+# =======================================================================
+#  OS
+# =======================================================================
+.DS_Store
+Thumbs.db

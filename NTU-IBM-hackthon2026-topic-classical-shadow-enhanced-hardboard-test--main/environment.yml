@@ -1,0 +1,35 @@
+# Conda environment for the Shadow-Enhanced Hadamard Test notebook.
+#
+#   conda env create -f environment.yml
+#   conda activate ibmhack2026
+#   python -m ipykernel install --user --name ibmhack2026 \
+#          --display-name "Python (ibmhack2026) - Qiskit"
+#
+# The qiskit stack is installed via pip rather than conda-forge: the
+# official wheels are the reference distribution and track releases first.
+name: ibmhack2026
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      # core quantum stack
+      - qiskit==2.5.1
+      - qiskit-aer==0.17.2
+      # numerics and plotting
+      - numpy==2.5.2
+      - scipy==1.18.0
+      - matplotlib==3.11.1
+      # circuit drawing (optional)
+      - pylatexenc==2.11
+      # notebook execution
+      # ipykernel <7 is a conservative pin: 7.x changed the connection
+      # layer (protocol 5.5 in 7.2, CurveZMQ in 7.3) and older clients predate it.
+      - ipykernel>=6.29,<7
+      - jupyterlab==4.6.3
+      - nbconvert==7.17.1
+      - nbclient==0.11.0

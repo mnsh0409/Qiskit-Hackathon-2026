@@ -1,0 +1,31 @@
+# Shadow-Enhanced Hadamard Test — pinned runtime environment
+#
+# These are the exact versions the notebook was verified against on
+# Python 3.12.13 (Linux x86_64). Install with:
+#
+#     pip install -r requirements.txt
+#
+# The notebook itself only asserts qiskit >= 2.1; the pins below record a
+# known-good set so results are reproducible rather than merely runnable.
+
+# --- core quantum stack -------------------------------------------------
+qiskit==2.5.1
+qiskit-aer==0.17.2
+
+# --- numerics and plotting ----------------------------------------------
+numpy==2.5.2
+scipy==1.18.0
+matplotlib==3.11.1
+
+# --- circuit drawing (optional, improves QuantumCircuit.draw output) -----
+pylatexenc==2.11
+
+# --- notebook execution -------------------------------------------------
+# ipykernel is pinned below 7 as a conservative choice: ipykernel 7 changed
+# the connection/handshake layer (protocol 5.5 in 7.2, CurveZMQ in 7.3) and older
+# Jupyter clients predate it. 6.x is the widely deployed baseline. Nothing
+# in this notebook needs 7.x; raise the pin if your client supports it.
+ipykernel>=6.29,<7
+jupyterlab==4.6.3
+nbconvert==7.17.1
+nbclient==0.11.0

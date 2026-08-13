@@ -1,4 +1,36 @@
-# Shadow-Enhanced Hadamard Test — Qiskit Hackathon 2026, Topic 5
+<!-- README design follows the conventions of large open-source projects
+     (10k+ stars): centred hero + badge row + quick-nav as in
+     huggingface/transformers and keras-team/keras; collapsible details and
+     "docs as tables" as in pytorch/pytorch; reproducibility-first quickstart
+     as in openai/whisper. All badges are static shields.io SVGs: no external
+     service is queried about this repo. -->
+
+<h1 align="center">Shadow-Enhanced Hadamard Test</h1>
+
+<p align="center"><b>Team 8 — Garbage Collectors · Qiskit Hackathon 2026 · Topic 5</b></p>
+
+<p align="center">
+  <img alt="checkpoints" src="https://img.shields.io/badge/checkpoints-56%2F56%20pass-2ea44f">
+  <img alt="results" src="https://img.shields.io/badge/results%20ledger-52%20sourced%20rows-2a78d6">
+  <img alt="hardware" src="https://img.shields.io/badge/IBM%20QPUs-3%20devices%2C%2017%20jobs-6f42c1">
+  <img alt="qiskit" src="https://img.shields.io/badge/qiskit-2.5-8a2be2">
+  <img alt="license" src="https://img.shields.io/badge/license-MIT-lightgrey">
+</p>
+
+<p align="center">
+  Every Hadamard test throws away half its data. <b>We recycle it.</b>
+</p>
+
+<p align="center">
+  <a href="#5-minute-quickstart-reproduces-the-headline-numbers-from-saved-data">Quickstart</a> ·
+  <a href="#headline-results">Results</a> ·
+  <a href="#figure-gallery">Gallery</a> ·
+  <a href="#whats-here">Repo map</a> ·
+  <a href="#reproducibility-and-honesty-commitments">Honesty</a> ·
+  <a href="deck/slides.pdf">Slides</a>
+</p>
+
+---
 
 A standard Hadamard test measures one ancilla qubit and **throws the system register away**.
 This project keeps it. By measuring those discarded qubits in randomly chosen bases they
@@ -14,21 +46,34 @@ devices.
 [`RESULTS.md`](RESULTS.md) and [`EVIDENCE.md`](EVIDENCE.md)). That includes the numbers we
 got wrong and retracted.
 
-### The idea in one figure
+<p align="center">
+  <img src="figures/07_symmetry_resolved_spectrum.png" width="82%"
+       alt="Symmetry-resolved spectrum — the colour is the deliverable">
+</p>
+<p align="center"><i>The deliverable in one picture: every recovered energy level carries a
+symmetry label extracted from the register everyone else throws away.</i></p>
+
+<details>
+<summary><b>The idea in one figure</b> — what a classical shadow actually is</summary>
+<br>
 
 The discarded register is measured in a random Pauli basis every shot. That randomisation is
 the whole trick: it makes *one* record set an unbiased estimator for **every** Pauli
 observable at once, instead of one chosen in advance.
 
 ![What a classical shadow is](deck/fig_shadow.png)
+</details>
 
-### The benchmark
+<details>
+<summary><b>The benchmark</b> — 3 spins, nearest-neighbour only, exactly solvable</summary>
+<br>
 
 A 3-site open XXZ chain — small enough to diagonalise exactly, so every estimate is graded
 against truth, yet carrying both features the protocol exploits: a conserved charge and a
 non-degenerate spectrum.
 
 ![The benchmark Hamiltonian](deck/fig_model.png)
+</details>
 
 ---
 
@@ -128,13 +173,6 @@ jupyter nbconvert --to notebook --execute --inplace \
 
 ## Headline results
 
-### The Part B deliverable: a spectrum with symmetry labels
-
-Every recovered energy level carries a symmetry label extracted from the *recycled* register.
-The colour is information the grey curve does not contain, and it cost no additional circuits.
-
-![Symmetry-resolved spectrum](figures/07_symmetry_resolved_spectrum.png)
-
 ### AQC makes the Hadamard test scale — and a trap that would have broken it
 
 A Hadamard test's controlled evolution is its bottleneck: the standard exact block costs
@@ -144,7 +182,9 @@ which is blind to global phase — and a Hadamard test is an interferometer that
 exactly that phase. Shipping it naively returns a χ wrong by 2.3–3.0 radians, an error as
 large as the signal. **One ancilla phase gate fixes it**: |Δχ| 1.33 → 0.008.
 
-![AQC scaling and the phase trap](deck/fig_aqc_scaling.png)
+<p align="center">
+  <img src="deck/fig_aqc_scaling.png" width="92%" alt="AQC scaling and the phase trap">
+</p>
 
 ### Where a cheaper baseline beats us, on two QPUs
 
@@ -152,7 +192,9 @@ We benchmarked our Track B arm against the methods the compiling literature actu
 The 2-gate Loschmidt echo is cheaper *and*, on hardware, 27× more accurate. We lead with that
 rather than bury it.
 
-![Track B on hardware](deck/fig_tb_hardware.png)
+<p align="center">
+  <img src="deck/fig_tb_hardware.png" width="92%" alt="Track B on hardware, two devices">
+</p>
 
 ---
 

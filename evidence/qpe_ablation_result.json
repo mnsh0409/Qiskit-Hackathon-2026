@@ -1,0 +1,31 @@
+{
+  "m_counting_qubits": 5,
+  "t0": 0.39375000000000004,
+  "shots": 50000,
+  "circuit_qubits": 8,
+  "circuit_depth": 1081,
+  "circuit_cx": 277,
+  "n_lines_recovered": 4,
+  "max_dE": 0.07943120965714279,
+  "resolution_bin_width": 0.49866550056980835,
+  "dft_resolution_for_comparison": 0.49866550056980835,
+  "peaks": [
+    {
+      "E": -1.9946620022792334,
+      "weight": 0.14748
+    },
+    {
+      "E": -0.49866550056980835,
+      "weight": 0.1547
+    },
+    {
+      "E": 0.49866550056980835,
+      "weight": 0.60984
+    },
+    {
+      "E": 1.9946620022792334,
+      "weight": 0.05398
+    }
+  ],
+  "labels_available": false
+}

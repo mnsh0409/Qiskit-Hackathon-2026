@@ -50,6 +50,7 @@ committed under `evidence/`.
 | R027 | rank selection (honest negative result) | `evidence/going_further_trio.json`; `evidence/executed/executed_going_further.ipynb` | `evidence/scripts/going_further_trio.py` |
 | R028 | measured chi/chi_Q correlation + correlated bootstrap | same as R027 | same |
 | R029 | variance budgeting, 3^w rule vs measured | same as R027 | same |
+| R030 | QPE ablation, 4/4 lines, no labels at any cost | `evidence/qpe_ablation_result.json` | `python evidence/scripts/qpe_ablation.py` |
 
 ## Derived quantities C4 should independently recompute
 

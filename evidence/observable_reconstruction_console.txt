@@ -1,0 +1,49 @@
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+one shadow sweep: 64 times x 2 quadratures x 2000 shots, 4 joint observables
+done (signals cached)
+
+==============================================================================
+ARM 1 -- GARBAGE DISCARDED: Hadamard test only, chi -> DFT
+==============================================================================
+  energies: 3/4 lines recovered at [-1.89, 0.539, 1.816]
+  observables: NONE. The system register was not measured, so no O can be formed
+  at any shot count. This is a structural limit, not a precision limit.
+
+==============================================================================
+ARM 3 -- CLASSICAL SHADOW: chi, chi_O -> matrix pencil
+==============================================================================
+  Z_0         per-line labels [-1.013, -1.004, 1.009, -1.048]
+              exact           [-1.0, -1.0, 1.0, -1.0]   max err 0.048
+  Z_0Z_1      per-line labels [-1.057, -0.993, 0.994, -0.951]
+              exact           [-1.0, -1.0, 1.0, -1.0]   max err 0.057
+  H           per-line labels [-1.793, -0.416, 0.539, 2.085]
+              exact           [-1.915, -0.481, 0.55, 1.946]   max err 0.139
+  X0X1+Y0Y1   per-line labels [-1.611, 0.542, -0.026, 4.658]
+              exact           [-1.793, 0.414, 0.0, 4.148]   max err 0.509
+
+==============================================================================
+ARM 2 -- POST-SELECT all-Z: same shots, Z-only subset, matrix pencil
+==============================================================================
+  Z_0         1/1 terms diagonal -> OK
+              recovered [-1.086, -0.82, 1.01, -0.594]  vs wanted [-1.0, -1.0, 1.0, -1.0]
+  Z_0Z_1      1/1 terms diagonal -> OK
+              recovered [-1.1, -0.915, 1.005, -0.719]  vs wanted [-1.0, -1.0, 1.0, -1.0]
+  H           5/9 terms diagonal -> BIASED (systematic, max 2.696)
+              recovered [-0.819, -0.664, 0.559, -0.515]  vs wanted [-1.915, -0.481, 0.55, 1.946]
+  X0X1+Y0Y1   0/2 terms diagonal -> IMPOSSIBLE (no unbiased estimator exists)
+
+==============================================================================
+CAPABILITY SUMMARY
+==============================================================================
+observable      discard                post-select     shadow
+------------------------------------------------------------------------------
+Z_0                  --                        YES        YES
+Z_0Z_1               --                        YES        YES
+H                    --         biased (5/9 terms)        YES
+X0X1+Y0Y1            --                      BLIND        YES
+
+  'Only the shadow can do it' is TRUE for H and X0X1+Y0Y1 against BOTH other arms,
+  and TRUE for Z_0 / Z_0Z_1 against the discard arm -- but those two are Z-diagonal,
+  so post-selection handles them (and R039 shows a dedicated Z sweep does it cheaper).
+
+wrote evidence/observable_reconstruction.json

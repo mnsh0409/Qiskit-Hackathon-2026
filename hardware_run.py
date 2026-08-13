@@ -66,6 +66,7 @@ NEEDED = [
     ("def pauli_snapshot_values", None),
     ("def run_time_sweep", None),      # given-complete; needed by Track C etc.
     ("def matrix_pencil", "\nE_HAT, P_HAT"),   # + amplitudes_at/reconstruct (Ch.8)
+    ("def dft_spectrum", "\nE_GRID = "),        # cut before the driver, which needs CHI
 ]
 
 

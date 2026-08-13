@@ -221,6 +221,33 @@
   It is that the \emph{same} shots also give you $H$ --- which no Z-only protocol can see.
 \end{frame}
 
+% ------------------------------------------------------------------ 6d
+\begin{frame}{Which protocol can rebuild which observable?}
+  \scriptsize
+  \begin{center}
+  \begin{tabular}{lccc}
+    \toprule
+    & \textbf{discard garbage} & \textbf{post-select all-Z} & \textbf{classical shadow}\\
+    & {\tiny Hadamard only $\to$ DFT} & {\tiny $\to$ matrix pencil} & {\tiny $\to$ matrix pencil}\\
+    \midrule
+    energies            & 3/4 lines & 4/4 & 4/4\\
+    $Z_i$               & \bad{---} & yes {\tiny(err 0.41 at 3.7\% yield)} & \good{yes} {\tiny(0.048)}\\
+    $Z_iZ_j$            & \bad{---} & yes {\tiny(err 0.28)}                & \good{yes} {\tiny(0.057)}\\
+    $H$                 & \bad{---} & \bad{biased} {\tiny(5/9 terms, 2.70)} & \good{yes} {\tiny(0.139)}\\
+    $X_iX_j\!+\!Y_iY_j$ & \bad{---} & \bad{impossible} {\tiny(0/2 terms)}   & \good{yes} {\tiny(0.509)}\\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \smallskip
+  \small
+  Discarding the garbage costs you \emph{every} observable --- at any shot count.
+  A Z-only protocol recovers the \emph{diagonal} ones, but is \bad{systematically biased} on
+  $H$ and \bad{blind} to the hopping term: it converges to
+  $\mathrm{Tr}[O_{Z\text{-diag}}U\rho]$, so more shots do not help.
+  \\[0.3em]
+  \centering\textbf{The shadow's exclusive capability is non-commuting observables.} \src{R041}
+\end{frame}
+
 % ------------------------------------------------------------------ 7
 \begin{frame}{It survives on real hardware once the circuit is shallow enough}
   \begin{columns}[T]

@@ -226,14 +226,35 @@ becomes a measured one.
 
 Extra dependency beyond §2b: `pip install qiskit-addon-aqc-tensor quimb jax`.
 
+The device name is **`ibm_miami`** (it *is* the Nighthawk-class machine — see the
+architecture identification in §2 and R031).
+
 ```bash
-python evidence/scripts/aqc_hardware_submit.py --dry-run            # statevector only
-python evidence/scripts/aqc_hardware_submit.py ibm_nighthawk --dry-run   # + costs, no submit
-python evidence/scripts/aqc_hardware_submit.py ibm_nighthawk        # submit
-python evidence/scripts/aqc_hardware_fetch.py                       # when it finishes
+# 1. offline sanity check — no backend contact, no cost
+python evidence/scripts/aqc_hardware_submit.py --dry-run
+
+# 2. transpile + predictions on miami — still submits NOTHING. Send us this output
+#    before spending: it prints the routed gate counts and predicted survivals.
+python evidence/scripts/aqc_hardware_submit.py ibm_miami --dry-run
+
+# 3. submit, cheap mode (the deliberately-dead control arm at 500 shots: ~4-5x
+#    fewer quantum seconds, no loss to the conclusion)
+python evidence/scripts/aqc_hardware_submit.py ibm_miami --cheap
+
+# 4. when the job shows DONE
+python evidence/scripts/aqc_hardware_fetch.py ibm_miami
+
+# 5. ONLY if step 4 shows the AQC arm surviving >= 0.2  (escalation rule below):
+python evidence/scripts/aqc_hardware_submit.py ibm_miami --cheap --n 7
+python evidence/scripts/aqc_hardware_fetch.py ibm_miami
 ```
 
-**Budget: 18 circuits x 4000 shots = 72,000 shots.** 3 times x 3 arms x 2 quadratures.
+Notes: the record file in the repo contains *our* marrakesh/kingston job ids — your fetch
+will print "not visible from this account, skipping" for those; that is expected. Each
+submit stores a self-contained record, so an n=7 run cannot corrupt the n=6 analysis.
+
+**Budget: 18 circuits; with `--cheap`, 4,000 shots on the Trotter/AQC arms and 500 on the
+exact control ≈ 51,000 shots, ~6 s of circuit time at n=6.**
 
 ### Our numbers on `ibm_marrakesh`, as falsifiable predictions
 

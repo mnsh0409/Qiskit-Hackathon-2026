@@ -221,7 +221,13 @@ out = json.load(open(path)) if os.path.exists(path) else {}
 out.update(n=N, times=list(TIMES), shots=SHOTS, meta=meta,
            aqc={str(t): dict(theta=AQC[t][1], infidelity=AQC[t][2]) for t in TIMES},
            chi_exact={str(t): [chi_exact(t).real, chi_exact(t).imag] for t in TIMES})
-out.setdefault("jobs", {})[backend.name] = dict(job_id=job.job_id(), prediction=pred)
+# Each job entry is SELF-CONTAINED (n, meta, exact references): the top-level fields are
+# whatever the LAST submit wrote, so an n=7 submit would silently corrupt the analysis of
+# an earlier n=6 job fetched afterwards.
+out.setdefault("jobs", {})[backend.name + (f"_n{N}" if N != 6 else "")] = dict(
+    job_id=job.job_id(), prediction=pred, n=N, shots=SHOTS, exact_shots=EXACT_SHOTS,
+    meta=meta,
+    chi_exact={str(t): [chi_exact(t).real, chi_exact(t).imag] for t in TIMES})
 with open(path, "w") as fh:
     json.dump(out, fh, indent=2)
 shots_desc = (f"{SHOTS} shots" if EXACT_SHOTS is None

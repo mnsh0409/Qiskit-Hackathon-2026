@@ -25,9 +25,15 @@ WANT = sys.argv[1] if len(sys.argv) > 1 else None
 
 ready = {}
 for bname, rec in JOB["jobs"].items():
-    if WANT and bname != WANT:
+    if WANT and not bname.startswith(WANT):
         continue
-    st = str(SVC.job(rec["job_id"]).status())
+    try:
+        st = str(SVC.job(rec["job_id"]).status())
+    except Exception as e:
+        # jobs submitted from ANOTHER account (ours, in the teammate's clone) are not
+        # visible here -- skip them instead of crashing the whole fetch
+        print(f"job {rec['job_id']} on {bname}: not visible from this account, skipping")
+        continue
     print(f"job {rec['job_id']} on {bname}: {st}")
     if "DONE" in st.upper():
         ready[bname] = rec
@@ -38,8 +44,11 @@ if not ready:
 
 def analyse(bname, rec):
     res = SVC.job(rec["job_id"]).result()
+    meta = rec.get("meta", JOB["meta"])              # self-contained records take priority
+    exact = {t: complex(*rec["chi_exact"][str(t)]) for t in TIMES} \
+        if "chi_exact" in rec else EXACT
     meas = {}
-    for idx, m in enumerate(JOB["meta"]):
+    for idx, m in enumerate(meta):
         d = res[idx].data
         arr = getattr(d, "c", None) or getattr(d, "meas", None)
         bits = arr.get_bitstrings()
@@ -57,7 +66,7 @@ def analyse(bname, rec):
         rows = []
         for t in TIMES:
             g = complex(meas[arm][t]["re"], meas[arm][t]["im"])
-            e = EXACT[t]
+            e = exact[t]
             surv = abs(g) / max(abs(e), 1e-12)
             rows.append(dict(t=t, measured=[g.real, g.imag], exact=[e.real, e.imag],
                              abs_measured=abs(g), abs_exact=abs(e),

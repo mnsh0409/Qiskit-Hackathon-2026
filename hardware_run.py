@@ -107,6 +107,21 @@ def get_model(ns: dict, name: str):
         prep = QC(n, name="prep"); prep.ry(1.3, 0)
         return (n, H, Q, prep, np.asarray(SV(prep).data),
                 "reduced 2-site side model -- ROBUSTNESS CLAIMS ONLY, not the benchmark")
+    if name == "4site":
+        SPO, QC, SV = ns["SparsePauliOp"], ns["QuantumCircuit"], ns["Statevector"]
+        n = 4
+        terms = []
+        for i in range(n - 1):
+            terms += [("XX", [i, i + 1], 0.65), ("YY", [i, i + 1], 0.65),
+                      ("ZZ", [i, i + 1], 0.25)]
+        for i, h in enumerate((0.40, -0.50, 0.15, 0.20)):
+            terms.append(("Z", [i], h))
+        H = SPO.from_sparse_list(terms, num_qubits=n).simplify()
+        Q = SPO.from_sparse_list([("Z", [j], 1.0) for j in range(n)], num_qubits=n)
+        prep = QC(n, name="prep"); prep.ry(1.3, 0)
+        return (n, H, Q, prep, np.asarray(SV(prep).data),
+                "extended 4-site side model -- ROBUSTNESS CLAIMS ONLY, not the benchmark, "
+                "and NOT validated against an exact-spectrum checkpoint like 2site was")
     sys.exit(f"unknown model {name!r}")
 
 
@@ -155,7 +170,12 @@ def cmd_submit(args) -> None:
 
     svc = QiskitRuntimeService()
     backend = svc.backend(args.backend)
-    isa = transpile(circs, backend=backend, optimization_level=args.opt, seed_transpiler=1234)
+    layout = ([int(q) for q in args.initial_layout.split(",")]
+              if args.initial_layout else None)
+    if layout:
+        print(f"pinned initial_layout: {layout}  (from layout_search.py)")
+    isa = transpile(circs, backend=backend, optimization_level=args.opt,
+                    initial_layout=layout, seed_transpiler=1234)
     twoq = max(sum(v for k, v in c.count_ops().items() if k in ("cz", "cx", "ecr")) for c in isa)
     print(f"{len(circs)} circuits ({'balanced shadow ensemble' if args.shadow else 'fixed basis'}), "
           f"depth {max(c.depth() for c in isa)}, {twoq} two-qubit gates")
@@ -244,7 +264,7 @@ def main() -> None:
     p.add_argument("--submit", action="store_true", help="submit a job")
     p.add_argument("--fetch", metavar="JOB_ID", help="fetch and analyse a finished job")
     p.add_argument("--backend", default=None, help="backend name, e.g. ibm_nighthawk")
-    p.add_argument("--model", default="frozen", choices=["frozen", "2site"],
+    p.add_argument("--model", default="frozen", choices=["frozen", "2site", "4site"],
                    help="frozen = graded 3-qubit benchmark; 2site = reduced side model")
     p.add_argument("--shadow", action="store_true",
                    help="balanced 3^n-basis ensemble; REQUIRED for valid system observables")
@@ -253,7 +273,12 @@ def main() -> None:
     p.add_argument("--reps", type=int, default=1, help="Trotter repetitions")
     p.add_argument("--shots", type=int, default=2000, help="shots per circuit")
     p.add_argument("--t", type=float, default=0.9, help="evolution time")
-    p.add_argument("--opt", type=int, default=1, help="transpiler optimization_level")
+    p.add_argument("--opt", type=int, default=3,
+                   help="transpiler optimization_level (default 3: measured ~1.2-1.8x fewer "
+                        "two-qubit gates than level 1 on this circuit family, no extra cost)")
+    p.add_argument("--initial-layout", default=None,
+                   help="comma-separated physical qubits, e.g. from layout_search.py's "
+                        "recommendation; default lets the transpiler choose")
     a = p.parse_args()
 
     if a.list:

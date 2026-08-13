@@ -248,5 +248,33 @@
         ]
       ]
     ]
+  },
+  "d9ultm0u5hac73ahd9kg": {
+    "model": "4site",
+    "shadow": false,
+    "t": 0.9,
+    "method": "exact",
+    "reps": 1,
+    "shots": 2000,
+    "backend": "ibm_kingston",
+    "n": 4,
+    "plan": [
+      [
+        0,
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      [
+        1,
+        [
+          0,
+          1,
+          2
+        ]
+      ]
+    ]
   }
 }

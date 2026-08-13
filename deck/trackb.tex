@@ -100,6 +100,36 @@ and a way to certify the result from its own garbage}
   (slide~\ref{slide:hw}). \src{R044}}
 \end{frame}
 
+\begin{frame}{Where this sits: the five tracks in the challenge}
+  \small
+  \begin{center}
+  \begin{tabular}{llcl}
+    \toprule
+    & \textbf{track} & \textbf{status} & \textbf{evidence}\\
+    \midrule
+    A & symmetry-resolved spectral analyser & \good{done} & \src{R012, R013, R019, R022}\\
+    \hl{B} & \hl{dynamics A/B tester} {\color{blueA}\emph{(this deck)}}
+      & \good{done $+$ extended} & \src{R034, R042--R046, R049--R053}\\
+    C & eigenstate detective & \good{done} & \src{R032}\\
+    D & Krylov energy solver from the same records & \good{done} & \src{R016}\\
+    E & our own proposal: a decoherence witness & \good{done} & \src{R033}\\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \medskip
+
+  Track A is the mandatory Part B deliverable and is complete: all four populated levels,
+  every symmetry label correct, \good{12/12 independent seeds}. C, D and E are implemented
+  and validated.
+  \medskip
+
+  \begin{center}
+  \hl{This deck is Track B} --- the one we took furthest: completed past the scaffold,
+  benchmarked against the literature's own methods, run on two QPUs, and extended to
+  AQC compilation, a 2D lattice and the Fermi--Hubbard model.
+  \end{center}
+\end{frame}
+
 % ==================================================================
 \section{The question}
 
@@ -142,12 +172,12 @@ and a way to certify the result from its own garbage}
 \begin{frame}{Anti-control: how the Hadamard test is extended}
   \vspace{-1mm}
   \begin{center}
-    \includegraphics[width=0.93\linewidth]{fig_tb_anticontrol.png}
+    \includegraphics[width=0.88\linewidth]{fig_tb_anticontrol.png}
   \end{center}
-  \vspace{-2mm}
+  \vspace{-3mm}
   {\footnotesize The only structural change is the $X$--$cW$--$X$ sandwich: it makes $W$ fire
-  on the $|0\rangle$ branch, so the ancilla interferes \hl{two dynamics} rather than one
-  against the identity. Everything downstream is unchanged. Algebra in appendix A1--A2.}
+  on the $|0\rangle$ branch, so the ancilla interferes \hl{two dynamics} rather than one.
+  Algebra in appendix A1--A2.}
 \end{frame}
 
 \begin{frame}{Track B: anti-controlled Hadamard test}

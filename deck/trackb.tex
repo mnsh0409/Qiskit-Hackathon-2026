@@ -336,6 +336,22 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Future work: the same circuit is a density-of-states estimator}
+  \vspace{-1mm}
+  \begin{center}
+    \includegraphics[width=0.93\linewidth]{fig_tb_dos.png}
+  \end{center}
+  \vspace{-2mm}
+  {\footnotesize
+  Feed Track B the \hl{maximally mixed} state instead of $|\psi\rangle$ and the ancilla
+  measures $\mathrm{Tr}[W^{\dagger}U]/d$. With $W=I$ that is
+  $\mathrm{Tr}[U(t)]/d$ --- the generating function whose Fourier transform is the
+  \hl{density of states}, i.e.\ Eq.~(7) of Goh \& Koczor (arXiv:2407.03414v2). So their DOS
+  protocol is the $W{=}I$ special case of our Track B circuit, not a separate experiment.
+  Verified to $2.2\times10^{-15}$; measured on the simulator at rms $0.0085$ and $0.0072$.
+  \src{R045}}
+\end{frame}
+
 \begin{frame}{Reproduce it}
   \small
   \begin{itemize}
@@ -483,6 +499,41 @@
           value is therefore \hl{pure device error}, with no reference needed --- the free
           error bar on slide~\ref{slide:freebar}. \src{R044}
   \end{itemize}
+\end{frame}
+
+\begin{frame}{A6 --- Track B $\to$ density of states, and where the phase matters}
+  \small
+  With $\rho=\mathbb{1}/d$ the Track B identity of A2 becomes state-\emph{independent}:
+  \[
+    \chi_{AB}(t)=\mathrm{Tr}\!\left[W^{\dagger}U\rho\right]
+    \;\xrightarrow{\;\rho=\mathbb{1}/d\;}\;
+    \frac{1}{d}\mathrm{Tr}\!\left[W^{\dagger}U\right]
+    \qquad\text{and at }W=\mathbb{1}:\quad \frac{1}{d}\mathrm{Tr}\!\left[U(t)\right]
+  \]
+  which is Eq.~(7) of Goh \& Koczor up to normalisation. Since
+  $\mathrm{Tr}[A]=\sum_z\langle z|A|z\rangle$, the mixed input is realised by enumerating the
+  $d$ computational basis states --- the deterministic version of their Statement 2 (a
+  1-design, e.g.\ random $\{\mathbb{1},X\}^{\otimes n}$, suffices).
+  \medskip
+
+  \textbf{Where the phase is worth having --- measured, not assumed:}
+  \begin{center}
+  \begin{tabular}{lcc}
+    \toprule
+    & $\max|\mathrm{Im}|$ & does the HST lose information?\\
+    \midrule
+    $W=\mathbb{1}$ (the DOS signal) & \good{0.504} & \good{yes} --- it returns magnitude only\\
+    $W=$ 2nd-order Suzuki (Trotter error) & \bad{$2.8\times10^{-14}$} & \bad{no} --- it is real anyway\\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \smallskip
+  {\footnotesize Real $H$ gives $U^{*}=U^{\dagger}$, and a \emph{palindromic} product formula
+  gives $W^{*}=W^{\dagger}$, which forces $\mathrm{Tr}[W^{\dagger}U]$ real. So our advantage
+  over the HST is the full complex value \emph{for the DOS case}, and only the register size
+  ($n{+}1$ vs $2n$) for the Trotter case. \bad{We checked this rather than claiming the phase
+  everywhere.} A measured nonzero $\mathrm{Im}$ in the second row is therefore another
+  reference-free error signal. \src{R045}}
 \end{frame}
 
 \end{document}

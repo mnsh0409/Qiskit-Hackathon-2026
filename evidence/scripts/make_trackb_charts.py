@@ -131,3 +131,27 @@ style(ax)
 fig.tight_layout()
 fig.savefig(R + "deck/fig_tb_symmetry.png", dpi=200, bbox_inches="tight", facecolor=BG)
 print("wrote deck/fig_tb_symmetry.png")
+
+
+# ============ chart 4: the DOS proof of concept (Track B with mixed input) ============
+DOS = json.load(open(R + "evidence/track_b_dos.json"))
+TD = np.array(DOS["times"])
+fig, (d1, d2) = plt.subplots(1, 2, figsize=(12.4, 4.3))
+for ax, key, ttl in ((d1, "identity", r"$W=I$:  $\mathrm{Tr}[U(t)]/d$ — the DOS signal"),
+                     (d2, "trotter", r"$W=$ Trotter:  $\mathrm{Tr}[W^\dagger U]/d$")):
+    m = np.array([complex(*v) for v in DOS["curves"][key]["measured"]])
+    e = np.array([complex(*v) for v in DOS["curves"][key]["exact"]])
+    ax.plot(TD, e.real, "-", color=COL["muted"], lw=2.6, label="exact Re")
+    ax.plot(TD, e.imag, "--", color=COL["muted"], lw=2.2, label="exact Im")
+    ax.plot(TD, m.real, "o", color=COL["blue"], ms=7, label="measured Re")
+    ax.plot(TD, m.imag, "^", color=COL["orange"], ms=7, label="measured Im")
+    ax.set_xlabel("time $t$"); ax.set_title(ttl, fontsize=12.5)
+    ax.legend(frameon=False, fontsize=9.5, ncol=2); style(ax)
+    ax.text(0.97, 0.05, f"rms {DOS['curves'][key]['rms']:.4f}", transform=ax.transAxes,
+            fontsize=10.5, color=COL["muted"], ha="right")
+d2.text(0.04, 0.42, "Im $\\equiv 0$ here: real $H$ plus a\npalindromic product formula\n"
+                    "force $\\mathrm{Tr}[W^\\dagger U]$ real",
+        transform=d2.transAxes, fontsize=10.5, color=COL["orange"], ha="left", va="top")
+fig.tight_layout()
+fig.savefig(R + "deck/fig_tb_dos.png", dpi=200, bbox_inches="tight", facecolor=BG)
+print("wrote deck/fig_tb_dos.png")

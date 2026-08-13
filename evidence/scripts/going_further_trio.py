@@ -39,6 +39,13 @@ from scipy.linalg import hankel as _hankel, svd as _svd
 RES = {}
 E_HAT, P_HAT, Q_HAT_LABEL, RANK = reconstruct(TS, CHI, CHI_Q)
 
+# BUGFIX: the prefix (cells 0-48) stops right after the main sweep and never runs the
+# Checkpoint-6-area cell that computes H_HAT/H_SEM/Q_HAT/Q_SEM. Recompute them here exactly
+# as that cell does (pooled over ALL records, both quadratures, all times).
+ALL_RECS = [r for pair in SWEEP.records for r in pair]
+H_HAT, H_SEM = estimate_system_observable(ALL_RECS, HAM)
+Q_HAT, Q_SEM = estimate_system_observable(ALL_RECS, CHARGE)
+
 # =============================================== (1) RANK SELECTION
 print("=" * 78)
 print("(1) Track A item 1 -- rank selection: replacing the magic number 0.06")
@@ -89,19 +96,32 @@ print("\n" + "=" * 78)
 print("(2) cell 62 item 4 / Track A item 2 -- measured corr(chi, chi_Q), correlated bootstrap")
 print("=" * 78)
 corrs = {0: [], 1: []}
+n_deterministic = 0
 for (rec_re, rec_im) in SWEEP.records:
     for k, rec in enumerate((rec_re, rec_im)):
         a = rec.ancilla.astype(float)
         qv = np.zeros(rec.n_shots)
         for supp, coeff in pauli_terms(CHARGE):
             qv = qv + coeff * pauli_snapshot_values(rec, supp)
-        corrs[k].append(float(np.corrcoef(a, a * qv)[0, 1]))
+        # BUGFIX: at t=0, phi=0 the ancilla is DETERMINISTIC (c-U(0)=I collapses that
+        # branch exactly), so std(a)=0 and corrcoef is a real 0/0 NaN -- not a bug in the
+        # circuit, a genuine physics edge case. Guard it explicitly rather than let a
+        # silent NaN poison every downstream mean/bootstrap draw.
+        if np.std(a) < 1e-12:
+            n_deterministic += 1
+            corrs[k].append(np.nan)
+        else:
+            corrs[k].append(float(np.corrcoef(a, a * qv)[0, 1]))
 c_re, c_im = np.array(corrs[0]), np.array(corrs[1])
-print(f"\n  corr(a, a*Qhat) per time point, phi=0     : mean {c_re.mean():+.3f} "
-      f"sd {c_re.std():.3f}")
-print(f"  corr(a, a*Qhat) per time point, phi=-pi/2 : mean {c_im.mean():+.3f} "
-      f"sd {c_im.std():.3f}")
+print(f"\n  ({n_deterministic} deterministic-ancilla point(s) excluded via nanmean, "
+      f"e.g. t=0/phi=0 where c-U(0)=I)")
+print(f"  corr(a, a*Qhat) per time point, phi=0     : mean {np.nanmean(c_re):+.3f} "
+      f"sd {np.nanstd(c_re):.3f}")
+print(f"  corr(a, a*Qhat) per time point, phi=-pi/2 : mean {np.nanmean(c_im):+.3f} "
+      f"sd {np.nanstd(c_im):.3f}")
 print("  (the notebook quotes ~ +0.57; these come from OUR shot records)")
+c_re_filled = np.where(np.isnan(c_re), np.nanmean(c_re), c_re)
+c_im_filled = np.where(np.isnan(c_im), np.nanmean(c_im), c_im)
 
 def bootstrap_correlated(ts, chi, chi_q, sem, sem_q, n_modes, ref_energies,
                          rho_re, rho_im, n_boot=200, seed=0, match_radius=0.35):
@@ -135,7 +155,7 @@ E_SD_I, P_SD_I, Q_SD_I = bootstrap_uncertainties(
     ref_energies=E_HAT, n_boot=200, seed=sub_seed("boot-indep"))
 E_SD_C, P_SD_C, Q_SD_C = bootstrap_correlated(
     TS, CHI, CHI_Q, SWEEP.chi_sem, SWEEP.chi_obs_sem["Q"], RANK, E_HAT,
-    c_re, c_im, n_boot=200, seed=sub_seed("boot-corr"))
+    c_re_filled, c_im_filled, n_boot=200, seed=sub_seed("boot-corr"))
 print(f"\n{'E':>9} | {'q sd indep':>11} {'q sd corr':>10} {'shrink':>8} | "
       f"{'E sd indep':>11} {'E sd corr':>10}")
 print("-" * 68)
@@ -148,7 +168,8 @@ for i, e in enumerate(E_HAT):
                           shrink=float(sh), E_sd_indep=float(E_SD_I[i]),
                           E_sd_corr=float(E_SD_C[i])))
 print(f"\n  mean label-uncertainty shrink factor: {np.nanmean(Q_SD_C/Q_SD_I):.2f}")
-RES["correlation"] = dict(corr_re_mean=float(c_re.mean()), corr_im_mean=float(c_im.mean()),
+RES["correlation"] = dict(corr_re_mean=float(np.nanmean(c_re)), corr_im_mean=float(np.nanmean(c_im)),
+                          n_deterministic_points=int(n_deterministic),
                           rows=CORR_ROWS,
                           mean_shrink=float(np.nanmean(Q_SD_C / Q_SD_I)))
 

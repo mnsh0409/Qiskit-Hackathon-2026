@@ -44,6 +44,12 @@ committed under `evidence/`.
 | R021 | ablation A: equivalence, 2×2 grid, cost | `evidence/ablation_results.json`; `evidence/executed/executed_ablation_ab.ipynb` | `evidence/scripts/ablation_a_b.py` |
 | R022 | ablation B: resolution failure boundary | same as R021 | same |
 | R023 | 2-site hardware, **pending** | `hardware_jobs.json`; ideal-sim validation in `evidence/scripts/validate_2site.py` | `python hardware_run.py --fetch d9uk99k98n5s7392vhsg` |
+| R024 | `packing.py` unusable, third-party | — | `python -c "import packing"` (fails) |
+| R025 | transpile cost n=3 vs n=4, corrected | `evidence/scripts/transpile_cost_n3_n4.py` output (cross-checks itself against R018's 101) | `python evidence/scripts/transpile_cost_n3_n4.py` |
+| R026 | 4-site hardware, **pending** | `hardware_jobs.json`; ideal-sim validation in `evidence/scripts/validate_4site.py` | `python hardware_run.py --fetch d9ultm0u5hac73ahd9kg` |
+| R027 | rank selection (honest negative result) | `evidence/going_further_trio.json`; `evidence/executed/executed_going_further.ipynb` | `evidence/scripts/going_further_trio.py` |
+| R028 | measured chi/chi_Q correlation + correlated bootstrap | same as R027 | same |
+| R029 | variance budgeting, 3^w rule vs measured | same as R027 | same |
 
 ## Derived quantities C4 should independently recompute
 
@@ -51,10 +57,14 @@ C4's brief (b) requires re-deriving ratios and CI widths from raw numbers. The o
 
 - **R020 bootstrap ratios** — across-seed sd (R019) ÷ bootstrap sd (R013), per line. Both
   sets of sds are printed in their rows.
-- **R018 depth factor** — 0.822 ÷ 0.179 = 4.6×. Both survivals are measured, same device.
-- **R021 variance cost factor** — 0.1012 ÷ 0.0949 = 1.07×. The denominator is *analytic*
-  (3 Pauli terms sharing 2000 shots/quadrature, per-shot variance ≤ 1), so check the model,
-  not just the arithmetic.
+- **R018 depth factor** — 0.822 ÷ 0.179 = 4.6× on marrakesh only (kingston's Trotter arm is
+  still pending, so this is a single-device comparison so far, not "both devices").
+- **R021 variance cost factor** — 0.1012 ÷ 0.0949 = 1.07×. The denominator formula is
+  `sqrt(terms² / SHOTS) * sqrt(2)` (evidence/scripts/ablation_a_b.py) — 3 Pauli terms sharing
+  2000 shots/quadrature, per-shot variance ≤ 1, **times an explicit sqrt(2) for combining
+  both quadratures** (matching how the measured side is computed via `hypot(sem_re, sem_im)`).
+  Omitting the sqrt(2) gives ≈0.067, a ~40% miss — C4 audit caught this ambiguity; the
+  formula above is the corrected, complete description.
 - **R014 vs R008 damping** — 0.342 simulated vs 0.179 measured. Different circuits at
   different budgets; the comparison is qualitative and is labelled as such.
 - **95% CIs** — CONVENTIONS §7 fixes these as ±1.96·σ. R019 tabulates both σ and CI; check
@@ -71,10 +81,18 @@ C4's brief (b) requires re-deriving ratios and CI widths from raw numbers. The o
    256,000-shot record set (CONVENTIONS §5). The 12-seed study (3,072,000 shots), scaling
    study, noise study and ablation arms are *separately declared*. Any slide saying
    "we used N shots" must say which N it means.
-4. **Hardware is 4,000 shots at one time point**, on the frozen benchmark — plus a pending
-   2-site side model. It supports robustness claims only, never a Part A/B headline.
-5. **Going-further: 0 of 18 items complete** at time of writing (three partially). Any claim
-   of "we explored the extensions" must be scoped to what actually ran.
+4. **Hardware now spans 8 jobs** across the frozen benchmark, a 2-site side model, and a
+   4-site side model (R008, R018 x3, R023, R026 + 2 accidental/incidental submissions in
+   BUGLOG B05). All of it supports robustness claims only, never a Part A/B headline — the
+   Part A/B numbers are 100% simulator (R009-R022).
+5. **Going-further: 4 of 18 items have real, committed results** (R027 rank selection —
+   honest negative, the derived criterion does NOT beat the magic number here; R028
+   correlation/correlated bootstrap — clean, ~20% tighter q uncertainty; R029 variance
+   budgeting — clean, within 2%; and the hardware-instance item, done twice over with 2site
+   and 4site). One item (R017, label survival under noise) was attempted and found
+   confounded — do not cite it. The remaining ~13 items were not attempted. Any claim of
+   "we explored the extensions" must be scoped exactly to R027-R029 plus the hardware items,
+   not the full list.
 
 ## Banned-language checklist (rubric.md)
 

@@ -1,0 +1,35 @@
+=== exact+marrakesh (d9ujlc0u5hac73ahadvg) ===
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: frozen 3-qubit benchmark (CONVENTIONS §2)
+basis mode: FIXED basis
+job d9ujlc0u5hac73ahadvg on ibm_marrakesh: DONE
+
+  hardware chi(0.9) = +0.5550 -0.0210j  (sem 0.0186, 0.0224)
+  exact    chi(0.9) = +0.6623 -0.1320j
+  deviation: 5.8 sigma (re), 5.0 sigma (im)
+  SIGNAL SURVIVAL |chi_hw|/|chi_exact| = 0.822
+
+  system observables NOT reported: this job used a single fixed basis, for
+  which the shadow estimator is not unbiased (BUGLOG B04). Re-run with
+  --shadow for a valid <Q>.
+
+  Report robustness claims only. The exact path is shallower purely because
+  n is small (O(4^n) synthesis); that advantage inverts as n grows.
+
+=== exact+kingston (d9ujlb0u5hac73ahadu0) ===
+loaded notebook definitions (3 system qubits + 1 ancilla, seed 2026)
+model: frozen 3-qubit benchmark (CONVENTIONS §2)
+basis mode: FIXED basis
+job d9ujlb0u5hac73ahadu0 on ibm_kingston: DONE
+
+  hardware chi(0.9) = +0.5820 -0.1120j  (sem 0.0182, 0.0222)
+  exact    chi(0.9) = +0.6623 -0.1320j
+  deviation: 4.4 sigma (re), 0.9 sigma (im)
+  SIGNAL SURVIVAL |chi_hw|/|chi_exact| = 0.878
+
+  system observables NOT reported: this job used a single fixed basis, for
+  which the shadow estimator is not unbiased (BUGLOG B04). Re-run with
+  --shadow for a valid <Q>.
+
+  Report robustness claims only. The exact path is shallower purely because
+  n is small (O(4^n) synthesis); that advantage inverts as n grows.

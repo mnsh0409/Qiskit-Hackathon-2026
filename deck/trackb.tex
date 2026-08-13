@@ -108,6 +108,17 @@
 % ==================================================================
 \section{The instrument}
 
+\begin{frame}{Anti-control: how the Hadamard test is extended}
+  \vspace{-1mm}
+  \begin{center}
+    \includegraphics[width=0.93\linewidth]{fig_tb_anticontrol.png}
+  \end{center}
+  \vspace{-2mm}
+  {\footnotesize The only structural change is the $X$--$cW$--$X$ sandwich: it makes $W$ fire
+  on the $|0\rangle$ branch, so the ancilla interferes \hl{two dynamics} rather than one
+  against the identity. Everything downstream is unchanged. Algebra in appendix A1--A2.}
+\end{frame}
+
 \begin{frame}{Track B: anti-controlled Hadamard test}
   \small
   Replace controlled-$U$ with ``$W$ when the ancilla is $|0\rangle$, $U$ when it is
@@ -271,6 +282,7 @@
 \end{frame}
 
 \begin{frame}{The garbage also ships a free error bar}
+  \label{slide:freebar}
   \begin{columns}[T]
     \begin{column}{0.54\textwidth}
       \centering
@@ -342,6 +354,135 @@
   \centering
   \Large\textbf{Garbage Collectors}\\
   \normalsize Thank you --- questions welcome.
+\end{frame}
+
+% ================================================================== APPENDIX
+\appendix
+
+\begin{frame}[plain]
+  \centering\Large\textbf{Appendix --- derivations}\\[1em]
+  {\normalsize\color{mutedA} A1 anti-control \quad A2 the Track B identity \quad
+  A3 the two readouts\\ A4 classical shadows \quad A5 shadows on the Track B circuit}
+\end{frame}
+
+\begin{frame}{A1 --- Anti-control, and A2 --- the Track B identity}
+  \small
+  \textbf{A1.} A controlled gate fires on $|1\rangle$. Conjugating the ancilla by $X$ swaps
+  the two branches:
+  \[
+    X_a\Bigl(|0\rangle\!\langle0|\otimes\mathbb{1}+|1\rangle\!\langle1|\otimes W\Bigr)X_a
+    \;=\;|1\rangle\!\langle1|\otimes\mathbb{1}+|0\rangle\!\langle0|\otimes W
+  \]
+  so $X\!-\!cW\!-\!X$ applies $W$ exactly when the ancilla is $|0\rangle$. Composing it with
+  an ordinary $cU$ puts a \emph{different} evolution on each branch.
+  \medskip
+
+  \textbf{A2.} Propagating $|0\rangle_a|\psi\rangle$ through the circuit:
+  \[
+    \xrightarrow{\;H\;}\tfrac{1}{\sqrt2}(|0\rangle+|1\rangle)|\psi\rangle
+    \xrightarrow{\;X cW X\;}\tfrac{1}{\sqrt2}\bigl(|0\rangle W|\psi\rangle+|1\rangle|\psi\rangle\bigr)
+    \xrightarrow{\;cU\;}\tfrac{1}{\sqrt2}\bigl(|0\rangle W|\psi\rangle+|1\rangle U|\psi\rangle\bigr)
+  \]
+  \[
+    \xrightarrow{\;P(\phi)\;}\tfrac{1}{\sqrt2}\bigl(|0\rangle W|\psi\rangle+e^{i\phi}|1\rangle U|\psi\rangle\bigr)
+    \xrightarrow{\;H\;}\tfrac{1}{2}\Bigl[|0\rangle(W+e^{i\phi}U)|\psi\rangle+|1\rangle(W-e^{i\phi}U)|\psi\rangle\Bigr]
+  \]
+  Using $\bigl\|(W\pm e^{i\phi}U)\psi\bigr\|^{2}=2\pm2\,\mathrm{Re}\bigl[e^{i\phi}\langle\psi|W^\dagger U|\psi\rangle\bigr]$,
+  \[
+    \langle Z_a\rangle_\phi=\tfrac{1}{4}\Bigl(\bigl\|(W+e^{i\phi}U)\psi\bigr\|^{2}
+    -\bigl\|(W-e^{i\phi}U)\psi\bigr\|^{2}\Bigr)
+    =\mathrm{Re}\!\left[e^{i\phi}\langle\psi|W^{\dagger}U|\psi\rangle\right]
+  \]
+  \centering $W=\mathbb{1}$ returns the standard test, so this is a strict generalisation.
+  \src{verified numerically to $4.56\times10^{-15}$, R042}
+\end{frame}
+
+\begin{frame}{A3 --- the two readouts: why deleting one gate gives the difference}
+  \small
+  Stop \emph{before} the final Hadamard. With
+  $|\Phi\rangle=\tfrac{1}{\sqrt2}\bigl(|0\rangle W|\psi\rangle+e^{i\phi}|1\rangle U|\psi\rangle\bigr)$
+  and $\rho=|\psi\rangle\!\langle\psi|$,
+  \[
+    \rho_{\text{out}}=|\Phi\rangle\!\langle\Phi|=\tfrac{1}{2}\Bigl[
+      |0\rangle\!\langle0|\otimes W\rho W^{\dagger}
+    + |1\rangle\!\langle1|\otimes U\rho U^{\dagger}
+    + e^{-i\phi}|0\rangle\!\langle1|\otimes W\rho U^{\dagger}
+    + \text{h.c.}\Bigr]
+  \]
+  The off-diagonal ancilla blocks are killed by both partial traces below, so \emph{both
+  results are independent of $\phi$} --- one quadrature suffices:
+  \[
+    \mathrm{tr}_a\bigl[\rho_{\text{out}}\bigr]=\tfrac{1}{2}\bigl(W\rho W^{\dagger}+U\rho U^{\dagger}\bigr)
+    \equiv S,
+    \qquad
+    \mathrm{tr}_a\bigl[(Z\otimes\mathbb{1})\rho_{\text{out}}\bigr]
+      =\tfrac{1}{2}\bigl(W\rho W^{\dagger}-U\rho U^{\dagger}\bigr)\equiv D
+  \]
+  Hence for \emph{any} observable $O$, from the same shots,
+  \[
+    \langle O\rangle_W=\mathrm{Tr}\bigl[O(S+D)\bigr],\qquad
+    \langle O\rangle_U=\mathrm{Tr}\bigl[O(S-D)\bigr]
+  \]
+  \centering\textbf{Keeping the final $H$ gives the overlap; deleting it gives the
+  per-observable profile.}
+  \src{verified to $4.44\times10^{-15}$ over 4 times $\times$ 6 observables, R042}
+\end{frame}
+
+\begin{frame}{A4 --- classical shadows: the inversion and its variance}
+  \small
+  Measure each qubit in a basis $b_j$ drawn uniformly from $\{X,Y,Z\}$, with
+  $V_bWV_b^{\dagger}=Z$. The single-qubit measurement channel is
+  \[
+    \mathcal{M}_1(\sigma)=\mathop{\mathbb{E}}_{b,s}\Bigl[\langle s|V_b\sigma V_b^{\dagger}|s\rangle\,
+      V_b^{\dagger}|s\rangle\!\langle s|V_b\Bigr]
+    =\tfrac{1}{3}\sigma+\tfrac{1}{3}\mathrm{Tr}(\sigma)\,\mathbb{1}
+  \]
+  --- expand $\sigma$ over $\{\mathbb{1},X,Y,Z\}$: the identity part always survives, and each
+  traceless part survives only when \emph{its own} basis is drawn, with probability $1/3$.
+  Inverting on the traceless part,
+  \[
+    \mathcal{M}_1^{-1}(A)=3A-\mathrm{Tr}(A)\,\mathbb{1}
+    \quad\Longrightarrow\quad
+    \hat\rho=\bigotimes_j\Bigl(3\,V_{b_j}^{\dagger}|s_j\rangle\!\langle s_j|V_{b_j}-\mathbb{1}\Bigr),
+    \qquad \mathbb{E}[\hat\rho]=\rho
+  \]
+  For a Pauli string $P$, the single-qubit traces are $1$ ($P_j=\mathbb{1}$), $3s_j$
+  ($P_j=b_j$), and $0$ otherwise, so
+  \[
+    \hat P=3^{\,w(P)}\!\!\prod_{j\in\mathrm{supp}(P)}\!\! s_j\,\mathbf{1}\bigl[b_j=P_j\bigr],
+    \qquad
+    \mathbb{E}\bigl[\hat P^{2}\bigr]=3^{2w}\cdot\underbrace{3^{-w}}_{\text{all }w\text{ match}}=3^{\,w(P)}
+  \]
+  \centering The second moment is \hl{exactly $3^{w}$}, independent of $\rho$ --- which is why
+  low-weight observables are cheap and weight-$n$ ones are not. \src{HKP, \emph{Nat.\ Phys.}
+  \textbf{16}, 1050 (2020); CONVENTIONS \S(Pauli-string estimator)}
+\end{frame}
+
+\begin{frame}{A5 --- putting them together on the Track B circuit}
+  \small
+  Each shot of arm B records $(b_0\ldots b_{n-1},\,s_0\ldots s_{n-1},\,a)$ with $a=\pm1$ the
+  ancilla outcome. Form $\hat P$ from the system record as in A4. Then, by A3,
+  \[
+    \mathbb{E}\bigl[\hat P\bigr]=\mathrm{Tr}[P\,S]=\tfrac{1}{2}\bigl(\langle P\rangle_W+\langle P\rangle_U\bigr),
+    \qquad
+    \mathbb{E}\bigl[a\,\hat P\bigr]=\mathrm{Tr}[P\,D]=\tfrac{1}{2}\bigl(\langle P\rangle_W-\langle P\rangle_U\bigr)
+  \]
+  so a single sample mean of each gives both dynamics separately, for every $P$ at once:
+  \[
+    \widehat{\langle P\rangle_W}=\overline{\hat P}+\overline{a\hat P},
+    \qquad
+    \widehat{\langle P\rangle_U}=\overline{\hat P}-\overline{a\hat P}
+  \]
+  \medskip
+  \textbf{Two consequences we use on the slides.}
+  \begin{itemize}
+    \item Any $O=\sum_P c_P P$ follows by linearity --- $H$, $Q$, and the hopping term all
+          come from the same records.
+    \item If $[O,H]=0$ and every factor of $W$ conserves $O$, then
+          $\langle O\rangle_W-\langle O\rangle_U\equiv0$ \emph{identically}. Its measured
+          value is therefore \hl{pure device error}, with no reference needed --- the free
+          error bar on slide~\ref{slide:freebar}. \src{R044}
+  \end{itemize}
 \end{frame}
 
 \end{document}

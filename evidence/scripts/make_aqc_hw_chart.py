@@ -1,6 +1,12 @@
-"""deck/fig_aqc_hw.png -- the AQC three-arm hardware result, once the jobs land.
+"""deck/fig_aqc_hw.png -- the AQC three-arm hardware result.
+
 Reads evidence/aqc_hw_result.json (written by aqc_hardware_fetch.py); numbers never typed in.
-Safe to run before results exist: it exits with a message instead of drawing an empty chart.
+Safe to run before results exist: exits with a message rather than drawing an empty chart.
+
+The y-limit deliberately extends past 1: the exact-block arm returns |chi| = 1.21, which is
+ABOVE the physical bound |chi| <= 1. Clipping it to [0,1] would hide the single most
+important feature of this run -- that its apparent "survival" is a T1 relaxation floor
+rather than preserved signal.
 """
 import os
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -24,7 +30,7 @@ COL = {"blue": "#2a78d6", "orange": "#eb6834", "aqua": "#1baf7a", "violet": "#4a
 BG = "#fcfcfb"
 plt.rcParams.update({"figure.facecolor": BG, "savefig.facecolor": BG, "font.size": 12})
 ARMS = ["exact", "trotter", "aqc"]
-ARM_LABEL = {"exact": "exact block", "trotter": "Trotter $r{=}2$", "aqc": "AQC $+$ phase fix"}
+LBL = {"exact": "exact block", "trotter": "Trotter $r{=}2$", "aqc": "AQC $+$ phase fix"}
 ARM_COL = {"exact": COL["orange"], "trotter": COL["muted"], "aqc": COL["blue"]}
 
 
@@ -40,44 +46,55 @@ def style(ax):
 
 
 nb = len(R)
-fig, axes = plt.subplots(1, nb + 1, figsize=(6.2 * (nb + 1) * 0.62, 4.4),
-                         gridspec_kw={"width_ratios": [1.15] * nb + [1]})
+fig, axes = plt.subplots(1, nb + 1, figsize=(6.4 + 5.6 * nb, 4.6))
 axes = np.atleast_1d(axes)
 
-# ---- per-backend |chi(t)|: measured vs exact ----
 for ax, (bname, arms) in zip(axes[:nb], R.items()):
-    ts = TIMES
-    ax.plot(ts, [abs(EXACT[t]) for t in ts], "-", color=COL["ink"], lw=2.6, label="exact")
+    ax.axhline(1.0, color=COL["ink"], ls=":", lw=1.6)
+    ax.text(TIMES[0], 1.04, r"physical bound  $|\chi|\leq 1$", fontsize=10,
+            color=COL["ink"], va="bottom")
+    ax.plot(TIMES, [abs(EXACT[t]) for t in TIMES], "-", color=COL["ink"], lw=2.8,
+            label="exact (what a working run gives)")
     for arm in ARMS:
         ys = [r["abs_measured"] for r in arms[arm]["rows"]]
         n2 = arms[arm]["prediction"]["median_2q"]
-        ax.plot(ts, ys, "o--", color=ARM_COL[arm], lw=2.0, ms=8,
-                label=f"{ARM_LABEL[arm]} ({n2:.0f} 2q)")
+        ax.plot(TIMES, ys, "o--", color=ARM_COL[arm], lw=2.0, ms=8,
+                label=f"{LBL[arm]}  ({n2:.0f} 2q)")
+    ax.annotate("above the physical bound:\n$T_1$ relaxation floor, not signal",
+                (TIMES[1], arms["exact"]["rows"][1]["abs_measured"]),
+                xytext=(6, 18), textcoords="offset points", fontsize=10,
+                color=COL["orange"],
+                arrowprops=dict(arrowstyle="->", color=COL["orange"], lw=1.6))
     ax.set_xlabel("time $t$"); ax.set_ylabel(r"$|\chi(t)|$")
-    ax.set_ylim(-0.05, 1.1)
-    ax.set_title(bname.replace("ibm_", "ibm\\_") if "_" in bname else bname, fontsize=12.5)
-    ax.legend(frameon=False, fontsize=9)
+    ax.set_ylim(-0.06, 1.62)
+    ax.set_title(bname.replace("_", " "), fontsize=12.5)
+    # the band between the dead arms (~0.03) and the exact curve (~0.85) is the only
+    # empty region on this panel
+    ax.legend(frameon=False, fontsize=9.5, loc="center left",
+              bbox_to_anchor=(0.0, 0.34))
     style(ax)
 
-# ---- predicted vs measured survival, all backends ----
 ax = axes[-1]
-x = np.arange(len(ARMS))
-w = 0.8 / (2 * nb)
+x = np.arange(len(ARMS)); w = 0.34
 for bi, (bname, arms) in enumerate(R.items()):
     pred = [arms[a]["prediction"]["predicted_survival"] for a in ARMS]
     meas = [arms[a]["mean_survival"] for a in ARMS]
-    ax.bar(x + (2 * bi) * w - 0.4 + w / 2, pred, w, color=COL["muted"], alpha=0.55,
-           label=f"predicted ({bname.split('_')[-1]})" if bi == 0 else None)
-    ax.bar(x + (2 * bi + 1) * w - 0.4 + w / 2, meas, w,
-           color=[ARM_COL[a] for a in ARMS],
-           label=f"measured" if bi == 0 else None)
-ax.set_xticks(x); ax.set_xticklabels([ARM_LABEL[a] for a in ARMS], fontsize=9.5)
-ax.set_ylabel(r"mean $|\chi|$ survival")
-ax.set_title("Predicted before submission vs measured", fontsize=12)
-ax.legend(frameon=False, fontsize=9)
+    ax.bar(x - w / 2, pred, w, color=COL["muted"], alpha=0.6, label="predicted (gate error)")
+    ax.bar(x + w / 2, meas, w, color=[ARM_COL[a] for a in ARMS], label="measured")
+    for i, (p, m) in enumerate(zip(pred, meas)):
+        ax.annotate(f"{p:.2g}", (i - w / 2, p), xytext=(0, 4), textcoords="offset points",
+                    ha="center", fontsize=9, color=COL["muted"])
+        ax.annotate(f"{m:.2g}", (i + w / 2, m), xytext=(0, 4), textcoords="offset points",
+                    ha="center", fontsize=9.5, weight="bold", color=COL["ink"])
+ax.axhline(1.0, color=COL["ink"], ls=":", lw=1.4)
+ax.set_xticks(x); ax.set_xticklabels(["exact\nblock", "Trotter\n$r{=}2$", "AQC $+$\nphase fix"],
+                                     fontsize=10.5)
+ax.set_ylabel(r"mean $|\chi|$ survival"); ax.set_ylim(0, 1.75)
+ax.set_title("Predicted before submission vs measured", fontsize=12.5)
+ax.legend(frameon=False, fontsize=10, loc="upper center")
 style(ax)
 
 fig.tight_layout()
 fig.savefig(os.path.join(REPO, "deck/fig_aqc_hw.png"), dpi=200, bbox_inches="tight",
             facecolor=BG)
-print("wrote deck/fig_aqc_hw.png for backends:", ", ".join(R))
+print("wrote deck/fig_aqc_hw.png for:", ", ".join(R))

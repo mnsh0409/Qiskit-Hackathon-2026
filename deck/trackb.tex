@@ -77,12 +77,15 @@ and a way to certify the result from its own garbage}
 \end{frame}
 
 \begin{frame}{The result, up front}
-  \small
-  \begin{itemize}
-    \item \good{AQC makes the Hadamard test scale.} Its controlled evolution is the
-          bottleneck: the standard exact block costs $\sim\!4^{\,n+1}$ two-qubit gates.
-          We measured the crossover at \hl{$n=4$} and \good{$36\times$ fewer gates by
+  \footnotesize
+  \begin{itemize}\itemsep 1.5pt
+    \item \good{AQC makes the Hadamard test scale --- on paper.} Its controlled evolution
+          is the bottleneck: the standard exact block costs $\sim\!4^{\,n+1}$ two-qubit
+          gates. We measured the crossover at \hl{$n=4$} and \good{$36\times$ fewer gates by
           $n=7$} (16{,}812 $\to$ 468), at state infidelity $3\times10^{-4}$. \src{R046}
+    \item \bad{On hardware it does not translate --- we ran it and it failed.} At $n{=}6$ on
+          \texttt{ibm\_marrakesh} the 576-gate AQC arm returned \bad{0.026} survival against
+          our own pre-registered \bad{0.315}. All three arms returned noise. \src{R054}
     \item \bad{But shipping AQC into a Hadamard test silently breaks it.} The compiler
           optimises \emph{state fidelity}, which is blind to global phase --- and a Hadamard
           test is an interferometer that measures exactly that. A converged compression
@@ -94,10 +97,9 @@ and a way to certify the result from its own garbage}
     \item \good{And Track B certifies the compressed circuit from shots} --- the check that
           still works where classical simulation does not. \src{R042, R044}
   \end{itemize}
-  \medskip
-  {\footnotesize\color{mutedA} Reported against us, in full, later: on today's hardware at
-  $n{=}2$ a 2-gate Loschmidt echo still beats our 136-gate Track B arm by $27\times$
-  (slide~\ref{slide:hw}). \src{R044}}
+  \smallskip
+  {\scriptsize\color{mutedA} Also against us, in full later: at $n{=}2$ a 2-gate Loschmidt
+  echo beats our 136-gate arm by $27\times$ (slide~\ref{slide:hw}). \src{R044}}
 \end{frame}
 
 \begin{frame}{Where this sits: the five tracks in the challenge}
@@ -363,6 +365,25 @@ and a way to certify the result from its own garbage}
   degrades to the shot-noise floor: cheap, not yet usable as-is. \src{R051}}
 \end{frame}
 
+\begin{frame}{We ran it on a QPU. It failed --- and the failure is instructive}
+  \vspace{-1mm}
+  \begin{center}
+    \includegraphics[width=0.90\linewidth]{fig_aqc_hw.png}
+  \end{center}
+  \vspace{-3mm}
+  {\scriptsize
+  One job on \texttt{ibm\_marrakesh}, $n{=}6$, three ways to build the controlled evolution.
+  \bad{All three arms returned noise} --- the 576-gate AQC arm at \bad{0.026} against the
+  \bad{0.315} we recorded \emph{before} submitting.
+  \par\smallskip
+  \textbf{The orange arm is the lesson.} Its ``survival'' reads \good{1.485}, best of the
+  three, and is \bad{unphysical}: $|\chi|\approx1.21$ against a bound of $1$, near constant
+  in $t$, both quadratures pinned at $+0.85$ --- the ancilla sitting in $|0\rangle$
+  (8{,}850 gates $\times$ 68\,ns $= 602\,\mu$s vs $T_1 = 160\,\mu$s).
+  \hl{A magnitude-only metric scores a dead circuit as the winner}: the compiler's trap
+  again, now in our own headline experiment. \src{R054}}
+\end{frame}
+
 % ==================================================================
 \section{On real hardware}
 
@@ -413,12 +434,12 @@ and a way to certify the result from its own garbage}
 \section{What we claim}
 
 \begin{frame}{What we claim, and what we do not}
-  \footnotesize
+  \scriptsize
   \textbf{We claim}
-  \begin{itemize}\itemsep 1pt
-    \item \good{AQC makes the Hadamard test scale}: crossover measured at $n{=}4$,
-          $36\times$ fewer two-qubit gates at $n{=}7$, against the honest baseline (the
-          notebook's own direct block, not a flattering \texttt{.control()}). \src{R046}
+  \begin{itemize}\itemsep 0pt
+    \item \good{AQC makes the Hadamard test scale \emph{as a compilation result}}:
+          crossover at $n{=}4$, $36\times$ fewer two-qubit gates at $n{=}7$, against the
+          honest baseline and surviving real device routing. \src{R046, R052}
     \item \good{We found and fixed a trap that silently destroys the answer} --- a
           phase-blind objective feeding a phase interferometer --- for the cost of one
           single-qubit gate. \src{R046}
@@ -430,10 +451,13 @@ and a way to certify the result from its own garbage}
   \end{itemize}
   \smallskip
   \textbf{We do not claim}
-  \begin{itemize}\itemsep 1pt
+  \begin{itemize}\itemsep 0pt
+    \item \bad{That the gate-count win becomes a hardware win.} We tested it and it did
+          not: at $n{=}6$ every arm returned noise, AQC at $0.026$ against a predicted
+          $0.315$. \src{R054}
     \item \bad{That AQC helps at small $n$.} Below the crossover it is \emph{worse} ---
-          $2.6\times$ at $n{=}3$. And the compressed circuit is valid \bad{only for the
-          state it was compiled against} (process infidelity $\sim\!0.96$). \src{R046}
+          $2.6\times$ at $n{=}3$ --- and the compressed circuit is valid \bad{only for the
+          state it was compiled against}. \src{R046}
     \item \bad{That our arm is the best way to get the scalar overlap.} It is not --- a
           2-gate Loschmidt echo is cheaper and, on hardware, $27\times$ more
           accurate. \src{R043, R044}

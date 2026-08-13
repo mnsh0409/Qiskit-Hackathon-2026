@@ -177,7 +177,10 @@ jupyter nbconvert --to notebook --execute --inplace \
 
 A Hadamard test's controlled evolution is its bottleneck: the standard exact block costs
 ~4^(n+1) two-qubit gates. Approximate Quantum Compiling replaces it, with the crossover
-measured at n=4 and **36× fewer gates by n=7**. But the compiler optimises *state fidelity*,
+measured at n=4 and **36× fewer gates by n=7** — *as a compilation result*. **We then ran it
+on a QPU and it did not translate**: at n=6 every arm returned noise, the 576-gate AQC arm at
+0.026 survival against the 0.315 we recorded before submitting. That result is on the slides
+as the headline it is. [R054] But the compiler optimises *state fidelity*,
 which is blind to global phase — and a Hadamard test is an interferometer that measures
 exactly that phase. Shipping it naively returns a χ wrong by 2.3–3.0 radians, an error as
 large as the signal. **One ancilla phase gate fixes it**: |Δχ| 1.33 → 0.008.
@@ -201,9 +204,13 @@ rather than bury it.
 - **56/56 checkpoints pass** on the graded notebook, zero hard failures.
 - **All four energy levels** recovered with **every symmetry label correct**, reproducibly
   across **12/12 independent seeds**. [R012, R013, R019]
-- **AQC makes the controlled evolution scale**: crossover at n=4, **36× fewer two-qubit
-  gates at n=7**, surviving a 2D lattice, Fermi–Hubbard, and heavy-hex routing (which in fact
-  *widens* the gap). [R046, R049, R051, R052]
+- **AQC makes the controlled evolution scale — on paper**: crossover at n=4, **36× fewer
+  two-qubit gates at n=7**, surviving a 2D lattice, Fermi–Hubbard, and heavy-hex routing
+  (which in fact *widens* the gap). [R046, R049, R051, R052]
+- **…and we tested whether that reaches hardware. It does not.** At n=6 on `ibm_marrakesh`
+  all three arms returned noise (AQC 0.026 vs a pre-registered 0.315). The exact-block arm's
+  apparent "survival" of **1.485 is unphysical** — a T₁ relaxation floor that a
+  magnitude-only metric scores as the *winner*. [R054]
 - **A phase trap found and fixed** for the cost of one single-qubit gate — a phase-blind
   compiler feeding a phase interferometer. [R046]
 - **Honest cost accounting:** the shadow route replaces **13 dedicated experiments** at a

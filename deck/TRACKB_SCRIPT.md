@@ -1,4 +1,4 @@
-# Speaker script — Track B deck (`trackb.pdf`, 32 pages)
+# Speaker script — Track B deck (`trackb.pdf`, 35 pages)
 
 **CORRECTION (2026-08-14): the per-beat times below sum to 12:40, not the 9:20
 originally claimed — an arithmetic error caught in review. Treat this file as the
@@ -7,7 +7,7 @@ script is `script.md` (blocks M1–M5, 10:20 with cuts).**
 Slides are referenced by TITLE, not page number — pages have shifted three times
 already tonight and titles have not. Divider pages ("The question", "The
 instrument", …): say nothing, advance within ~3 seconds; they exist as breathing
-room, not content. The appendix (A1–A7) is never presented — it is jumped to in
+room, not content. The appendix (A1–A8) is never presented — it is jumped to in
 Q&A only.
 
 **Numbers rule (house law): every number spoken below is in RESULTS.md under the
@@ -201,4 +201,5 @@ trap slide after 8:00, start cutting.*
 n=6-vs-n=7 question, the ratio-vs-absolute question, and the priority-claim
 fallback. Appendix map for live jumps: A1/A2 anti-control algebra · A3 the
 two readouts · A4 shadow variance · A5 the combined estimator · A6 DOS ·
-A7 the n=6/n=7 arithmetic.**
+A7 the n=6/n=7 arithmetic ·
+A8 pure AQC, no ancilla.**

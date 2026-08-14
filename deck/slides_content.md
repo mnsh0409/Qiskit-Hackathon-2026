@@ -125,6 +125,6 @@ Strongest English speaker → M4.
 - figure: none
 - speaker: all five (one line each)
 
-Backup (never presented, Q&A jumps only): appendix A1–A7 in trackb.pdf; the
+Backup (never presented, Q&A jumps only): appendix A1–A8 in trackb.pdf; the
 master deck `slides.pdf` carries the Track A money plot
 `figures/07_symmetry_resolved_spectrum.png` [R012, R013] if a judge asks for it.

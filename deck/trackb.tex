@@ -615,7 +615,8 @@ and a way to certify the result from its own garbage}
 \begin{frame}[plain]
   \centering\Large\textbf{Appendix --- derivations}\\[1em]
   {\normalsize\color{mutedA} A1 anti-control \quad A2 the Track B identity \quad
-  A3 the two readouts\\ A4 classical shadows \quad A5 shadows on the Track B circuit \quad A7 the $n{=}6$/$n{=}7$ arithmetic}
+  A3 the two readouts\\ A4 classical shadows \quad A5 shadows on the Track B circuit \quad
+  A6 density of states\\ A7 the $n{=}6$/$n{=}7$ arithmetic \quad A8 pure AQC, no ancilla}
 \end{frame}
 
 \begin{frame}{A1 --- Anti-control, and A2 --- the Track B identity}
@@ -835,6 +836,43 @@ and a way to certify the result from its own garbage}
       \src{R046, R052, R054, R055}
     \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}{A8 --- pure AQC (no Hadamard test, no shadow): is it safe?}
+  \scriptsize
+  \textbf{Q.} The trap slide shows AQC's certificate (state fidelity) hides
+  $|\Delta\chi|\approx1.3$ inside an \emph{interferometric} test. Does AQC used the ordinary
+  way --- compress, measure observables \emph{directly}, no ancilla, no shadows --- have the
+  same problem?
+
+  \textbf{A: no, provably.} $\chi=\langle\psi|U|\psi\rangle$ is an interference term, not an
+  observable expectation value --- extracting it \emph{requires} an ancilla. By contrast
+  $\langle O\rangle_W=\langle\psi|W^\dagger O W|\psi\rangle$ needs none, and if
+  $W|\psi\rangle=e^{i\theta}U|\psi\rangle$ (the trap's own finding) $\theta$ cancels
+  \emph{exactly} for any $O$:
+  $\langle O\rangle_W=\langle\psi|U^\dagger e^{-i\theta}Oe^{i\theta}U|\psi\rangle
+    =\langle O\rangle_U$.
+
+  \textbf{Verified on the SAME compiled $W$} (chi errors reproduce R046 exactly --- not a
+  different run):
+  \begin{center}
+  \begin{tabular}{lrrr}
+    \toprule
+    & $n{=}3$ & $n{=}5$ & $n{=}7$\\
+    \midrule
+    $|\Delta\chi|$ (needs ancilla) & 1.350 & 1.291 & 1.313\\
+    worst $|\Delta\langle O\rangle|$, $O\in\{Q,H,Z_0\}$ (no ancilla) &
+      \good{0.018} & \good{0.014} & \good{0.015}\\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+
+  \textbf{Explicit check:} an arbitrary extra phase $e^{i\theta_{\rm extra}}$ on
+  $W|\psi\rangle$ changes every $\langle O\rangle$ by \good{$\leq2\times10^{-15}$} ---
+  floating-point zero.
+
+  \centering\textbf{Pure AQC is safe for its textbook use case. The trap is
+  interferometric-only --- exactly what Track B exists to catch.} \src{R060}
 \end{frame}
 
 \end{document}

@@ -2,7 +2,7 @@ DELIVERY PACK — Team 8 (Garbage Collectors), Qiskit Hackathon 2026, Topic 5
 Built 2026-08-14 ~11:35, from repo commit at build time (see git log).
 
 slides/
-  Team_8.pptx   34 slides (incl. References + Summary) — THE PRESENTED DECK (image-per-slide,
+  Team_8.pptx   35 slides (incl. References + Summary + A8) — THE PRESENTED DECK (image-per-slide,
                 pixel-faithful to the audited PDF; reorder/delete slides freely, text is not
                 editable — edit deck/trackb.tex and rebuild for text changes)
   Team_8.pdf    the same deck as PDF (authoritative; source is deck/trackb.tex)

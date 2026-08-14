@@ -96,8 +96,8 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 ## Block M5 — hardware close and claims (S13–S17) — Tina Tien — 1:45
 
 > Track B itself, same discipline: the two-gate echo beat our arm
-> twenty-seven times on hardware, and the gap widened to thirty-two times
-> when we extended the time window [R044, R059]. One clean win survives: a charge
+> twenty-seven times on hardware — confirmed on an independent run when we
+> extended the time window [R044, R059]. One clean win survives: a charge
 > difference that must be exactly zero, so its measured value is pure device
 > error — an error bar with no reference state and no simulation [R044].
 

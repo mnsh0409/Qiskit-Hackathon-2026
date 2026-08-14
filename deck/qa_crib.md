@@ -15,9 +15,9 @@ AQC circuit's absolute depth, which still grows. Measured effective error is ~6e
 visibility needs ~2e-3 — one device generation, not a protocol change [R054, R055].
 
 **3. Isn't the Loschmidt echo simply better?**
-For the scalar overlap, yes — 4–6× cheaper and 27–32× more accurate on hardware (the gap
-widens over a 2×-extended time window); we say so on the slide [R043, R044, R059]. It
-returns one magnitude; only our arm returns the phase and the per-observable breakdown [R042].
+For the scalar overlap, yes — 4–6× cheaper and 27× more accurate on hardware, confirmed on
+an independent run over a 2×-extended time window; we say so on the slide [R043, R044, R059].
+It returns one magnitude; only our arm returns the phase and the per-observable breakdown [R042].
 
 **4. Do you actually know why the AQC arm failed on hardware?**
 Partially, and we say which part. Gate error plus ancilla dephasing predicts 0.186; measured

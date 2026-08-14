@@ -414,8 +414,9 @@ and a way to certify the result from its own garbage}
   dominated by $t=0.9$ --- and on \texttt{kingston} it goes wrong in \emph{phase}, not just
   magnitude ($-0.03-0.59i$ against exact $+0.99+0.02i$ at $t=0.9$), so this is not simple
   damping. \texttt{marrakesh} extended to $t{=}5.4$ (2$\times$ the original window,
-  \emph{same} 136-gate depth at every $t$): \hl{the echo's lead does not close} --- worst-case
-  gap widens from $27\times$ to $32\times$. \src{R044, R059}}
+  \emph{same} 136-gate depth at every $t$, separate job): \hl{the echo's lead holds} --- the
+  $27\times$ gap is confirmed, unchanged within run-to-run device variation.
+  \src{R044, R059}}
 \end{frame}
 
 \begin{frame}{The garbage also ships a free error bar}
@@ -476,8 +477,9 @@ and a way to certify the result from its own garbage}
           $2.6\times$ at $n{=}3$ --- and the compressed circuit is valid \bad{only for the
           state it was compiled against}. \src{R046}
     \item \bad{That our arm is the best way to get the scalar overlap.} It is not --- a
-          2-gate Loschmidt echo is cheaper and, on hardware, $32\times$ more
-          accurate, holding over a $2\times$-extended time window. \src{R043, R044, R059}
+          2-gate Loschmidt echo is cheaper and, on hardware, $27\times$ more
+          accurate, confirmed on an independent run over a $2\times$-extended time window.
+          \src{R043, R044, R059}
     \item Any advantage over classical computation. These are gate counts, not runtimes;
           the benchmark is small \emph{on purpose}, so every number is graded against truth.
   \end{itemize}

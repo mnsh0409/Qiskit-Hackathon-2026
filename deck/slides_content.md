@@ -90,7 +90,7 @@ Strongest English speaker → M4.
 - speaker: Su Wei-Chang (block M4)
 
 ## S13 — First Track B on a QPU / the free error bar
-- 2-gate echo beats our 136-gate arm 27× on hardware, widening to 32× over a 2×-extended time window [R044, R059]
+- 2-gate echo beats our 136-gate arm 27× on hardware, confirmed on an independent run over a 2×-extended time window [R044, R059]
 - ⟨Q⟩_W−⟨Q⟩_U ≡ 0 by conservation ⇒ measured deviation is pure device error, no reference, bounded not growing with t [R044, R059]
 - figures: deck/fig_tb_hardware.png · deck/fig_tb_symmetry.png (both now extended to t=5.4 on marrakesh)
 - speaker: Tina Tien (block M5)

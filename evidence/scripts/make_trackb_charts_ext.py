@@ -35,6 +35,7 @@ REF = json.load(open(R + "evidence/track_b_hw_jobs_ext.json"))["exact_reference"
 
 ORIG = json.load(open(R + "evidence/track_b_hw_result.json"))
 KINGSTON = next(r for r in ORIG if r["backend"] == "ibm_kingston")
+MARRAKESH_R044 = next(r for r in ORIG if r["backend"] == "ibm_marrakesh")
 MARRAKESH_EXT = json.load(open(R + "evidence/track_b_hw_result_ext.json"))[0]
 assert MARRAKESH_EXT["backend"] == "ibm_marrakesh"
 
@@ -76,6 +77,16 @@ b1.set_xlabel("time $t$"); b1.set_ylabel(r"$|\langle\psi|W^\dagger U|\psi\rangle
 b1.set_title("The 2-gate baseline holds -- extended to $t{=}5.4$ on marrakesh", fontsize=12)
 b1.legend(frameon=False, fontsize=7.6); style(b1)
 
+# BUG FIXED (2026-08-14, see BUGLOG B09): this bar chart used to pool kingston's R044 data
+# with marrakesh's R059 data and call the resulting ratio a "widening" caused by the longer
+# time window. It is not: R059's marrakesh job measured SMALLER errors than R044's marrakesh
+# job at the very points that overlap (calibration drift between two separate submissions,
+# not a time-window effect -- see R059's own text, which says the finding is "consistent
+# with, not better or worse than" R044's original 27x). Mixing two different jobs into one
+# "worst case" pooled bar silently attributed a between-job calibration difference to a
+# within-job time effect. FIX: the bar chart now uses ONLY R044's original same-job data on
+# BOTH devices -- the one apples-to-apples comparison -- reproducing R044's 27x exactly. The
+# extended R059 series is shown ONLY in the line plot (b1, left), which makes no ratio claim.
 meth, errs, cols = [], [], []
 for nm, key, ref, col in (("Loschmidt\necho\n(2 CX)", "C", "echo_p0", COL["aqua"]),
                           ("Hilbert-\nSchmidt\n(16 CX)", "D", "hst_p0", COL["violet"]),
@@ -83,14 +94,14 @@ for nm, key, ref, col in (("Loschmidt\necho\n(2 CX)", "C", "echo_p0", COL["aqua"
     vals = []
     if key:
         vals += [abs(KINGSTON[key][str(t)] - REF[str(t)][ref]) for t in TIMES_K]
-        vals += [abs(MARRAKESH_EXT[key][str(t)] - REF[str(t)][ref]) for t in TIMES_M]
+        vals += [abs(MARRAKESH_R044[key][str(t)] - REF[str(t)][ref]) for t in TIMES_K]
     else:
         vals += [abs(complex(np.mean(KINGSTON["A"][str(t)]["_pool_re"]),
                              np.mean(KINGSTON["A"][str(t)]["_pool_im"]))
                     - complex(*REF[str(t)]["chi_AB"])) for t in TIMES_K]
-        vals += [abs(complex(np.mean(MARRAKESH_EXT["A"][str(t)]["_pool_re"]),
-                             np.mean(MARRAKESH_EXT["A"][str(t)]["_pool_im"]))
-                    - complex(*REF[str(t)]["chi_AB"])) for t in TIMES_M]
+        vals += [abs(complex(np.mean(MARRAKESH_R044["A"][str(t)]["_pool_re"]),
+                             np.mean(MARRAKESH_R044["A"][str(t)]["_pool_im"]))
+                    - complex(*REF[str(t)]["chi_AB"])) for t in TIMES_K]
     meth.append(nm); errs.append(max(vals)); cols.append(col)
 bars = b2.bar(range(3), errs, 0.55, color=cols)
 for i, e in enumerate(errs):
@@ -98,13 +109,15 @@ for i, e in enumerate(errs):
                 ha="center", fontsize=12, weight="bold", color=COL["ink"])
 b2.set_xticks(range(3)); b2.set_xticklabels(meth, fontsize=10.5)
 b2.set_ylabel("worst error vs exact"); b2.set_ylim(0, max(errs) * 1.25)
-b2.set_title("Worst case, kingston t≤2.7 + marrakesh t≤5.4", fontsize=11.5)
+b2.set_title("Worst case, both devices, R044's original job (t≤2.7)", fontsize=11.5)
 style(b2)
 fig.tight_layout()
 fig.savefig(R + "deck/fig_tb_hardware.png", dpi=200, bbox_inches="tight", facecolor=BG)
-print("wrote deck/fig_tb_hardware.png (extended)")
-print(f"  worst errors: echo {errs[0]:.4f}  HST {errs[1]:.4f}  Track B {errs[2]:.4f}  "
-      f"(ratio Track B / echo = {errs[2]/errs[0]:.1f}x)")
+print("wrote deck/fig_tb_hardware.png (extended line plot, R044 bar chart)")
+print(f"  worst errors (R044, unchanged): echo {errs[0]:.4f}  HST {errs[1]:.4f}  "
+      f"Track B {errs[2]:.4f}  (ratio = {errs[2]/errs[0]:.1f}x)")
+print(f"  R059 extended-window echo worst error (informational, NOT in this bar chart): "
+      f"{max(abs(MARRAKESH_EXT['C'][str(t)] - REF[str(t)]['echo_p0']) for t in TIMES_M):.4f}")
 
 # ============ chart 3: the symmetry channel, extended to t=5.4 (marrakesh, R059) ===========
 fig, ax = plt.subplots(figsize=(7.4, 4.2))

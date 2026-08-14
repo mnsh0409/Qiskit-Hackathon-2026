@@ -9,6 +9,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{amsmath,amssymb}
+\usepackage{dsfont}  % \mathds{1} -- amssymb has no blackboard-bold digit glyph
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{xcolor}
@@ -122,7 +123,7 @@ and a way to certify the result from its own garbage}
     \midrule
     A & symmetry-resolved spectral analyser & \good{done} & \src{R012, R013, R019, R022}\\
     \hl{B} & \hl{dynamics A/B tester} {\color{blueA}\emph{(this deck)}}
-      & \good{done $+$ extended} & \src{R034, R042--R046, R049, R051--R053}\\
+      & \good{done $+$ extended} & \src{R034, R042, R046, R054}\\
     C & eigenstate detective & \good{done} & \src{R032}\\
     D & Krylov energy solver from the same records & \good{done} & \src{R016}\\
     E & our own proposal: a decoherence witness & \good{done} & \src{R033}\\
@@ -202,7 +203,7 @@ and a way to certify the result from its own garbage}
     \right],\qquad \phi=0\to\mathrm{Re}\,\chi_{AB},\quad
     \phi=-\tfrac{\pi}{2}\to\mathrm{Im}\,\chi_{AB}
   \]
-  Setting $W=\mathbb{1}$ recovers the ordinary Hadamard test exactly, so this is a strict
+  Setting $W=\mathds{1}$ recovers the ordinary Hadamard test exactly, so this is a strict
   generalisation --- which also means it needs \emph{its own} validation, not inherited trust.
   \medskip
 
@@ -248,7 +249,7 @@ and a way to certify the result from its own garbage}
   \[
     \mathrm{tr}_a\bigl[\rho_{\text{out}}\bigr]=\tfrac{1}{2}\bigl(W\rho W^\dagger+U\rho U^\dagger\bigr),
     \qquad
-    \mathrm{tr}_a\bigl[(Z\otimes\mathbb{1})\rho_{\text{out}}\bigr]
+    \mathrm{tr}_a\bigl[(Z\otimes\mathds{1})\rho_{\text{out}}\bigr]
       =\tfrac{1}{2}\bigl(W\rho W^\dagger-U\rho U^\dagger\bigr)
   \]
   Both are \emph{independent of $\phi$}, so one quadrature suffices. Add and subtract:
@@ -326,7 +327,7 @@ and a way to certify the result from its own garbage}
   \vspace{-3mm}
   {\scriptsize
   \textbf{Left.} The controlled evolution is the bottleneck: the standard construction builds
-  $|0\rangle\!\langle0|\otimes\mathbb{1}+|1\rangle\!\langle1|\otimes U$ as one
+  $|0\rangle\!\langle0|\otimes\mathds{1}+|1\rangle\!\langle1|\otimes U$ as one
   $(n{+}1)$-qubit \texttt{UnitaryGate}, costing $\sim\!4^{\,n+1}$. Controlled AQC grows
   \emph{roughly linearly}, so the crossover is structural --- measured, not extrapolated.
   \textbf{Right.} The trap, next slide. \src{R046}
@@ -613,8 +614,8 @@ and a way to certify the result from its own garbage}
   \textbf{A1.} A controlled gate fires on $|1\rangle$. Conjugating the ancilla by $X$ swaps
   the two branches:
   \[
-    X_a\Bigl(|0\rangle\!\langle0|\otimes\mathbb{1}+|1\rangle\!\langle1|\otimes W\Bigr)X_a
-    \;=\;|1\rangle\!\langle1|\otimes\mathbb{1}+|0\rangle\!\langle0|\otimes W
+    X_a\Bigl(|0\rangle\!\langle0|\otimes\mathds{1}+|1\rangle\!\langle1|\otimes W\Bigr)X_a
+    \;=\;|1\rangle\!\langle1|\otimes\mathds{1}+|0\rangle\!\langle0|\otimes W
   \]
   so $X\!-\!cW\!-\!X$ applies $W$ exactly when the ancilla is $|0\rangle$. Composing it with
   an ordinary $cU$ puts a \emph{different} evolution on each branch.
@@ -636,7 +637,7 @@ and a way to certify the result from its own garbage}
     -\bigl\|(W-e^{i\phi}U)\psi\bigr\|^{2}\Bigr)
     =\mathrm{Re}\!\left[e^{i\phi}\langle\psi|W^{\dagger}U|\psi\rangle\right]
   \]
-  \centering $W=\mathbb{1}$ returns the standard test, so this is a strict generalisation.
+  \centering $W=\mathds{1}$ returns the standard test, so this is a strict generalisation.
   \src{verified numerically to $4.56\times10^{-15}$, R042}
 \end{frame}
 
@@ -660,7 +661,7 @@ and a way to certify the result from its own garbage}
     \mathrm{tr}_a\bigl[\rho_{\text{out}}\bigr]=\tfrac{1}{2}\bigl(W\rho W^{\dagger}+U\rho U^{\dagger}\bigr)
     \equiv S,
     \qquad
-    \mathrm{tr}_a\bigl[(Z\otimes\mathbb{1})\rho_{\text{out}}\bigr]
+    \mathrm{tr}_a\bigl[(Z\otimes\mathds{1})\rho_{\text{out}}\bigr]
       =\tfrac{1}{2}\bigl(W\rho W^{\dagger}-U\rho U^{\dagger}\bigr)\equiv D
   \]
   Hence for \emph{any} observable $O$, from the same shots,
@@ -680,18 +681,18 @@ and a way to certify the result from its own garbage}
   \[
     \mathcal{M}_1(\sigma)=\mathop{\mathbb{E}}_{b,s}\Bigl[\langle s|V_b\sigma V_b^{\dagger}|s\rangle\,
       V_b^{\dagger}|s\rangle\!\langle s|V_b\Bigr]
-    =\tfrac{1}{3}\sigma+\tfrac{1}{3}\mathrm{Tr}(\sigma)\,\mathbb{1}
+    =\tfrac{1}{3}\sigma+\tfrac{1}{3}\mathrm{Tr}(\sigma)\,\mathds{1}
   \]
-  --- expand $\sigma$ over $\{\mathbb{1},X,Y,Z\}$: the identity part always survives, and each
+  --- expand $\sigma$ over $\{\mathds{1},X,Y,Z\}$: the identity part always survives, and each
   traceless part survives only when \emph{its own} basis is drawn, with probability $1/3$.
   Inverting on the traceless part,
   \[
-    \mathcal{M}_1^{-1}(A)=3A-\mathrm{Tr}(A)\,\mathbb{1}
+    \mathcal{M}_1^{-1}(A)=3A-\mathrm{Tr}(A)\,\mathds{1}
     \quad\Longrightarrow\quad
-    \hat\rho=\bigotimes_j\Bigl(3\,V_{b_j}^{\dagger}|s_j\rangle\!\langle s_j|V_{b_j}-\mathbb{1}\Bigr),
+    \hat\rho=\bigotimes_j\Bigl(3\,V_{b_j}^{\dagger}|s_j\rangle\!\langle s_j|V_{b_j}-\mathds{1}\Bigr),
     \qquad \mathbb{E}[\hat\rho]=\rho
   \]
-  For a Pauli string $P$, the single-qubit traces are $1$ ($P_j=\mathbb{1}$), $3s_j$
+  For a Pauli string $P$, the single-qubit traces are $1$ ($P_j=\mathds{1}$), $3s_j$
   ($P_j=b_j$), and $0$ otherwise, so
   \[
     \hat P=3^{\,w(P)}\!\!\prod_{j\in\mathrm{supp}(P)}\!\! s_j\,\mathbf{1}\bigl[b_j=P_j\bigr],
@@ -732,17 +733,17 @@ and a way to certify the result from its own garbage}
 
 \begin{frame}{A6 --- Track B $\to$ density of states, and where the phase matters}
   \small
-  With $\rho=\mathbb{1}/d$ the Track B identity of A2 becomes state-\emph{independent}:
+  With $\rho=\mathds{1}/d$ the Track B identity of A2 becomes state-\emph{independent}:
   \[
     \chi_{AB}(t)=\mathrm{Tr}\!\left[W^{\dagger}U\rho\right]
-    \;\xrightarrow{\;\rho=\mathbb{1}/d\;}\;
+    \;\xrightarrow{\;\rho=\mathds{1}/d\;}\;
     \frac{1}{d}\mathrm{Tr}\!\left[W^{\dagger}U\right]
-    \qquad\text{and at }W=\mathbb{1}:\quad \frac{1}{d}\mathrm{Tr}\!\left[U(t)\right]
+    \qquad\text{and at }W=\mathds{1}:\quad \frac{1}{d}\mathrm{Tr}\!\left[U(t)\right]
   \]
   which is Eq.~(7) of Goh \& Koczor up to normalisation. Since
   $\mathrm{Tr}[A]=\sum_z\langle z|A|z\rangle$, the mixed input is realised by enumerating the
   $d$ computational basis states --- the deterministic version of their Statement 2 (a
-  1-design, e.g.\ random $\{\mathbb{1},X\}^{\otimes n}$, suffices).
+  1-design, e.g.\ random $\{\mathds{1},X\}^{\otimes n}$, suffices).
   \medskip
 
   \textbf{Where the phase is worth having --- measured, not assumed:}
@@ -751,7 +752,7 @@ and a way to certify the result from its own garbage}
     \toprule
     & $\max|\mathrm{Im}|$ & does the HST lose information?\\
     \midrule
-    $W=\mathbb{1}$ (the DOS signal) & \good{0.504} & \good{yes} --- it returns magnitude only\\
+    $W=\mathds{1}$ (the DOS signal) & \good{0.504} & \good{yes} --- it returns magnitude only\\
     $W=$ 2nd-order Suzuki (Trotter error) & \bad{$2.8\times10^{-14}$} & \bad{no} --- it is real anyway\\
     \bottomrule
   \end{tabular}

@@ -65,7 +65,9 @@ T = 0.9
 NS = [int(a) for a in sys.argv[1:]] or [3, 4, 5, 6]
 simulator = QuimbSimulator(quimb.tensor.CircuitMPS, autodiff_backend="jax")
 
-FIELDS = (0.40, -0.50, 0.15, 0.20, -0.30, 0.10, 0.25)     # extends the frozen benchmark
+FIELDS = (0.40, -0.50, 0.15, 0.20, -0.30, 0.10, 0.25, -0.15, 0.35, -0.20)
+# extends the frozen benchmark; entries 7-9 match skqd_scaling.py's FIELDS continuation
+# (same arbitrary-but-fixed pattern reused across scripts, not re-invented per n)
 
 
 def chain_ham(n):

@@ -30,7 +30,7 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 ---
 
-## Slide 1 — Hook (45 s) — Speaker: TBD-NAME
+## Slide 1 — Hook (45 s) — Speaker: Chao Hsien
 
 > Good morning. We work on the Hadamard test.
 > The Hadamard test is a standard quantum circuit. It uses one extra qubit, called the
@@ -42,7 +42,7 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 ---
 
-## Slide 2 — One record, many quantities (55 s) — Speaker: TBD-NAME
+## Slide 2 — One record, many quantities (55 s) — Speaker: Jiwan Kang
 
 > Here is the circuit. It is small: three system qubits, and one ancilla.
 > We run it once. We keep every shot.
@@ -54,7 +54,7 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 ---
 
-## Slide 3 — Validation (60 s) — Speaker: TBD-NAME
+## Slide 3 — Validation (60 s) — Speaker: Ng Siu Hin
 
 > We do not ask you to trust this. We validated everything.
 > The notebook has fifty-six checkpoints. All fifty-six pass. No failures, no warnings.
@@ -67,7 +67,7 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 ---
 
-## Slide 4 — The shared-shot punchline (55 s) — Speaker: TBD-NAME
+## Slide 4 — The shared-shot punchline (55 s) — Speaker: Su Wei-Chang
 
 > Now the interesting part.
 > Energy and magnetisation are conserved. So they should be flat in time.
@@ -81,7 +81,7 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 ---
 
-## Slide 5 — MONEY PLOT (75 s) — Speaker: TBD-NAME
+## Slide 5 — MONEY PLOT (75 s) — Speaker: Tina Tien
 
 > This is our main result.
 > The grey band is the plain Fourier transform of the ancilla signal. It is a blur.
@@ -97,7 +97,7 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 ---
 
-## Slide 6 — Real hardware (70 s) — Speaker: TBD-NAME
+## Slide 6 — Real hardware (70 s) — Speaker: Chao Hsien
 
 > We also ran this on real IBM hardware.
 > Our first attempt failed. The signal survived at only eighteen percent.
@@ -112,7 +112,7 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 ---
 
-## Slide 7 — Honest cost (50 s) — Speaker: TBD-NAME
+## Slide 7 — Honest cost (50 s) — Speaker: Jiwan Kang
 
 > Nothing is free. Here is the real cost.
 > To get the same three observables the conventional way, you need thirteen separate
@@ -125,7 +125,7 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 ---
 
-## Slide 8 — Reproducibility (45 s) — Speaker: TBD-NAME
+## Slide 8 — Reproducibility (45 s) — Speaker: Ng Siu Hin
 
 > Everything is public and reproducible.
 > Our repository has pinned versions, a summary file you can compare against your own run,
@@ -136,7 +136,7 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 ---
 
-## Slide 9 — Limitations (50 s) — Speaker: TBD-NAME
+## Slide 9 — Limitations (50 s) — Speaker: Su Wei-Chang
 
 > We want to be honest about the limits.
 > First. The simple Fourier method never resolves our two closest energy levels. Not at any
@@ -148,12 +148,15 @@ If asked something not on a slide, say "that is in our results file, I can show 
 
 ---
 
-## Slide 10 — Team (25 s) — Speaker: TBD-NAME
+## Slide 10 — Team (25 s) — Speaker: Tina Tien
 
 > Finally, our team.
-> TBD-NAME built TBD-CONTRIBUTION.
-> TBD-NAME built TBD-CONTRIBUTION.
-> TBD-NAME built TBD-CONTRIBUTION.
+> Chao Hsien opened with the headline scoreboard and the five completed tracks.
+> Jiwan Kang covered the question, the anti-control circuit, and Track B validation.
+> Ng Siu Hin covered classical shadows and the baselines against the echo and HST.
+> Su Wei-Chang covered the AQC compilation win, the phase trap and its fix, and the
+> hardware falsification test.
+> Tina Tien covered Track B on hardware, our claims and scope, and reproducibility.
 > Thank you. We are happy to take questions.
 
 ---

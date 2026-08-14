@@ -2,10 +2,12 @@
 
 **Talk length: TBD-C6** (not supplied); timed for a working assumption of
 **10:00**, with the cut list bringing 10:20 spoken under it. **Team size: FIVE
-(confirmed).** Blocks M1–M5 are contiguous and sized 1:45–2:55; every member
-speaks (rubric requirement). Assign the strongest English speaker to **M4** —
-it carries the AQC win, the trap, and the hardware failure. English comfort per
-member: TBD-C6. Divider pages: advance silently.
+(confirmed): Chao Hsien, Jiwan Kang, Ng Siu Hin, Su Wei-Chang, Tina Tien.**
+Blocks M1–M5 are contiguous and sized 1:45–2:55; every member speaks (rubric
+requirement). Assigned in roster order below; M4 (Su Wei-Chang) should be the
+strongest English speaker — it carries the AQC win, the trap, and the hardware
+failure; swap M4 with another block if that is not Su Wei-Chang. English
+comfort per member: TBD-C6. Divider pages: advance silently.
 
 **Numbers rule: every number below is grep-verified against RESULTS.md and
 tagged. Do not improvise numbers on stage.**
@@ -16,7 +18,7 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 
 ---
 
-## Block M1 — open (S1–S3) — TBD-NAME-1 — 1:50
+## Block M1 — open (S1–S3) — Chao Hsien — 1:50
 
 > We are Team 8, the Garbage Collectors. This is the shadow-enhanced Hadamard
 > test — and our story is how we made it scale, found the trap that silently
@@ -33,7 +35,7 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 > twelve out of twelve seeds [R019]. This talk is Track B, the one we took
 > furthest.
 
-## Block M2 — the question and the instrument (S4–S6) — TBD-NAME-2 — 2:05
+## Block M2 — the question and the instrument (S4–S6) — Jiwan Kang — 2:05
 
 > Here is the question everything hangs on. Every real simulation runs a cheap
 > approximation W instead of the true evolution U. How wrong is W — and wrong
@@ -48,7 +50,7 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 > fourteen on two models [R034, R042] — and that check caught a real endianness
 > bug before it ever reached a quantum processor [R042].
 
-## Block M3 — shadows and the honest rivals (S7–S9) — TBD-NAME-3 — 1:45
+## Block M3 — shadows and the honest rivals (S7–S9) — Ng Siu Hin — 1:45
 
 > For anyone new to shadows: measure each qubit in a random basis, keep the
 > record. One record set then estimates every Pauli observable at once, at a
@@ -66,7 +68,7 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 > echo. Our arm exists for what nothing else returns: the phase, and the
 > per-observable breakdown.
 
-## Block M4 — the win, the trap, the verdict (S10–S12) — TBD-NAME-4 — 2:55
+## Block M4 — the win, the trap, the verdict (S10–S12) — Su Wei-Chang — 2:55
 
 > Now the bottleneck. The standard construction of the controlled evolution
 > costs four to the n-plus-one gates. AQC grows roughly linearly. They cross at
@@ -91,10 +93,11 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 > magnitude-only metric crowns it the winner [R054]. We know exactly what error
 > rate changes this verdict; the arithmetic is in appendix A-seven [R055].
 
-## Block M5 — hardware close and claims (S13–S17) — TBD-NAME-5 — 1:45
+## Block M5 — hardware close and claims (S13–S17) — Tina Tien — 1:45
 
 > Track B itself, same discipline: the two-gate echo beat our arm
-> twenty-seven times on hardware [R044]. One clean win survives: a charge
+> twenty-seven times on hardware, and the gap widened to thirty-two times
+> when we extended the time window [R044, R059]. One clean win survives: a charge
 > difference that must be exactly zero, so its measured value is pure device
 > error — an error bar with no reference state and no simulation [R044].
 
@@ -107,9 +110,9 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 > One future direction, already verified: the same circuit with a maximally
 > mixed input becomes a density-of-states estimator [R045].
 
-> Everything is public behind this QR — a fifty-four-row results ledger, the bug
+> Everything is public behind this QR — a fifty-eight-row results ledger, the bug
 > log including our own retractions, and the scripts behind every hardware
-> number. [Team slide: each of the FIVE members states their part — TBD-NAME ×5.]
+> number. [Team slide: each of the FIVE members states their part — Chao Hsien, Jiwan Kang, Ng Siu Hin, Su Wei-Chang, Tina Tien.]
 
 > [Summary slide, ~10 s:] To summarise: five tracks completed. A
 > thirty-six-times compilation win. A trap found — and fixed with one gate. And
@@ -122,11 +125,11 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 
 | block | speaker | time | cumulative |
 |---|---|---|---|
-| M1 open (S1–S3) | TBD-NAME-1 | 1:50 | 1:50 |
-| M2 question+instrument (S4–S6) | TBD-NAME-2 | 2:05 | 3:55 |
-| M3 shadows+rivals (S7–S9) | TBD-NAME-3 | 1:45 | 5:40 |
-| M4 win/trap/verdict (S10–S12) | TBD-NAME-4 | 2:55 | 8:35 |
-| M5 hardware close (S13–S17 + summary) | TBD-NAME-5 | 1:55 | **10:30** |
+| M1 open (S1–S3) | Chao Hsien | 1:50 | 1:50 |
+| M2 question+instrument (S4–S6) | Jiwan Kang | 2:05 | 3:55 |
+| M3 shadows+rivals (S7–S9) | Ng Siu Hin | 1:45 | 5:40 |
+| M4 win/trap/verdict (S10–S12) | Su Wei-Chang | 2:55 | 8:35 |
+| M5 hardware close (S13–S17 + summary) | Tina Tien | 1:55 | **10:30** |
 
 10:30 spoken against 10:00 is deliberate: the cut list brings it under with the
 first two items (or cut 1 plus a brisk M1). **Cuts, in order:** (1) S15 DOS sentence −0:20; (2) shadow primer half of

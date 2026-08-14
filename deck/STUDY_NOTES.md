@@ -91,10 +91,10 @@ under W and under U *separately*, from one circuit family. Validated to
 **Slogan (use it in Q&A):** *the ancilla says how much W is wrong; the garbage
 says which observable it got wrong.*
 
-**Honest context [R043, R044]:** if you only want the scalar "how close is W to
+**Honest context [R043, R044, R059]:** if you only want the scalar "how close is W to
 U", the *Loschmidt echo* (run U forward, W backward, measure the probability of
-returning to start — ~2 gates here) is 4–6× cheaper and, on hardware, 27× more
-accurate than our arm. The *Hilbert–Schmidt test* answers a state-independent
+returning to start — ~2 gates here) is 4–6× cheaper and, on hardware, 27–32× more
+accurate than our arm (widening over a 2×-extended time window, R059). The *Hilbert–Schmidt test* answers a state-independent
 version on 2n qubits. Our arm earns its keep only through the phase and the
 per-observable profile. The deck says this out loud — do not soften it, it is
 our credibility.
@@ -172,7 +172,8 @@ cost (602 µs/shot; ~4× more at n=7) and the contrast was already saturated.
 
 **The one clean hardware win:** ⟨Q⟩_W − ⟨Q⟩_U ≡ 0 exactly (charge conservation
 survives Trotterisation), so its measured deviation is pure device error —
-an error bar with no reference state, no simulation. [R044]
+an error bar with no reference state, no simulation. Stays bounded (not
+growing) over a 2×-extended time window, t up to 5.4. [R044, R059]
 
 ---
 
@@ -186,7 +187,7 @@ an error bar with no reference state, no simulation. [R044]
 | 0.026 / 0.033 vs 0.315 / 0.401 | measured vs pre-registered AQC survival, two QPUs | R054 |
 | 1.485 | the unphysical "survival" of a dead circuit | R054 |
 | ~6×10⁻³ vs ≲2×10⁻³ | effective error today vs what visibility needs | R054/A7 |
-| 27× | how much the 2-gate echo beats our arm on hardware | R044 |
+| 27× (32× extended) | how much the 2-gate echo beats our arm on hardware | R044, R059 |
 | 4×10⁻¹⁵ | Track B identity validation | R042 |
 | 12/12 | seeds correct on the Track A deliverable | R019 |
 | 56/56 | notebook checkpoints passing | — (README) |

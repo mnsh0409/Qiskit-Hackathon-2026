@@ -141,6 +141,90 @@
       "chi_err_naive": 1.312910653662853,
       "chi_err_phase_fixed": 0.008310666823909131,
       "exact_synth_seconds": 1.1330647468566895
+    },
+    {
+      "n": 8,
+      "exact_cx": 67756,
+      "exact_depth": 265219,
+      "trotter_cx": 1938,
+      "trotter_depth": 4297,
+      "trotter_infidelity": 0.001313980246427593,
+      "aqc_cx": 552,
+      "aqc_depth": 1353,
+      "aqc_infidelity": 0.0002896399722304155,
+      "aqc_process_infidelity": 0.9963756707963268,
+      "trotter_process_infidelity": 0.006483341889310434,
+      "n_params": 133,
+      "aqc_vs_exact": 122.7463768115942,
+      "aqc_opt_seconds": 1.9384691715240479,
+      "chi_exact": [
+        0.10809038264729498,
+        -0.6647969691091078
+      ],
+      "chi_aqc_naive": [
+        0.5713624094697404,
+        -0.3623187536127179
+      ],
+      "phase_theta": 0.8331062247247358,
+      "chi_err_naive": 0.5532757374818247,
+      "chi_err_phase_fixed": 0.008251969853274055,
+      "exact_synth_seconds": 4.593581676483154
+    },
+    {
+      "n": 9,
+      "exact_cx": 272044,
+      "exact_depth": 1062915,
+      "trotter_cx": 2218,
+      "trotter_depth": 4919,
+      "trotter_infidelity": 0.001313966793230259,
+      "aqc_cx": 636,
+      "aqc_depth": 1558,
+      "aqc_infidelity": 0.00028996952132709364,
+      "aqc_process_infidelity": 0.9994104783995408,
+      "trotter_process_infidelity": 0.00728797594711561,
+      "n_params": 153,
+      "aqc_vs_exact": 427.74213836477986,
+      "aqc_opt_seconds": 1.7487425804138184,
+      "chi_exact": [
+        -0.24908598939336607,
+        -0.6257752878201456
+      ],
+      "chi_aqc_naive": [
+        -0.5695507936560554,
+        -0.3651029238440824
+      ],
+      "phase_theta": -0.6333605432820018,
+      "chi_err_naive": 0.41309535474511566,
+      "chi_err_phase_fixed": 0.008278947707553781,
+      "exact_synth_seconds": 26.748416900634766
+    },
+    {
+      "n": 10,
+      "exact_cx": 1090220,
+      "exact_depth": 4255747,
+      "trotter_cx": 2498,
+      "trotter_depth": 5540,
+      "trotter_infidelity": 0.0013139682006856335,
+      "aqc_cx": 720,
+      "aqc_depth": 1763,
+      "aqc_infidelity": 0.00028126281913076756,
+      "aqc_process_infidelity": 0.9998132827985221,
+      "trotter_process_infidelity": 0.008153899042655732,
+      "n_params": 173,
+      "aqc_vs_exact": 1514.1944444444443,
+      "aqc_opt_seconds": 2.198781728744507,
+      "chi_exact": [
+        -0.27698421733685696,
+        -0.6139367103413361
+      ],
+      "chi_aqc_naive": [
+        0.5334899794762162,
+        -0.41634457389649115
+      ],
+      "phase_theta": 1.3208080737799748,
+      "chi_err_naive": 0.8342128481896178,
+      "chi_err_phase_fixed": 0.008160506074282115,
+      "exact_synth_seconds": 125.39226007461548
     }
   ]
 }

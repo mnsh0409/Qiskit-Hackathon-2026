@@ -56,7 +56,7 @@
 \title{\textbf{Making the Hadamard test scale}}
 \subtitle{$36\times$ fewer gates with AQC, a phase trap that would have broken it,\\
 and a way to certify the result from its own garbage}
-\author{\textbf{Team 8} --- Garbage Collectors\\ {\footnotesize TBD-NAME \and TBD-NAME \and TBD-NAME \and TBD-NAME \and TBD-NAME}}
+\author{\textbf{Team 8} --- Garbage Collectors\\ {\footnotesize Chao Hsien \and Jiwan Kang \and Ng Siu Hin \and Su Wei-Chang \and Tina Tien}}
 \institute{\small Qiskit Hackathon 2026 --- Topic 5\\
 \tiny after Faehrmann, Eisert \& Kueng, \emph{PRL} \textbf{135}, 150603 (2025)}
 \date{\small 14 August 2026}
@@ -413,7 +413,9 @@ and a way to certify the result from its own garbage}
   \bad{The 136-CX Track-B arm degrades fast} --- clean at $t=0$ (errors $\leq0.053$), noise
   dominated by $t=0.9$ --- and on \texttt{kingston} it goes wrong in \emph{phase}, not just
   magnitude ($-0.03-0.59i$ against exact $+0.99+0.02i$ at $t=0.9$), so this is not simple
-  damping. The 2-CX echo holds on both devices. \src{R044}}
+  damping. \texttt{marrakesh} extended to $t{=}5.4$ (2$\times$ the original window,
+  \emph{same} 136-gate depth at every $t$): \hl{the echo's lead does not close} --- worst-case
+  gap widens from $27\times$ to $32\times$. \src{R044, R059}}
 \end{frame}
 
 \begin{frame}{The garbage also ships a free error bar}
@@ -429,12 +431,14 @@ and a way to certify the result from its own garbage}
       $\langle Q\rangle_W-\langle Q\rangle_U$ is \hl{exactly zero} for any $W$ in this family.
       \medskip
 
-      Measured: $-0.04$, $-0.39$, $-0.25$, $-0.34$. \src{R044}
+      Extended to $t{=}5.4$ on \texttt{marrakesh} (2$\times$ R044's original window, one
+      self-consistent job): $+0.01$, $-0.05$, $-0.21$, $-0.06$, $-0.14$, $-0.02$, $-0.20$.
+      \src{R059}
       \medskip
 
       That deviation is \good{pure device error, detected with no reference state, no exact
-      diagonalisation and no simulation} --- and it correctly flags the same times where the
-      other observables went bad.
+      diagonalisation and no simulation} --- \hl{bounded, not growing}, over the longer
+      window.
       \medskip
 
       {\footnotesize\color{mutedA} It is a diagnostic, not a correction: we do \emph{not}
@@ -472,8 +476,8 @@ and a way to certify the result from its own garbage}
           $2.6\times$ at $n{=}3$ --- and the compressed circuit is valid \bad{only for the
           state it was compiled against}. \src{R046}
     \item \bad{That our arm is the best way to get the scalar overlap.} It is not --- a
-          2-gate Loschmidt echo is cheaper and, on hardware, $27\times$ more
-          accurate. \src{R043, R044}
+          2-gate Loschmidt echo is cheaper and, on hardware, $32\times$ more
+          accurate, holding over a $2\times$-extended time window. \src{R043, R044, R059}
     \item Any advantage over classical computation. These are gate counts, not runtimes;
           the benchmark is small \emph{on purpose}, so every number is graded against truth.
   \end{itemize}
@@ -523,6 +527,8 @@ and a way to certify the result from its own garbage}
   \vspace{2mm}
   \centering
   \large\textbf{Team 8 --- Garbage Collectors}\\
+  {\footnotesize Chao Hsien (M1) $\cdot$ Jiwan Kang (M2) $\cdot$ Ng Siu Hin (M3) $\cdot$
+  Su Wei-Chang (M4) $\cdot$ Tina Tien (M5)}\\
   \normalsize Thank you --- questions welcome.
 \end{frame}
 
@@ -571,7 +577,7 @@ and a way to certify the result from its own garbage}
         \item \hl{AQC crossover measured}: $n{=}4$, \good{$36\times$} fewer
               gates by $n{=}7$; survives 2D, Fermi--Hubbard, real routing
               \src{R046, R049, R051, R052}
-        \item 54-row public evidence ledger; bug log incl.\ our retractions;
+        \item 58-row public evidence ledger; bug log incl.\ our retractions;
               everything reproducible from the repo
       \end{itemize}
     \end{column}

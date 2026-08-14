@@ -18,5 +18,7 @@ history (`git log -- deck/SLIDES.md`).
 | primer for teammates new to the topic | [`STUDY_NOTES.md`](STUDY_NOTES.md) |
 
 Still true from the old file and worth carrying forward: every number on any
-slide carries its `R###` row from `RESULTS.md`; the `TBD-NAME` placeholders are
-human-only; banned-language rules (rubric.md) apply to all deck text.
+slide carries its `R###` row from `RESULTS.md`; banned-language rules
+(rubric.md) apply to all deck text. Team names (Chao Hsien, Jiwan Kang,
+Ng Siu Hin, Su Wei-Chang, Tina Tien) are filled in across `trackb.tex`,
+`slides.tex`, `script.md`, `slides_content.md`, and `SPEAKER_SCRIPT.md`.

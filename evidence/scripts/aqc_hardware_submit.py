@@ -224,7 +224,12 @@ out.update(n=N, times=list(TIMES), shots=SHOTS, meta=meta,
 # Each job entry is SELF-CONTAINED (n, meta, exact references): the top-level fields are
 # whatever the LAST submit wrote, so an n=7 submit would silently corrupt the analysis of
 # an earlier n=6 job fetched afterwards.
-out.setdefault("jobs", {})[backend.name + (f"_n{N}" if N != 6 else "")] = dict(
+# KEY BUG FIXED (2026-08-14): the key used to be backend+n only, so a shots-only rerun at
+# the default n=6 (e.g. a shots-trend sweep) would silently overwrite the earlier job at a
+# different shot count on the same backend/n -- same class of clobber as the backend/n bug
+# above, just on the axis that bug didn't cover. Shots is now part of the key too.
+job_key = backend.name + (f"_n{N}" if N != 6 else "") + (f"_s{SHOTS}" if SHOTS != 4000 else "")
+out.setdefault("jobs", {})[job_key] = dict(
     job_id=job.job_id(), prediction=pred, n=N, shots=SHOTS, exact_shots=EXACT_SHOTS,
     meta=meta,
     chi_exact={str(t): [chi_exact(t).real, chi_exact(t).imag] for t in TIMES})

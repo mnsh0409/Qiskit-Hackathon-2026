@@ -103,6 +103,13 @@ for b, o in RESULTS.items():
                "the compilation advantage does NOT translate at this size")
     print(f"  {b}: closest to exact is {best.upper()} -- {verdict}.")
 
-with open(os.path.join(REPO, "evidence/aqc_hw_result.json"), "w") as fh:
-    json.dump(RESULTS, fh, indent=2)
-print("\nwrote evidence/aqc_hw_result.json")
+# MERGE, not overwrite: a filtered run (e.g. one new backend key) used to silently drop
+# every other backend's already-fetched analysis from this file -- same clobber class as
+# the submit script's job-record bug, just one file over. Caught when a shots-sweep fetch
+# for ibm_marrakesh_s2000 alone wiped the existing marrakesh/kingston R054 analysis.
+result_path = os.path.join(REPO, "evidence/aqc_hw_result.json")
+prior = json.load(open(result_path)) if os.path.exists(result_path) else {}
+prior.update(RESULTS)
+with open(result_path, "w") as fh:
+    json.dump(prior, fh, indent=2)
+print(f"\nwrote evidence/aqc_hw_result.json ({len(prior)} backend keys total)")

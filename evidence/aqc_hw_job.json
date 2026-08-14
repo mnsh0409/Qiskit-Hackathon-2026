@@ -5,7 +5,7 @@
     0.6,
     0.9
   ],
-  "shots": 4000,
+  "shots": 8000,
   "meta": [
     {
       "arm": "exact",
@@ -183,6 +183,300 @@
           "median_edge_error": 0.001586867367837086,
           "predicted_survival": 0.4006121211775999
         }
+      }
+    },
+    "ibm_marrakesh_s2000": {
+      "job_id": "d9v95ufo3ppc73ak01o0",
+      "prediction": {
+        "exact": {
+          "median_2q": 8850.0,
+          "median_edge_error": 0.0023376204260592837,
+          "predicted_survival": 1.011168952986646e-09
+        },
+        "trotter": {
+          "median_2q": 2119.0,
+          "median_edge_error": 0.0017693083827121647,
+          "predicted_survival": 0.023459374596205385
+        },
+        "aqc": {
+          "median_2q": 576.0,
+          "median_edge_error": 0.0017693083827121647,
+          "predicted_survival": 0.36058619097933414
+        }
+      },
+      "n": 6,
+      "shots": 2000,
+      "exact_shots": null,
+      "meta": [
+        {
+          "arm": "exact",
+          "t": 0.3,
+          "phi": "re",
+          "two_q": 8850
+        },
+        {
+          "arm": "exact",
+          "t": 0.3,
+          "phi": "im",
+          "two_q": 8850
+        },
+        {
+          "arm": "exact",
+          "t": 0.6,
+          "phi": "re",
+          "two_q": 8850
+        },
+        {
+          "arm": "exact",
+          "t": 0.6,
+          "phi": "im",
+          "two_q": 8850
+        },
+        {
+          "arm": "exact",
+          "t": 0.9,
+          "phi": "re",
+          "two_q": 8850
+        },
+        {
+          "arm": "exact",
+          "t": 0.9,
+          "phi": "im",
+          "two_q": 8850
+        },
+        {
+          "arm": "trotter",
+          "t": 0.3,
+          "phi": "re",
+          "two_q": 2119
+        },
+        {
+          "arm": "trotter",
+          "t": 0.3,
+          "phi": "im",
+          "two_q": 2119
+        },
+        {
+          "arm": "trotter",
+          "t": 0.6,
+          "phi": "re",
+          "two_q": 2119
+        },
+        {
+          "arm": "trotter",
+          "t": 0.6,
+          "phi": "im",
+          "two_q": 2119
+        },
+        {
+          "arm": "trotter",
+          "t": 0.9,
+          "phi": "re",
+          "two_q": 2119
+        },
+        {
+          "arm": "trotter",
+          "t": 0.9,
+          "phi": "im",
+          "two_q": 2119
+        },
+        {
+          "arm": "aqc",
+          "t": 0.3,
+          "phi": "re",
+          "two_q": 576
+        },
+        {
+          "arm": "aqc",
+          "t": 0.3,
+          "phi": "im",
+          "two_q": 576
+        },
+        {
+          "arm": "aqc",
+          "t": 0.6,
+          "phi": "re",
+          "two_q": 576
+        },
+        {
+          "arm": "aqc",
+          "t": 0.6,
+          "phi": "im",
+          "two_q": 576
+        },
+        {
+          "arm": "aqc",
+          "t": 0.9,
+          "phi": "re",
+          "two_q": 576
+        },
+        {
+          "arm": "aqc",
+          "t": 0.9,
+          "phi": "im",
+          "two_q": 576
+        }
+      ],
+      "chi_exact": {
+        "0.3": [
+          0.9255956986770218,
+          -0.2374586710713064
+        ],
+        "0.6": [
+          0.7210121417929304,
+          -0.42085980480690505
+        ],
+        "0.9": [
+          0.43450611062334776,
+          -0.5146289575595957
+        ]
+      }
+    },
+    "ibm_marrakesh_s8000": {
+      "job_id": "d9v9640b1g9c73a8b660",
+      "prediction": {
+        "exact": {
+          "median_2q": 8850.0,
+          "median_edge_error": 0.0023376204260592837,
+          "predicted_survival": 1.011168952986646e-09
+        },
+        "trotter": {
+          "median_2q": 2119.0,
+          "median_edge_error": 0.0017693083827121647,
+          "predicted_survival": 0.023459374596205385
+        },
+        "aqc": {
+          "median_2q": 576.0,
+          "median_edge_error": 0.0017693083827121647,
+          "predicted_survival": 0.36058619097933414
+        }
+      },
+      "n": 6,
+      "shots": 8000,
+      "exact_shots": null,
+      "meta": [
+        {
+          "arm": "exact",
+          "t": 0.3,
+          "phi": "re",
+          "two_q": 8850
+        },
+        {
+          "arm": "exact",
+          "t": 0.3,
+          "phi": "im",
+          "two_q": 8850
+        },
+        {
+          "arm": "exact",
+          "t": 0.6,
+          "phi": "re",
+          "two_q": 8850
+        },
+        {
+          "arm": "exact",
+          "t": 0.6,
+          "phi": "im",
+          "two_q": 8850
+        },
+        {
+          "arm": "exact",
+          "t": 0.9,
+          "phi": "re",
+          "two_q": 8850
+        },
+        {
+          "arm": "exact",
+          "t": 0.9,
+          "phi": "im",
+          "two_q": 8850
+        },
+        {
+          "arm": "trotter",
+          "t": 0.3,
+          "phi": "re",
+          "two_q": 2119
+        },
+        {
+          "arm": "trotter",
+          "t": 0.3,
+          "phi": "im",
+          "two_q": 2119
+        },
+        {
+          "arm": "trotter",
+          "t": 0.6,
+          "phi": "re",
+          "two_q": 2119
+        },
+        {
+          "arm": "trotter",
+          "t": 0.6,
+          "phi": "im",
+          "two_q": 2119
+        },
+        {
+          "arm": "trotter",
+          "t": 0.9,
+          "phi": "re",
+          "two_q": 2119
+        },
+        {
+          "arm": "trotter",
+          "t": 0.9,
+          "phi": "im",
+          "two_q": 2119
+        },
+        {
+          "arm": "aqc",
+          "t": 0.3,
+          "phi": "re",
+          "two_q": 576
+        },
+        {
+          "arm": "aqc",
+          "t": 0.3,
+          "phi": "im",
+          "two_q": 576
+        },
+        {
+          "arm": "aqc",
+          "t": 0.6,
+          "phi": "re",
+          "two_q": 576
+        },
+        {
+          "arm": "aqc",
+          "t": 0.6,
+          "phi": "im",
+          "two_q": 576
+        },
+        {
+          "arm": "aqc",
+          "t": 0.9,
+          "phi": "re",
+          "two_q": 576
+        },
+        {
+          "arm": "aqc",
+          "t": 0.9,
+          "phi": "im",
+          "two_q": 576
+        }
+      ],
+      "chi_exact": {
+        "0.3": [
+          0.9255956986770218,
+          -0.2374586710713064
+        ],
+        "0.6": [
+          0.7210121417929304,
+          -0.42085980480690505
+        ],
+        "0.9": [
+          0.43450611062334776,
+          -0.5146289575595957
+        ]
       }
     }
   }

@@ -2,11 +2,11 @@ DELIVERY PACK — Team 8 (Garbage Collectors), Qiskit Hackathon 2026, Topic 5
 Built 2026-08-14 ~08:10, from repo commit at build time (see git log).
 
 slides/
-  trackb.pptx   32 slides — THE PRESENTED DECK (image-per-slide, pixel-faithful
+  trackb.pptx   33 slides (incl. References) — THE PRESENTED DECK (image-per-slide, pixel-faithful
                 to the audited PDF; reorder/delete slides freely, text is not
                 editable — edit deck/trackb.tex and rebuild for text changes)
   trackb.pdf    the same deck as PDF (authoritative)
-  slides.pptx   30 slides — the master/overview deck, same construction
+  slides.pptx   31 slides (incl. References) — the master/overview deck, same construction
   slides.pdf    the master deck as PDF
 
 docs/  (PDF renderings of the markdown; the .md files in the repo stay canonical)
@@ -23,6 +23,7 @@ docs/  (PDF renderings of the markdown; the .md files in the repo stay canonical
   BUGLOG.pdf            bugs, root causes, prevention rules (B01–B08)
   EXPLAINER.pdf         plain-language description
   PRIOR_ART_SEARCH.pdf  scope of the "first open implementation" search
+  judge_report.pdf      the C7 mock-judge scorecard (74/100) + 12 hostile Q&A -- READ THIS
 
 BEFORE PRESENTING (human-only, unchanged): fill the three TBD-NAMEs (title +
 team slides, script blocks), rehearse once with a timer (script is 10:20 vs a

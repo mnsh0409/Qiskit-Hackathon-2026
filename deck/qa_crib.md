@@ -54,3 +54,11 @@ hardware) is ours either way [PRIOR_ART_SEARCH.md, SRCH].
 No. The benchmark is 2–7 qubits, diagonalisable on a laptop — deliberately, so every
 estimate is graded against exact truth; our claims are about measurement protocols and
 circuit costs, not classical intractability.
+
+**11. Have you compared your method against pure AQC?**
+Yes — that comparison *is* the trap slide. AQC's own certificate (state infidelity,
+1.4e-4–3.0e-4 across n=3–7) says the compiled circuit is essentially perfect; our
+Hadamard-test measurement of χ says it is off by 1.22–1.35 on a quantity bounded by 1 —
+pure AQC would report success on a broken answer, because its metric is a magnitude and
+a Hadamard test measures phase. Our one-gate fix (free at compile time) brings that down
+to 0.008–0.010 [R046]. Same failure independently confirmed on real hardware data [R053].

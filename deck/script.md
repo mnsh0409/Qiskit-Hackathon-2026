@@ -110,8 +110,11 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 > Everything is public behind this QR — a fifty-four-row results ledger, the bug
 > log including our own retractions, and the scripts behind every hardware
 > number. [Team slide: each of the FIVE members states their part — TBD-NAME ×5.]
-> One slide of summary — real wins and real negatives, every number sourced —
-> and we leave it up for your questions. Thank you.
+
+> [Summary slide, ~10 s:] To summarise: five tracks completed. A
+> thirty-six-times compilation win. A trap found — and fixed with one gate. And
+> an honest hardware no, predicted in advance. Every line here has its source
+> row. We leave this up — thank you, questions welcome.
 
 ---
 
@@ -123,10 +126,10 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 | M2 question+instrument (S4–S6) | TBD-NAME-2 | 2:05 | 3:55 |
 | M3 shadows+rivals (S7–S9) | TBD-NAME-3 | 1:45 | 5:40 |
 | M4 win/trap/verdict (S10–S12) | TBD-NAME-4 | 2:55 | 8:35 |
-| M5 hardware close (S13–S17) | TBD-NAME-5 | 1:45 | **10:20** |
+| M5 hardware close (S13–S17 + summary) | TBD-NAME-5 | 1:55 | **10:30** |
 
-10:20 spoken against 10:00 is deliberate: the cut list brings it under with one
-item. **Cuts, in order:** (1) S15 DOS sentence −0:20; (2) shadow primer half of
+10:30 spoken against 10:00 is deliberate: the cut list brings it under with the
+first two items (or cut 1 plus a brisk M1). **Cuts, in order:** (1) S15 DOS sentence −0:20; (2) shadow primer half of
 S7 −0:40, only for an expert room; (3) merge S8 into S9 −0:30. **Never cut:**
 S11 the trap, S12 the failure, S14 the claims. Checkpoint: start Block M4 by
 5:45 or apply cut 1 immediately. All five members also appear on the team slide.

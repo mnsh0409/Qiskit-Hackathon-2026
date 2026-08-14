@@ -159,9 +159,14 @@ row cited. Do not improvise numbers.** If asked something not on a slide:
 > special case of Track B. [R045]
 
 ## Reproduce it (0:25)
-> Everything is public: the repo behind this QR, fifty-plus sourced result rows,
-> the bug log including our retractions, and scripts that reproduce every
-> hardware number in a handful of commands. Thank you — questions welcome.
+> Everything is public: the repo behind this QR, a fifty-four-row results
+> ledger, the bug log including our retractions, and scripts that reproduce
+> every hardware number in a handful of commands.
+
+## Summary (0:10) — leave this slide up for Q&A
+> To summarise: five tracks completed. A thirty-six-times compilation win. A
+> trap found — and fixed with one gate. And an honest hardware no, predicted in
+> advance. Every line has its source row. Thank you — questions welcome.
 
 ---
 

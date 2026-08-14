@@ -111,6 +111,12 @@ Strongest English speaker → M4.
 - figure: deck/qr_slides.png
 - speaker: TBD-NAME-5 (block M5)
 
+## S16b — Summary — what we contributed, and what we found (LAST main slide; leave up for Q&A)
+- Built: 5 tracks, Track B completed [R042], baselines incl. our loss [R043], AQC crossover [R046, R052], 54-row ledger
+- Found: the phase trap ×3 [R046, R053, R054], pre-registered hardware falsification [R054], free error bar [R044], SKQD boundary [R047, R050]
+- figure: none (two-column list)
+- speaker: TBD-NAME-5 (block M5) — one closing sentence, then leave on screen
+
 ## S17 — Team (arc-10)
 - TBD-NAME ×5 with who-built-what (must map to who spoke) — human fill before export
 - figure: none

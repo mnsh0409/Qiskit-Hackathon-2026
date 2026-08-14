@@ -554,6 +554,51 @@ and a way to certify the result from its own garbage}
   CC~BY~4.0, attributed on that slide).
 \end{frame}
 
+\begin{frame}{Summary --- what we contributed, and what we found}
+  \scriptsize
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \textbf{\color{blueA}Built \& verified}
+      \begin{itemize}\itemsep 2pt
+        \item All \hl{five} challenge tracks; the mandatory analyser at
+              \good{12/12 seeds}, 56/56 notebook checkpoints \src{R019}
+        \item \hl{Track B completed} past the scaffold: per-observable
+              $\langle O\rangle_W$ vs $\langle O\rangle_U$ readout, validated to
+              $4.4\times10^{-15}$ \src{R042}
+        \item Benchmarked vs the field's own baselines --- \bad{which beat us
+              on cost}, and we say so \src{R043, R044}
+        \item \hl{AQC crossover measured}: $n{=}4$, \good{$36\times$} fewer
+              gates by $n{=}7$; survives 2D, Fermi--Hubbard, real routing
+              \src{R046, R049, R051, R052}
+        \item 54-row public evidence ledger; bug log incl.\ our retractions;
+              everything reproducible from the repo
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{\color{orangeA}Found \& learned}
+      \begin{itemize}\itemsep 2pt
+        \item \bad{The phase trap}: a magnitude-blind compiler breaks a phase
+              interferometer --- $|\Delta\chi|$ \bad{1.33} $\to$ \good{0.008}
+              with \hl{one ancilla gate} \src{R046}
+        \item The same magnitude-hides-phase failure, \hl{three independent
+              times} \src{R046, R053, R054}
+        \item \bad{Pre-registered falsification}: the gate-count win does
+              \emph{not} reach today's QPUs ($0.026/0.033$ vs $0.315/0.401$,
+              two devices); visibility needs $\varepsilon_{\rm eff}\lesssim
+              2\times10^{-3}$ \src{R054, R055}
+        \item A \good{reference-free error bar} from conservation, measured on
+              hardware \src{R044}; the DOS estimator as Track B's $W{=}I$
+              special case \src{R045}
+        \item Where SKQD works and why not here: the localisation boundary, in
+              $\Delta/J$ and $U/t$ \src{R047, R050}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \smallskip
+  \centering\textbf{Real wins and real negatives, every number sourced ---
+  that is the contribution.}
+\end{frame}
+
 % ================================================================== APPENDIX
 \appendix
 

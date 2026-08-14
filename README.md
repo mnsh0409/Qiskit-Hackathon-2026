@@ -11,7 +11,7 @@
 
 <p align="center">
   <img alt="checkpoints" src="https://img.shields.io/badge/checkpoints-56%2F56%20pass-2ea44f">
-  <img alt="results" src="https://img.shields.io/badge/results%20ledger-58%20sourced%20rows-2a78d6">
+  <img alt="results" src="https://img.shields.io/badge/results%20ledger-59%20sourced%20rows-2a78d6">
   <img alt="hardware" src="https://img.shields.io/badge/IBM%20QPUs-3%20devices%2C%2017%20jobs-6f42c1">
   <img alt="qiskit" src="https://img.shields.io/badge/qiskit-2.5-8a2be2">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-lightgrey">

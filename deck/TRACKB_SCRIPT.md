@@ -159,7 +159,7 @@ row cited. Do not improvise numbers.** If asked something not on a slide:
 > special case of Track B. [R045]
 
 ## Reproduce it (0:25)
-> Everything is public: the repo behind this QR, a fifty-eight-row results
+> Everything is public: the repo behind this QR, a fifty-nine-row results
 > ledger, the bug log including our retractions, and scripts that reproduce
 > every hardware number in a handful of commands.
 

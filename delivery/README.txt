@@ -18,7 +18,7 @@ docs/  (PDF renderings of the markdown; the .md files in the repo stay canonical
   slides_content.pdf    per-slide content sheet (for .pptx editing reference)
   SPEAKER_SCRIPT.pdf    master-deck script + extended Q&A crib
   HANDOVER.pdf          hardware handover incl. the miami/Nighthawk run
-  RESULTS.pdf           the evidence ledger (R001–R059, 58 rows; R015 never existed)
+  RESULTS.pdf           the evidence ledger (R001–R060, 59 rows; R015 never existed)
   EVIDENCE.pdf          row-to-artifact index
   BUGLOG.pdf            bugs, root causes, prevention rules (B01–B08)
   EXPLAINER.pdf         plain-language description

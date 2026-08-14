@@ -55,10 +55,12 @@ No. The benchmark is 2–7 qubits, diagonalisable on a laptop — deliberately, 
 estimate is graded against exact truth; our claims are about measurement protocols and
 circuit costs, not classical intractability.
 
-**11. Have you compared your method against pure AQC?**
-Yes — that comparison *is* the trap slide. AQC's own certificate (state infidelity,
-1.4e-4–3.0e-4 across n=3–7) says the compiled circuit is essentially perfect; our
-Hadamard-test measurement of χ says it is off by 1.22–1.35 on a quantity bounded by 1 —
-pure AQC would report success on a broken answer, because its metric is a magnitude and
-a Hadamard test measures phase. Our one-gate fix (free at compile time) brings that down
-to 0.008–0.010 [R046]. Same failure independently confirmed on real hardware data [R053].
+**11. Have you compared your method against pure AQC — no Hadamard test, no shadow?**
+Yes, and it's a clean result: pure AQC (compress the state, measure ordinary observables
+directly, no ancilla at all) is *safe* — worst error 0.014–0.018 on ⟨Q⟩/⟨H⟩/⟨Z0⟩ at
+n=3/5/7, because those expectation values are exactly phase-invariant (proven algebraically
+and confirmed by an explicit phase-perturbation test) [R060]. The phase trap only bites
+once AQC is embedded in an interferometric circuit like ours, where the SAME compiled
+circuit's own state-fidelity certificate (1.4e-4–3.0e-4, looks perfect) hides a χ error of
+1.22–1.35 on a quantity bounded by 1 [R046]. So AQC itself isn't broken — the hazard is
+specific to interferometric verification, which is exactly what our method exists to catch.

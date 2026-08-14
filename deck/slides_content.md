@@ -107,12 +107,12 @@ Strongest English speaker → M4.
 - speaker: Tina Tien (block M5)
 
 ## S16 — Reproduce it
-- 58 sourced rows; scripts reproduce every hardware number; bug log incl. retractions
+- 59 sourced rows; scripts reproduce every hardware number; bug log incl. retractions
 - figure: deck/qr_slides.png
 - speaker: Tina Tien (block M5)
 
 ## S16b — Summary — what we contributed, and what we found (LAST main slide; leave up for Q&A)
-- Built: 5 tracks, Track B completed [R042], baselines incl. our loss [R043], AQC crossover [R046, R052], 58-row ledger
+- Built: 5 tracks, Track B completed [R042], baselines incl. our loss [R043], AQC crossover [R046, R052], 59-row ledger
 - Found: the phase trap ×3 [R046, R053, R054], pre-registered hardware falsification [R054], free error bar [R044], SKQD boundary [R047, R050]
 - figure: none (two-column list)
 - speaker: Tina Tien (block M5) — one closing sentence, then leave on screen

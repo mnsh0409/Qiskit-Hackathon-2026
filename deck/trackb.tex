@@ -349,7 +349,6 @@ and a way to certify the result from its own garbage}
   $W|\psi\rangle = e^{i\theta}U|\psi\rangle$ with $\theta\approx2.3$--$3.0$ rad, i.e.
   \bad{$|\Delta\chi|\approx1.3$} on a quantity bounded by $|\chi|\leq1$ --- an error as
   large as the signal.
-  \smallskip
 
   \textbf{Why we nearly missed it.} Our earlier certificate reported
   $|\chi_{AB}|$ --- also a magnitude. A magnitude cannot detect a phase error.
@@ -361,20 +360,22 @@ and a way to certify the result from its own garbage}
   the \emph{complex} $\chi$ is \bad{$22.6\sigma$ off}, a $0.77$\,rad phase error. A
   magnitude-only figure of merit is structurally blind to what a Hadamard test measures.
   \src{R053, R031}
-  \medskip
+  \smallskip
 
   \begin{center}
   \textbf{The fix costs one single-qubit gate.} $\theta=\arg\langle U\psi|W\psi\rangle$ is
   free at compile time, and a \hl{$P(-\theta)$ on the ancilla} cancels it exactly:\quad
   $|\Delta\chi|$ \bad{1.33} $\to$ \good{0.008}.
   \end{center}
-  \smallskip
 
-  {\scriptsize\color{orangeA}\textbf{Scope, not buried.} (i) AQC is compressed against
+  {\tiny\color{orangeA}\textbf{Scope, not buried.} (i) AQC is compressed against
   \emph{one} input state (process infidelity $\sim\!0.96$) --- legitimate for a Hadamard
   test, illegitimate the moment anything feeds it another. \src{R046}
   (ii) On \textbf{2D Fermi--Hubbard} the gate win survives ($34.7\times$) but accuracy
-  degrades to the shot-noise floor: cheap, not yet usable as-is. \src{R051}}
+  degrades to the shot-noise floor: cheap, not yet usable as-is. \src{R051}
+  (iii) \textbf{Interferometric-only:} \emph{pure} AQC (state-prep, direct measurement, no
+  ancilla) is exactly phase-invariant, worst error $0.018$ vs $|\Delta\chi|{\approx}1.3$.
+  \src{R060}}
 \end{frame}
 
 % ==================================================================
@@ -579,7 +580,7 @@ and a way to certify the result from its own garbage}
         \item \hl{AQC crossover measured}: $n{=}4$, \good{$36\times$} fewer
               gates by $n{=}7$; survives 2D, Fermi--Hubbard, real routing
               \src{R046, R049, R051, R052}
-        \item 58-row public evidence ledger; bug log incl.\ our retractions;
+        \item 59-row public evidence ledger; bug log incl.\ our retractions;
               everything reproducible from the repo
       \end{itemize}
     \end{column}

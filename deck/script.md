@@ -1,11 +1,11 @@
 # script.md — per-member speaking blocks (C6)
 
-**Talk length: TBD-C6** (not supplied). Blocks below are written and timed for a
-working assumption of **10:00 with 10% slack ⇒ 9:00 of speech**; if the real
-slot differs, scale with the cut list at the bottom. Roster and English comfort:
-**TBD-C6** — blocks are labelled A/B/C; assign so that the strongest English
-speaker takes Block C (it carries the trap and the failure). The rubric scores
-whether everyone speaks. Divider pages: advance silently.
+**Talk length: TBD-C6** (not supplied); timed for a working assumption of
+**10:00**, with the cut list bringing 10:20 spoken under it. **Team size: FIVE
+(confirmed).** Blocks M1–M5 are contiguous and sized 1:45–2:55; every member
+speaks (rubric requirement). Assign the strongest English speaker to **M4** —
+it carries the AQC win, the trap, and the hardware failure. English comfort per
+member: TBD-C6. Divider pages: advance silently.
 
 **Numbers rule: every number below is grep-verified against RESULTS.md and
 tagged. Do not improvise numbers on stage.**
@@ -16,7 +16,7 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 
 ---
 
-## Block A1 — open (S1–S4) — TBD-C6-A — 2:30
+## Block M1 — open (S1–S3) — TBD-NAME-1 — 1:50
 
 > We are Team 8, the Garbage Collectors. This is the shadow-enhanced Hadamard
 > test — and our story is how we made it scale, found the trap that silently
@@ -33,12 +33,12 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 > twelve out of twelve seeds [R019]. This talk is Track B, the one we took
 > furthest.
 
+## Block M2 — the question and the instrument (S4–S6) — TBD-NAME-2 — 2:05
+
 > Here is the question everything hangs on. Every real simulation runs a cheap
 > approximation W instead of the true evolution U. How wrong is W — and wrong
 > in *what*? Classically you simulate both. That is exactly what you cannot do
 > at scale. Track B answers it on the device.
-
-## Block B — the instrument and its rivals (S5–S9) — TBD-C6-B — 3:10
 
 > One change to the textbook circuit. Two X gates around the controlled-W make
 > W fire when the ancilla is zero, and U when it is one. The ancilla now
@@ -47,6 +47,8 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 > A new circuit gets its own validation. The identity holds to ten to the minus
 > fourteen on two models [R034, R042] — and that check caught a real endianness
 > bug before it ever reached a quantum processor [R042].
+
+## Block M3 — shadows and the honest rivals (S7–S9) — TBD-NAME-3 — 1:45
 
 > For anyone new to shadows: measure each qubit in a random basis, keep the
 > record. One record set then estimates every Pauli observable at once, at a
@@ -64,7 +66,7 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 > echo. Our arm exists for what nothing else returns: the phase, and the
 > per-observable breakdown.
 
-## Block C — the win, the trap, the verdict (S10–S13) — TBD-C6-C — 3:20
+## Block M4 — the win, the trap, the verdict (S10–S12) — TBD-NAME-4 — 2:55
 
 > Now the bottleneck. The standard construction of the controlled evolution
 > costs four to the n-plus-one gates. AQC grows roughly linearly. They cross at
@@ -89,12 +91,12 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 > magnitude-only metric crowns it the winner [R054]. We know exactly what error
 > rate changes this verdict; the arithmetic is in appendix A-seven [R055].
 
+## Block M5 — hardware close and claims (S13–S17) — TBD-NAME-5 — 1:45
+
 > Track B itself, same discipline: the two-gate echo beat our arm
 > twenty-seven times on hardware [R044]. One clean win survives: a charge
 > difference that must be exactly zero, so its measured value is pure device
 > error — an error bar with no reference state and no simulation [R044].
-
-## Block A2 — close (S14–S17) — TBD-C6-A — 1:20
 
 > What we claim: the compilation result, the trap and its one-gate fix, the
 > completion of Track B, and the hardware tests themselves. What we do not
@@ -107,7 +109,7 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 
 > Everything is public behind this QR — fifty-plus sourced result rows, the bug
 > log including our own retractions, and the scripts behind every hardware
-> number. [Team slide: each member states their part — TBD-NAME ×3.]
+> number. [Team slide: each of the FIVE members states their part — TBD-NAME ×5.]
 > Thank you — questions welcome.
 
 ---
@@ -116,13 +118,14 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 
 | block | speaker | time | cumulative |
 |---|---|---|---|
-| A1 open | TBD-C6-A | 2:30 | 2:30 |
-| B instrument | TBD-C6-B | 3:10 | 5:40 |
-| C win/trap/verdict | TBD-C6-C | 3:20 | 9:00 |
-| A2 close | TBD-C6-A | 1:20 | **10:20** |
+| M1 open (S1–S3) | TBD-NAME-1 | 1:50 | 1:50 |
+| M2 question+instrument (S4–S6) | TBD-NAME-2 | 2:05 | 3:55 |
+| M3 shadows+rivals (S7–S9) | TBD-NAME-3 | 1:45 | 5:40 |
+| M4 win/trap/verdict (S10–S12) | TBD-NAME-4 | 2:55 | 8:35 |
+| M5 hardware close (S13–S17) | TBD-NAME-5 | 1:45 | **10:20** |
 
 10:20 spoken against 10:00 is deliberate: the cut list brings it under with one
 item. **Cuts, in order:** (1) S15 DOS sentence −0:20; (2) shadow primer half of
 S7 −0:40, only for an expert room; (3) merge S8 into S9 −0:30. **Never cut:**
-S11 the trap, S12 the failure, S14 the claims. Checkpoint: start Block C by
-5:45 or apply cut 1 immediately.
+S11 the trap, S12 the failure, S14 the claims. Checkpoint: start Block M4 by
+5:45 or apply cut 1 immediately. All five members also appear on the team slide.

@@ -1,6 +1,9 @@
 # Speaker script — Track B deck (`trackb.pdf`, 32 pages)
 
-**Target: 10:00 talk. Times below sum to 9:20, leaving 40 s slack.**
+**CORRECTION (2026-08-14): the per-beat times below sum to 12:40, not the 9:20
+originally claimed — an arithmetic error caught in review. Treat this file as the
+EXTENDED narration (study/rehearsal version); the timed five-member performance
+script is `script.md` (blocks M1–M5, 10:20 with cuts).**
 Slides are referenced by TITLE, not page number — pages have shifted three times
 already tonight and titles have not. Divider pages ("The question", "The
 instrument", …): say nothing, advance within ~3 seconds; they exist as breathing

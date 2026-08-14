@@ -13,7 +13,7 @@ docs/  (PDF renderings of the markdown; the .md files in the repo stay canonical
   README.pdf            project front page (quickstart verified working)
   STUDY_NOTES.pdf       primer for teammates new to the topic (~25 min)
   TRACKB_SCRIPT.pdf     full speaker script for trackb (timed, cut list)
-  script.pdf            per-member speaking blocks (A/B/C) — assign names!
+  script.pdf            per-member speaking blocks M1–M5 (five members) — assign names!
   qa_crib.pdf           12 judge questions with accepted answers
   slides_content.pdf    per-slide content sheet (for .pptx editing reference)
   SPEAKER_SCRIPT.pdf    master-deck script + extended Q&A crib
@@ -25,6 +25,6 @@ docs/  (PDF renderings of the markdown; the .md files in the repo stay canonical
   PRIOR_ART_SEARCH.pdf  scope of the "first open implementation" search
   judge_report.pdf      the C7 mock-judge scorecard (74/100) + 12 hostile Q&A -- READ THIS
 
-BEFORE PRESENTING (human-only, unchanged): fill the three TBD-NAMEs (title +
+BEFORE PRESENTING (human-only): fill the FIVE TBD-NAMEs (title +
 team slides, script blocks), rehearse once with a timer (script is 10:20 vs a
 10:00 slot — apply cut 1), and read audit/judge_report.md in the repo.

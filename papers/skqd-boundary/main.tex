@@ -49,7 +49,12 @@ hopping already dominates, and is irrelevant once the ground state is localised.
 Separately, we observe that the method's premise (a concentrated ground state) and its
 success (sampling \emph{finding} that concentration) can fail independently: on the
 delocalised side, the fraction of the sector needed \emph{rises} with system size even
-as the ground state's weight concentrates. These boundaries are consistent with why
+as the ground state's weight concentrates. Sampling the boundary on a superconducting
+processor (262 two-qubit-gate circuits, pre-registered predictions) shows the ordering
+survives device noise, but the localised point's subspace requirement inflates
+$24\times$ --- attributed by a seeded control to charge-\emph{conserving} errors
+polluting the frequency ranking, the corruption class that symmetry-based
+configuration recovery cannot see. These boundaries are consistent with why
 sample-based methods succeed in quantum chemistry, where a dominant reference
 configuration places the problem on the localised side of the axis.
 \end{abstract}
@@ -194,20 +199,45 @@ converged'' even in the trivially-localised regime; rescaling to the sector band
 restored a metric comparable across the axis.
 % R047, R050
 
-\section{Contact with hardware}
+\section{The boundary on hardware}
 \label{sec:hardware}
 
-The boundary above is measured with sampling simulated from exact statevectors, which
-isolates the method from device noise. One ingredient has been exercised on real
-hardware: configuration recovery. Using 36\,000 shots of a genuine random-basis shadow
-ensemble on \texttt{ibm\_kingston} (a 2-site reduced instance), $1.65\%$ of all-$Z$
-shots violated charge conservation and were identified \emph{without any reference
-state or simulation}; symmetry-based configuration recovery then removed exactly that
-corruption from a downstream spectral estimate.
+We tested the boundary itself on a superconducting processor: one point on each side
+($\Delta/J=0.38$ and $5.0$) at $n=12$, sampling configurations on-device from the
+N\'eel reference evolved by second-order Trotter circuits (262 two-qubit gates after
+routing) to the ten protocol times, $3\,000$ shots each, with the ideal-Trotter
+predictions pre-registered before submission ($64.9\%$ and $2.7\%$ of the sector,
+respectively).
+% R062
+
+Three findings. First, $86\%$ of all shots violate charge conservation and are
+discarded by sector post-selection --- against $1.65\%$ on a 15-gate circuit in an
+earlier run, so the discard rate tracks depth as expected.
+% R036, R062
+Second, \emph{the boundary ordering survives}: the localised point converges (at
+$600/924=64.9\%$ of the sector) while the delocalised point never does. Third, the
+localised point's requirement is $24\times$ the ideal prediction --- and a 20-seed
+control attributes this cleanly to noise rather than to the reduced sample budget:
+subsampling the \emph{noiseless} reference protocol to exactly the hardware's
+kept-in-sector count still converges at a mean of 26 configurations (range $[25,50]$,
+20/20 seeds). The excess is charge-\emph{conserving} corruption --- errors invisible
+to the symmetry check --- polluting the frequency ranking. (At the delocalised point
+the same subsampled control never converges either, so no noise attribution is claimed
+there.)
+% R062
+
+This sharpens the folklore that sample-based methods degrade gracefully under noise: a
+corrupted sample is \emph{not} always ``just an irrelevant basis state.''
+Out-of-sector corruption is detected and discarded for free by conservation; in-sector
+corruption dilutes the frequency ranking, which is precisely the resource the method
+depends on --- and Sec.~\ref{sec:separable} shows the ranking is already the binding
+constraint. Configuration recovery, in other words, removes exactly the errors that
+matter least.
+% R062
+The 2-site configuration-recovery experiment from an earlier run (36\,000 shadow
+shots, $1.65\%$ detected violation rate, recovery validated on a downstream spectral
+estimate) is consistent with this picture at shallow depth.
 % R023, R036, R037
-This supports the standard claim that sample-based pipelines degrade gracefully under
-hardware noise, but we emphasise it does not test the localisation boundary itself on
-hardware.
 
 \section{Work required before submission}
 \label{sec:todo}
@@ -236,6 +266,10 @@ small instances:
   \item \textbf{Direct engagement with the chemistry literature:} at least one small
   molecular system placed on the same localisation axis, so the boundary connects to
   the regime where these methods are actually used.
+  \item \textbf{Hardware repeats and error mitigation.} The on-device boundary run
+  (Sec.~\ref{sec:hardware}) is a single job on one device; repeats, a second device,
+  and a test of whether dynamical decoupling or readout mitigation reduces the
+  in-sector corruption that drives the $24\times$ inflation.
 \end{enumerate}
 
 \section{Discussion}

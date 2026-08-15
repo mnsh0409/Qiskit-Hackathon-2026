@@ -1,0 +1,18 @@
+{
+  "ibm_marrakesh": {
+    "0.3846153846153846": {
+      "kept": 4229,
+      "total": 30000,
+      "observed": 873,
+      "dim_needed": null,
+      "frac": null
+    },
+    "5.0": {
+      "kept": 4063,
+      "total": 30000,
+      "observed": 840,
+      "dim_needed": 600,
+      "frac": 0.6493506493506493
+    }
+  }
+}

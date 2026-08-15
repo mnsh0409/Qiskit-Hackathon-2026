@@ -1,0 +1,165 @@
+{
+  "jobs": {
+    "ibm_marrakesh": {
+      "job_id": "da0a75ob1g9c73a9jsi0",
+      "n": 3,
+      "times": [
+        0.3,
+        0.6,
+        0.9
+      ],
+      "shots": 4000,
+      "meta": [
+        {
+          "arm": "exact",
+          "t": 0.3,
+          "phi": "re",
+          "two_q": 101
+        },
+        {
+          "arm": "exact",
+          "t": 0.3,
+          "phi": "im",
+          "two_q": 101
+        },
+        {
+          "arm": "exact",
+          "t": 0.6,
+          "phi": "re",
+          "two_q": 101
+        },
+        {
+          "arm": "exact",
+          "t": 0.6,
+          "phi": "im",
+          "two_q": 101
+        },
+        {
+          "arm": "exact",
+          "t": 0.9,
+          "phi": "re",
+          "two_q": 101
+        },
+        {
+          "arm": "exact",
+          "t": 0.9,
+          "phi": "im",
+          "two_q": 101
+        },
+        {
+          "arm": "aqc_naive",
+          "t": 0.3,
+          "phi": "re",
+          "two_q": 186
+        },
+        {
+          "arm": "aqc_naive",
+          "t": 0.3,
+          "phi": "im",
+          "two_q": 186
+        },
+        {
+          "arm": "aqc_naive",
+          "t": 0.6,
+          "phi": "re",
+          "two_q": 186
+        },
+        {
+          "arm": "aqc_naive",
+          "t": 0.6,
+          "phi": "im",
+          "two_q": 186
+        },
+        {
+          "arm": "aqc_naive",
+          "t": 0.9,
+          "phi": "re",
+          "two_q": 186
+        },
+        {
+          "arm": "aqc_naive",
+          "t": 0.9,
+          "phi": "im",
+          "two_q": 186
+        },
+        {
+          "arm": "aqc_fixed",
+          "t": 0.3,
+          "phi": "re",
+          "two_q": 186
+        },
+        {
+          "arm": "aqc_fixed",
+          "t": 0.3,
+          "phi": "im",
+          "two_q": 186
+        },
+        {
+          "arm": "aqc_fixed",
+          "t": 0.6,
+          "phi": "re",
+          "two_q": 186
+        },
+        {
+          "arm": "aqc_fixed",
+          "t": 0.6,
+          "phi": "im",
+          "two_q": 186
+        },
+        {
+          "arm": "aqc_fixed",
+          "t": 0.9,
+          "phi": "re",
+          "two_q": 186
+        },
+        {
+          "arm": "aqc_fixed",
+          "t": 0.9,
+          "phi": "im",
+          "two_q": 186
+        }
+      ],
+      "prediction": {
+        "exact": {
+          "median_2q": 101.0,
+          "median_edge_error": 0.0023376204260592837,
+          "predicted_survival": 0.7894837331110315
+        },
+        "aqc_naive": {
+          "median_2q": 186.0,
+          "median_edge_error": 0.0017693083827121647,
+          "predicted_survival": 0.7193675648757896
+        },
+        "aqc_fixed": {
+          "median_2q": 186.0,
+          "median_edge_error": 0.0017693083827121647,
+          "predicted_survival": 0.7193675648757896
+        }
+      },
+      "theta": {
+        "0.3": -2.178682577135516,
+        "0.6": 0.3777649463642425,
+        "0.9": 2.9484136216851016
+      },
+      "infidelity": {
+        "0.3": 3.377483735245157e-06,
+        "0.6": 1.86320794801631e-05,
+        "0.9": 0.00013514388282964696
+      },
+      "chi_exact": {
+        "0.3": [
+          0.9552462489637148,
+          -0.0249772075544569
+        ],
+        "0.6": [
+          0.8324410804240141,
+          -0.06563535699577724
+        ],
+        "0.9": [
+          0.6623222041310959,
+          -0.13202558685655366
+        ]
+      }
+    }
+  }
+}

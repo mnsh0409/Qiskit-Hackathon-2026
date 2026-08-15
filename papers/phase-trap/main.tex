@@ -50,12 +50,17 @@ below $0.01$.
 We delimit the hazard precisely: direct observable estimation on the compiled state is
 provably immune, so the trap is specific to interferometric use.
 % R060
-We encountered the same magnitude-hides-phase failure mode twice more in independent
-settings, including a hardware run whose magnitude-based figure of merit scored a
-completely decohered circuit as the best performer. Finally, we report a pre-registered
-test of the compilation advantage on two superconducting processors: it does not survive
-present-day error rates at $n=6$, falling short of its own prediction by a factor of
-twelve, and we quantify the effective error rate at which it becomes measurable.
+We demonstrate the trap directly on a superconducting processor: shipped with and
+without the fix in one job, the broken and repaired circuits are indistinguishable to
+every magnitude metric, while the compile-time phase offset between them survives
+$\approx$186 two-qubit gates of device noise coherently, to within $0.06$--$0.13$ rad
+of its predicted value --- and the device is found to add coherent phase errors of its
+own, equally invisible to magnitude-based certification.
+% R061
+Finally, we report a pre-registered test of the compilation advantage at $n=6$ on two
+superconducting processors: it does not survive present-day error rates, falling short
+of its own prediction by a factor of twelve, and we quantify the effective error rate
+at which it becomes measurable.
 % R053, R054
 \end{abstract}
 
@@ -84,11 +89,12 @@ and the gap between those two sentences is an error as large as the signal, invi
 every certificate the compilation stack reports. The fix costs one single-qubit gate. We
 delimit the hazard by proving --- and verifying on the same compiled circuits --- that
 direct observable estimation on the compiled state is immune, so ordinary
-(non-interferometric) uses of AQC are unaffected (Sec.~\ref{sec:scope}). Third, we
-practise what the finding preaches: we pre-registered survival predictions for the
-compiled Hadamard test on two superconducting processors and report their falsification,
-including a second, independent appearance of the magnitude-hides-phase failure in the
-hardware data itself (Sec.~\ref{sec:hardware}).
+(non-interferometric) uses of AQC are unaffected (Sec.~\ref{sec:scope}). Third, the
+trap and its fix are demonstrated on a real device, with pre-registered predictions
+(Sec.~\ref{sec:trapHW}), and we report a pre-registered falsification of the
+compilation advantage itself at $n=6$ on two processors, including a further
+independent appearance of the magnitude-hides-phase failure in the hardware data
+(Sec.~\ref{sec:hardware}).
 
 The instrument we use to detect and quantify the trap is itself of independent interest:
 an \emph{anti-controlled} Hadamard test that interferes two dynamics --- the compiled
@@ -305,7 +311,42 @@ protocols --- Hadamard tests, phase estimation, overlap and echo-type verificati
 and it is exactly there that phase-aware certification, or the one-gate correction
 above, is required.
 
-\section{Pre-registered hardware test, and its honest failure}
+\section{The trap on hardware}
+\label{sec:trapHW}
+
+The trap and its fix, as presented so far, live on the statevector. Demonstrating them
+on hardware requires a depth at which signal survives, so we ran the standard Hadamard
+test at $n=3$ (where the compiled circuit routes to 186 two-qubit gates) with three
+arms in \emph{one} job on \texttt{ibm\_marrakesh}: the exact controlled block (101
+gates, reference), the compiled ansatz \emph{without} the phase correction, and the
+same ansatz \emph{with} it --- identical gate counts, since the correction is a
+virtual-$Z$. Three predictions were recorded before submission: (P1) magnitude metrics
+cannot separate the broken arm from the repaired one; (P2) the measured phase
+difference $\arg(\chi_{\rm naive}/\chi_{\rm fixed})$ equals the compile-time
+$\theta(t)$; (P3) the fixed arm's $\chi$ points along the exact $\chi$.
+% R061
+
+P1 and P2 were confirmed. The naive/fixed survivals came back statistically
+indistinguishable ($0.382/0.390$, $0.349/0.286$, $0.267/0.244$ at $t=0.3,0.6,0.9$),
+while the measured inter-arm phases were $-2.235$, $+0.436$, $+2.816$\,rad against
+pre-registered $\theta$ values of $-2.179$, $+0.378$, $+2.948$ --- deviations of
+$0.06$--$0.13$\,rad. The compiler's phase offset rides \emph{coherently} through
+$\approx186$ gates of device noise: fully invisible to every magnitude metric, fully
+visible to a phase-sensitive readout.
+% R061
+
+P3 was falsified, instructively. The fixed arm does not point along the exact
+$\chi$ --- and neither does the \emph{exact} arm, whose survival of $0.86$ coexists
+with phase errors of $+0.26$ to $+0.44$\,rad; the deeper compiled arms carry a common
+device-induced phase error of $\approx-2.2$\,rad on top of the (exactly cancelled)
+compiler phase. The device, like the compiler, contributes coherent phase error that
+no magnitude figure of merit can see, and that a compile-time correction cannot
+anticipate. We report its cause as unattributed (single run, one device). Both halves
+of the experiment therefore compound the paper's thesis: phase errors --- from the
+compiler \emph{and} from the device --- demand phase-sensitive certification.
+% R061
+
+\section{Pre-registered scaling test at $n=6$, and its honest failure}
 \label{sec:hardware}
 
 \begin{figure}[t]

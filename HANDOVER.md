@@ -328,7 +328,17 @@ of our runs, where a better device would only have made an already-fine number s
 
 ---
 
-## 2d. The fix-A/B ask (added 2026-08-16 — the cheapest and the one the paper wants most)
+## 2d. The fix-A/B ask (added 2026-08-16; DEMOTED to optional 2026-08-16 — read the update below first)
+
+> **UPDATE, same day, before you spend anything:** on reflection this ask is worth much
+> less than first written. P1/P2 are near-guaranteed on ANY IBM-style device: the fix
+> transpiles to a virtual-Z (a software frame update, not a pulse), so the two arms are
+> the same pulse sequence up to an exact frame rotation — architecture cannot change
+> that. And miami's calibrated 2q error (2.91e-3) is no better than kingston's, so it
+> tests nothing about the visibility threshold either. The one open question (the
+> device-induced coherent phase, P3) is being probed for free on kingston from our own
+> account. **Treat this section as an optional architecture-curiosity follow-up, not a
+> paper-blocking ask — run it only if you have spare access and interest.**
 
 **What it is.** On 2026-08-16 we demonstrated the phase trap directly on `ibm_marrakesh`
 (R061): the AQC-compiled Hadamard test WITH and WITHOUT the one-gate phase fix, in one
@@ -339,10 +349,10 @@ of prediction (P2). Instructively, the device also adds its own coherent phase e
 (P3 falsified) — even the exact reference arm, at survival 0.86, carries a 0.26–0.44 rad
 phase error its survival number cannot see.
 
-**The ask: repeat this exact job on `ibm_miami`.** One device, one architecture is the
-paper's stated limitation. A square-lattice (Nighthawk) repetition answers two
-questions our account cannot: is P1/P2 architecture-independent, and is the
-device-induced coherent phase (the P3 surprise) universal or heavy-hex-specific?
+**The (optional) ask: repeat this exact job on `ibm_miami`.** Per the update above, the
+only question a square-lattice run still answers is whether the device-induced coherent
+phase (the P3 surprise) is architecture-dependent — follow-up material, not something
+either paper needs.
 
 ```bash
 # 1. offline pre-flight — compiles the AQC circuits, verifies all three arms on the

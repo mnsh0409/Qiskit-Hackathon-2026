@@ -334,6 +334,17 @@ $0.06$--$0.13$\,rad. The compiler's phase offset rides \emph{coherently} through
 $\approx186$ gates of device noise: fully invisible to every magnitude metric, fully
 visible to a phase-sensitive readout.
 % R061
+The mechanism behind the tightness of P1 and P2 is worth stating: the correction
+transpiles to an $R_z$ on the ancilla, which this hardware implements as a
+\emph{virtual}-$Z$ --- a software frame update, not a physical pulse. The two arms are
+therefore the same pulse sequence up to an exactly-applied frame rotation, so identical
+survivals (P1) and a precisely surviving inter-arm phase (P2) are what the platform's
+gate model predicts; the residual $0.06$--$0.13$\,rad is statistics and state
+preparation and measurement error. That is not a weakness of the demonstration but its
+point: the fix is free \emph{and} exact at the pulse level, while remaining invisible
+to every magnitude-based certificate --- and the same reasoning says P1/P2 hold on any
+virtual-$Z$ platform, which is why we do not present them as device-specific findings.
+% R061
 
 P3 was falsified, instructively. The fixed arm does not point along the exact
 $\chi$ --- and neither does the \emph{exact} arm, whose survival of $0.86$ coexists

@@ -40,6 +40,15 @@ literature gaps referees will demand (multi-seed everywhere, larger sectors, ref
 study, production-SQD comparison, a chemistry system). That section is the work-list;
 it shrinks to nothing and gets deleted as items complete.
 
+## tagged-shadows-outline.md — a research proposal, not a manuscript
+
+Outline for the one shadow-"improvement" direction the repo's findings genuinely
+motivate: estimator theory, ensemble optimization, and tag-noise calibration for
+ancilla-tagged shadows (the estimator class behind the sum/difference readout).
+Includes prior-art map, three seed experiments, and kill criteria at every milestone
+-- M0 is a literature deep-read that can kill the whole thing cheaply. Explicitly
+parked until papers 1-2 ship.
+
 ## Both papers, before any submission
 
 - All bibliography entries were verified 2026-08-16 against arXiv abstract pages and

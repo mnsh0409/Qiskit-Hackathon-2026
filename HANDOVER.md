@@ -328,6 +328,51 @@ of our runs, where a better device would only have made an already-fine number s
 
 ---
 
+## 2d. The fix-A/B ask (added 2026-08-16 — the cheapest and the one the paper wants most)
+
+**What it is.** On 2026-08-16 we demonstrated the phase trap directly on `ibm_marrakesh`
+(R061): the AQC-compiled Hadamard test WITH and WITHOUT the one-gate phase fix, in one
+job at n=3 — shallow enough that signal survives. Result: the two arms are
+indistinguishable to every magnitude metric (pre-registered P1), while the compile-time
+phase offset between them survives ~186 gates of device noise to within 0.06–0.13 rad
+of prediction (P2). Instructively, the device also adds its own coherent phase error
+(P3 falsified) — even the exact reference arm, at survival 0.86, carries a 0.26–0.44 rad
+phase error its survival number cannot see.
+
+**The ask: repeat this exact job on `ibm_miami`.** One device, one architecture is the
+paper's stated limitation. A square-lattice (Nighthawk) repetition answers two
+questions our account cannot: is P1/P2 architecture-independent, and is the
+device-induced coherent phase (the P3 surprise) universal or heavy-hex-specific?
+
+```bash
+# 1. offline pre-flight — compiles the AQC circuits, verifies all three arms on the
+#    statevector, prints the pre-registered predictions. No backend contact.
+python evidence/scripts/fix_ab_hardware.py --dry-run
+
+# 2. submit (18 circuits x 4000 shots; these are n=3 circuits, ~100-190 routed 2q
+#    gates — the whole job is a fraction of one AQC-ask job's cost)
+python evidence/scripts/fix_ab_hardware.py ibm_miami
+
+# 3. when DONE
+python evidence/scripts/fix_ab_hardware.py --fetch
+```
+
+Notes: the record file `evidence/fix_ab_job.json` already contains our marrakesh job id;
+your fetch will print "not visible from this account, skipping" for it — expected. Your
+submission merges under its own backend key and cannot clobber ours. Extra dependency
+beyond §2b: `pip install qiskit-addon-aqc-tensor quimb jax` (same as §2c).
+
+**What to look at in the fetch output, against our marrakesh numbers (R061):** the
+"P2 check" lines — measured `arg(naive/fixed)` vs the pre-registered theta printed at
+submission (ours deviated 0.056/0.058/0.133 rad at t=0.3/0.6/0.9); and each arm's
+"phase err vs exact" — ours showed the deep arms carrying a common ~−2.2 rad
+device-induced phase the fix cannot anticipate. If miami's device phase is small, that
+is a genuinely new architecture finding; if it is large too, the paper's "phase errors
+demand phase-sensitive certification" claim gets a second architecture. Either outcome
+is reportable.
+
+---
+
 ## 3. What we already know (please don't re-derive this)
 
 **Updated 2026-08-13 — all four arms of the 2×2 have now returned, plus both side-model

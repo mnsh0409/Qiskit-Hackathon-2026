@@ -115,8 +115,15 @@ if "--fetch" in sys.argv:
     REC = json.load(open(JOB_PATH))
     out_all = {}
     for bname, rec in REC["jobs"].items():
-        job = svc.job(rec["job_id"])
-        st = str(job.status())
+        try:
+            job = svc.job(rec["job_id"])
+            st = str(job.status())
+        except Exception:
+            # jobs submitted from ANOTHER account (the teammate's, for ibm_miami) are
+            # not visible here -- skip instead of crashing the whole fetch, same guard
+            # as aqc_hardware_fetch.py
+            print(f"job {rec['job_id']} on {bname}: not visible from this account, skipping")
+            continue
         print(f"job {rec['job_id']} on {bname}: {st}")
         if "DONE" not in st.upper():
             continue

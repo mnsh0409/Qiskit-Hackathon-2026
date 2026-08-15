@@ -110,7 +110,7 @@ TROT-ter · *Fermi–Hubbard* FER-mee HUB-bard.
 > One future direction, already verified: the same circuit with a maximally
 > mixed input becomes a density-of-states estimator [R045].
 
-> Everything is public behind this QR — a sixty-one-row results ledger, the bug
+> Everything is public behind this QR — a sixty-two-row results ledger, the bug
 > log including our own retractions, and the scripts behind every hardware
 > number. [Team slide: each of the FIVE members states their part — Chao Hsien, Jiwan Kang, Ng Siu Hin, Su Wei-Chang, Tina Tien.]
 

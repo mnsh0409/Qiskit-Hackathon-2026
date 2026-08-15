@@ -50,13 +50,14 @@ below $0.01$.
 We delimit the hazard precisely: direct observable estimation on the compiled state is
 provably immune, so the trap is specific to interferometric use.
 % R060
-We demonstrate the trap directly on a superconducting processor: shipped with and
+We demonstrate the trap directly on two superconducting processors: shipped with and
 without the fix in one job, the broken and repaired circuits are indistinguishable to
 every magnitude metric, while the compile-time phase offset between them survives
-$\approx$186 two-qubit gates of device noise coherently, to within $0.06$--$0.13$ rad
-of its predicted value --- and the device is found to add coherent phase errors of its
-own, equally invisible to magnitude-based certification.
-% R061
+$\approx$186 two-qubit gates of device noise coherently, to within $0.0035$--$0.14$
+rad of its predicted value --- and the devices are found to add coherent phase errors
+of their own, equally invisible to magnitude-based certification: the two processors
+are statistically identical by survival yet differ tenfold in phase error.
+% R061, R063
 Finally, we report a pre-registered test of the compilation advantage at $n=6$ on two
 superconducting processors: it does not survive present-day error rates, falling short
 of its own prediction by a factor of twelve, and we quantify the effective error rate
@@ -352,10 +353,24 @@ with phase errors of $+0.26$ to $+0.44$\,rad; the deeper compiled arms carry a c
 device-induced phase error of $\approx-2.2$\,rad on top of the (exactly cancelled)
 compiler phase. The device, like the compiler, contributes coherent phase error that
 no magnitude figure of merit can see, and that a compile-time correction cannot
-anticipate. We report its cause as unattributed (single run, one device). Both halves
-of the experiment therefore compound the paper's thesis: phase errors --- from the
-compiler \emph{and} from the device --- demand phase-sensitive certification.
+anticipate.
 % R061
+
+Repeating the identical job on a second processor (\texttt{ibm\_kingston})
+reproduced P1 and P2 --- the latter to $0.0035$\,rad at $t=0.3$ --- and resolved part
+of the P3 picture: the \emph{shallow} arm's device phase is device-dependent
+(kingston's exact arm is nearly phase-clean, $+0.02$ to $+0.07$\,rad, an order of
+magnitude below marrakesh's) \emph{while the two devices' survivals are statistically
+identical} ($0.78$--$0.89$ on both). Judged by every magnitude metric the two devices
+are the same machine; judged by phase, one is ten times cleaner --- a fourth,
+unplanned instance of the thesis, now at the level of comparing devices. The deep
+arms' phase error remains large on both processors ($2.1$--$2.9$\,rad in magnitude)
+and is strongly time-dependent on kingston, ruling out a static ancilla detuning as
+the sole mechanism; its cause remains unattributed (one run per device and time, no
+repeats). The actionable conclusion is unchanged and strengthened: coherent phase
+errors --- from the compiler \emph{and} from the device, on every device tested ---
+demand phase-sensitive certification.
+% R061, R063
 
 \section{Pre-registered scaling test at $n=6$, and its honest failure}
 \label{sec:hardware}

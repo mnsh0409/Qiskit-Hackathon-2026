@@ -42,7 +42,9 @@ it shrinks to nothing and gets deleted as items complete.
 
 ## Both papers, before any submission
 
-- The SQD/SKQD/AQC bibliography entries were written from memory during drafting and
-  are flagged with TODO comments — **verify every citation against the actual papers.**
+- All bibliography entries were verified 2026-08-16 against arXiv abstract pages and
+  journal records (two were corrected in the process: the SQD title, and the SKQD
+  author list/title — it is Yu, Robledo Moreno, Iosue et al., arXiv:2501.09702, not a
+  Kirby-first paper).
 - Author list is the five team members in alphabetical order as a placeholder.
 - Nothing here claims advantage over classical computation; keep it that way.
